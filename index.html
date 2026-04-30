@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Community Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #1a2e4a;
+            --accent: #2e7de4;
+            --accent-soft: #e8f1fd;
+            --border: #e0e6ef;
+            --surface: #ffffff;
+            --surface-2: #f5f7fb;
+            --text: #1a2e4a;
+            --text-muted: #6b7a99;
+            --danger: #e53e3e;
+            --danger-hover: #c53030;
+            --success: #276749;
+            --success-bg: #38a169;
+            --success-hover: #2f855a;
+            --nav-h: 64px;
+            --radius: 12px;
+            --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #f0f4f9;
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            height: var(--nav-h);
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            padding: 0 28px;
+            gap: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+        }
+
+        .nav-home-btn {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.18);
+            color: #fff;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            padding: 6px 14px;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: background 0.18s, border-color 0.18s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .nav-home-btn:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.35); }
+        .nav-home-btn svg { flex-shrink: 0; }
+
+        .nav-title {
+            flex: 1;
+            text-align: center;
+            color: #fff;
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.35rem;
+            letter-spacing: 0.01em;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            user-select: none;
+        }
+        .nav-title:hover { opacity: 0.85; }
+
+        /* spacer to balance the left button */
+        .nav-spacer { width: 120px; flex-shrink: 0; }
+
+        /* ── VIEWS ── */
+        .view-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 32px 24px 60px;
+            display: none;
+        }
+
+        /* ── HOME ── */
+        #home-view {
+            display: none;
+        }
+
+        .home-hero {
+            text-align: center;
+            padding: 52px 20px 40px;
+        }
+        .home-hero-label {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: var(--accent-soft);
+            padding: 4px 14px;
+            border-radius: 100px;
+            margin-bottom: 18px;
+        }
+        .home-hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2rem, 5vw, 3.1rem);
+            color: var(--primary);
+            line-height: 1.15;
+            margin-bottom: 14px;
+        }
+        .home-hero p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.65;
+            font-weight: 300;
+        }
+
+        .home-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 22px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 8px 40px;
+        }
+
+        .app-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px 26px 26px;
+            cursor: pointer;
+            transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .app-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .card-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.2rem;
+            color: var(--primary);
+            line-height: 1.25;
+        }
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            flex: 1;
+            font-weight: 300;
+        }
+        .card-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 0.01em;
+            margin-top: 6px;
+        }
+        .card-cta-ext {
+            color: #6b3fa0;
+        }
+        .card-ext-badge {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: #f0e8ff;
+            color: #6b3fa0;
+            padding: 2px 8px;
+            border-radius: 100px;
+        }
+
+        /* ── THERMOGRAPH IFRAME VIEW ── */
+        #thermograph-view {
+            padding: 0;
+            margin: 0;
+            max-width: 100%;
+            width: 100%;
+            height: calc(100vh - var(--nav-h));
+        }
+        #thermograph-view iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* ── TOOLS SHARED STYLES ── */
+        h1, h2, h3 { color: var(--primary); }
+        h2 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; margin-bottom: 6px; }
+        h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 4px; }
+
+        .section-box {
+            background: var(--surface);
+            padding: 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+            align-items: end;
+        }
+        .control-group { display: flex; flex-direction: column; gap: 6px; }
+        label { font-weight: 500; font-size: 0.88rem; color: var(--text-muted); }
+
+        input[type="number"], input[type="text"] {
+            padding: 9px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.97rem;
+            font-family: 'DM Sans', sans-serif;
+            width: 100%;
+            text-align: center;
+            color: var(--text);
+            background: var(--surface);
+            transition: border-color 0.18s, box-shadow 0.18s;
+        }
+        input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(46,125,228,0.12); }
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; }
+        input[type=number] { -moz-appearance: textfield; }
+        input:disabled { background: #f0f2f5; cursor: not-allowed; color: var(--text-muted); }
+        input[readonly] { background: var(--accent-soft); font-weight: 600; color: var(--primary); cursor: default; }
+
+        .radio-group { display: flex; align-items: center; gap: 5px; padding: 8px 10px; background: var(--surface-2); border-radius: 8px; border: 1px solid var(--border); }
+        .radio-group input[type="radio"] { width: auto; accent-color: var(--accent); }
+        .radio-group label { margin: 0 14px 0 3px; font-weight: 400; color: var(--text); }
+
+        .button-group { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+        button {
+            padding: 9px 18px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: opacity 0.18s, transform 0.1s;
+        }
+        button:hover { opacity: 0.88; }
+        button:active { transform: scale(0.98); }
+        .calc-btn { background: var(--success-bg); width: 100%; padding: 14px; font-size: 1rem; margin-top: 18px; border-radius: 9px; }
+        .calc-btn:hover { background: var(--success-hover); }
+        .primary-btn { background: var(--accent); }
+        .danger-btn { background: var(--danger); }
+
+        /* Tables */
+        .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; background: #fff; min-width: 600px; }
+        th, td { border: 1px solid var(--border); padding: 8px 10px; text-align: center; }
+        th { background: var(--surface-2); color: var(--text); font-weight: 600; font-size: 0.83rem; }
+        tr:nth-child(even) { background: #fafbfd; }
+        th.p-type { background-color: #fff0f0; }
+        th.n-type { background-color: #eff5ff; }
+        th.temp-col { background-color: var(--surface-2); }
+        .table-input { width: 100%; border: none; text-align: center; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text); }
+        .table-input:focus { outline: 1px solid var(--accent); background: #fff; border-radius: 4px; }
+
+        .result-display { font-size: 1.4rem; font-weight: 600; color: var(--accent); text-align: center; margin: 18px 0; background: var(--accent-soft); padding: 16px; border-radius: 10px; font-family: 'DM Serif Display', serif; }
+        .chart-container { position: relative; width: 100%; max-width: 800px; margin: 20px auto; }
+
+        .footer { text-align: center; margin: 48px 0 20px; font-size: 0.85rem; color: var(--text-muted); padding: 20px; }
+        .footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
+
+        .history-row { background-color: #edfaf1 !important; font-weight: 500; }
+        .history-header-container { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--accent); padding-bottom: 10px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .history-header-container h3 { margin: 0; border: none; padding: 0; }
+
+        @media (max-width: 768px) {
+            .app-card { width: 100%; }
+            .view-container { padding: 16px 14px 48px; }
+            .section-box { padding: 16px; }
+            .button-group button { flex: 1; text-align: center; }
+            input[type="number"], input[type="text"] { font-size: 16px; }
+            .nav-spacer { width: 64px; }
+            .home-hero { padding: 36px 12px 28px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <button class="nav-home-btn" onclick="navigateTo('home-view')" title="Go to Home">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            Home
+        </button>
+        <div class="nav-title" onclick="navigateTo('home-view')">The Community Project</div>
+        <div class="nav-spacer"></div>
+    </nav>
+
+    <!-- ════════════════ HOME ════════════════ -->
+    <div id="home-view" class="view-container" style="max-width:100%; padding: 0;">
+
+        <div class="home-hero">
+            <span class="home-hero-label">Open Tools · Free to Use</span>
+            <h1>Tools built for<br><em>the lab bench</em></h1>
+            <p>A growing collection of browser-based scientific calculators and visualisers — no sign-in, no installation.</p>
+        </div>
+
+        <div class="home-grid">
+
+            <div class="app-card" onclick="navigateTo('density-view')">
+                <div class="card-icon">⚖️</div>
+                <div class="card-title">Density Calculator</div>
+                <div class="card-desc">Calculate Archimedes and Geometric density with a running session history of your samples.</div>
+                <div class="card-cta">Open tool →</div>
+            </div>
+
+            <div class="app-card" onclick="navigateTo('unicouple-view')">
+                <div class="card-icon">⚡</div>
+                <div class="card-title">Unicouple Suite</div>
+                <div class="card-desc">Thermoelectric calculator for Figure of Merit (zT) and Device Efficiency (η) with interactive plotting.</div>
+                <div class="card-cta">Open tool →</div>
+            </div>
+
+            <div class="app-card" onclick="navigateTo('thermograph-view')">
+                <div class="card-icon">🌡️</div>
+                <div class="card-title">ThermoGraph</div>
+                <span class="card-ext-badge">Community Tool</span>
+                <div class="card-desc">Interactive temperature and pressure visualisation — straight from your data to your screen. Plot thermal and pressure data vs. time, tune the view, and get publication-ready charts in seconds. No installation required.</div>
+                <div class="card-cta card-cta-ext">Launch ThermoGraph →</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ════════════════ THERMOGRAPH (iframe) ════════════════ -->
+    <div id="thermograph-view" class="view-container">
+        <iframe
+            src="https://ksabhiram.github.io/thermograph/"
+            title="ThermoGraph"
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <!-- ════════════════ DENSITY VIEW ════════════════ -->
+    <div id="density-view" class="view-container">
+
+        <div class="section-box" style="margin-top: 10px;">
+            <div class="settings-grid">
+                <div class="control-group">
+                    <label for="referenceDensity">Reference Density (g/cm³)</label>
+                    <input type="number" id="referenceDensity" step="0.0001">
+                </div>
+                <div class="control-group">
+                    <label for="sampleName">Sample Name</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="sampleName" placeholder="Enter name...">
+                        <button class="primary-btn" onclick="saveDensityEntry()" title="Save current averages to history and clear inputs">Save &amp; Clear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-box" id="historyBox" style="display: none;">
+            <div class="history-header-container">
+                <h3>Session History</h3>
+                <button id="copyHistoryBtn" class="primary-btn" style="padding: 6px 12px; font-size: 0.85rem;" onclick="copyHistoryTable()">📋 Copy Table</button>
+            </div>
+            <div class="table-responsive">
+                <table id="historyTable">
+                    <thead id="historyHead"></thead>
+                    <tbody id="historyBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h3>Archimedes' Method</h3>
+            <div class="table-responsive">
+                <table id="archTable">
+                    <tr><th>Run</th><th>Weight in Air (g)</th><th>Weight in Water (g)</th><th>Density (g/cm³)</th></tr>
+                    <tr><td>1</td><td><input type="number" step="0.0001" oninput="calculateArch()"></td><td><input type="number" step="0.0001" oninput="calculateArch()"></td><td class="archDensity"></td></tr>
+                    <tr><td>2</td><td><input type="number" step="0.0001" oninput="calculateArch()"></td><td><input type="number" step="0.0001" oninput="calculateArch()"></td><td class="archDensity"></td></tr>
+                    <tr><td>3</td><td><input type="number" step="0.0001" oninput="calculateArch()"></td><td><input type="number" step="0.0001" oninput="calculateArch()"></td><td class="archDensity"></td></tr>
+                    <tr style="font-weight:bold;background:#f0f4fa;">
+                        <th colspan="2">Relative %</th>
+                        <td id="archPercent" style="color:var(--accent);"></td>
+                        <td id="archAvg" style="color:var(--accent);"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h3>Geometric Method</h3>
+            <div class="table-responsive">
+                <table id="geoTable">
+                    <tr><th>Run</th><th>Diameter (mm)</th><th>Thickness (mm)</th><th>Weight (g)</th><th>Density (g/cm³)</th></tr>
+                    <tr><td>1</td><td><input type="number" step="0.01" oninput="calculateGeo()"></td><td><input type="number" step="0.01" oninput="calculateGeo()"></td><td><input type="number" step="0.0001" oninput="calculateGeo()"></td><td class="geoDensity"></td></tr>
+                    <tr><td>2</td><td><input type="number" step="0.01" oninput="calculateGeo()"></td><td><input type="number" step="0.01" oninput="calculateGeo()"></td><td><input type="number" step="0.0001" oninput="calculateGeo()"></td><td class="geoDensity"></td></tr>
+                    <tr><td>3</td><td><input type="number" step="0.01" oninput="calculateGeo()"></td><td><input type="number" step="0.01" oninput="calculateGeo()"></td><td><input type="number" step="0.0001" oninput="calculateGeo()"></td><td class="geoDensity"></td></tr>
+                    <tr style="font-weight:bold;background:#f0f4fa;">
+                        <th colspan="3">Relative %</th>
+                        <td id="geoPercent" style="color:var(--accent);"></td>
+                        <td id="geoAvg" style="color:var(--accent);"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ════════════════ UNICOUPLE VIEW ════════════════ -->
+    <div id="unicouple-view" class="view-container">
+
+        <div class="section-box" style="margin-top: 10px;">
+            <div class="control-group">
+                <label for="uniSampleName">Sample Name</label>
+                <input type="text" id="uniSampleName" placeholder="e.g., Bi2Te3-Sample-1">
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h2>1. Figure of Merit (zT) Calculation</h2>
+            <h3>Settings &amp; Data Input</h3>
+            <div class="settings-grid">
+                <div class="control-group">
+                    <label for="tc">Cold Side Temp, T<sub>c</sub> (K)</label>
+                    <input type="number" id="tc" value="300">
+                </div>
+                <div class="control-group">
+                    <label for="th_zt">Hot Side Temp, T<sub>h</sub> (K) for zT</label>
+                    <input type="number" id="th_zt" value="700">
+                </div>
+                <div class="control-group">
+                    <label>Temperature Mode</label>
+                    <div class="radio-group">
+                        <input type="radio" id="modeAuto" name="tempMode" value="auto" checked> <label for="modeAuto">Auto</label>
+                        <input type="radio" id="modeManual" name="tempMode" value="manual"> <label for="modeManual">Manual</label>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="tempStep">Temperature Step (K)</label>
+                    <input type="number" id="tempStep" value="50">
+                </div>
+            </div>
+            <div class="control-group" style="margin-top: 16px;">
+                <label>Manage Data Points</label>
+                <div class="button-group" style="margin-top: 5px;">
+                    <button class="primary-btn" id="addRowBtn">Add Row</button>
+                    <button class="danger-btn" id="removeRowBtn">Remove Last</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table id="dataTable">
+                    <thead>
+                        <tr>
+                            <th colspan="3" class="p-type">p-type Material</th>
+                            <th rowspan="2" class="temp-col">Temp (K)</th>
+                            <th colspan="3" class="n-type">n-type Material</th>
+                        </tr>
+                        <tr>
+                            <th class="p-type">S<sub>p</sub> (μV/K)</th><th class="p-type">ρ<sub>p</sub> (μΩ·m)</th><th class="p-type">κ<sub>p</sub> (W/m·K)</th>
+                            <th class="n-type">S<sub>n</sub> (μV/K)</th><th class="n-type">ρ<sub>n</sub> (μΩ·m)</th><th class="n-type">κ<sub>n</sub> (W/m·K)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataBody"></tbody>
+                </table>
+            </div>
+            <button id="calculateZtBtn" class="calc-btn">Calculate &amp; Plot zT</button>
+        </div>
+
+        <div class="section-box">
+            <h2>2. zT Results</h2>
+            <p id="avgZtResult" class="result-display">Enter data and click 'Calculate' to see results.</p>
+            <div class="chart-container"><canvas id="ztChart"></canvas></div>
+            <h3 style="margin-top: 28px;">Download zT Data</h3>
+            <div class="settings-grid">
+                <div class="control-group"><label for="ztPlotFilename">Plot Filename</label><input type="text" id="ztPlotFilename"></div>
+                <div class="control-group"><label for="ztCsvFilename">CSV Filename</label><input type="text" id="ztCsvFilename"></div>
+            </div>
+            <div class="button-group">
+                <button id="downloadZtPlotBtn" class="primary-btn">Plot (PNG)</button>
+                <button id="downloadZtCsvBtn" class="primary-btn">Data (CSV)</button>
+            </div>
+        </div>
+
+        <div class="section-box" id="efficiencySection">
+            <h2>3. Device Efficiency (η) Calculation</h2>
+            <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:16px;">This uses the <strong>Average zT</strong> calculated above. Set the hot-side temperature range for the efficiency plot.</p>
+            <div class="settings-grid">
+                <div class="control-group"><label>Cold Side Temp, T<sub>c</sub> (K)</label><input type="number" id="effTc" readonly></div>
+                <div class="control-group"><label for="th_eff_start">T<sub>h</sub> Start (K)</label><input type="number" id="th_eff_start" value="300"></div>
+                <div class="control-group"><label for="th_eff_end">T<sub>h</sub> End (K)</label><input type="number" id="th_eff_end" value="650"></div>
+                <div class="control-group"><label for="th_eff_step">T<sub>h</sub> Step (K)</label><input type="number" id="th_eff_step" value="25"></div>
+            </div>
+            <button id="calculateEffBtn" class="calc-btn">Calculate &amp; Plot Efficiency</button>
+        </div>
+
+        <div class="section-box" id="efficiencyResultsSection">
+            <h2>4. Efficiency Results</h2>
+            <p id="maxEffResult" class="result-display">Calculate zT first, then set range and calculate efficiency.</p>
+            <div class="chart-container"><canvas id="effChart"></canvas></div>
+            <h3 style="margin-top: 28px;">Download Efficiency Data</h3>
+            <div class="settings-grid">
+                <div class="control-group"><label for="effPlotFilename">Plot Filename</label><input type="text" id="effPlotFilename"></div>
+                <div class="control-group"><label for="effCsvFilename">CSV Filename</label><input type="text" id="effCsvFilename"></div>
+            </div>
+            <div class="button-group">
+                <button id="downloadEffPlotBtn" class="primary-btn">Plot (PNG)</button>
+                <button id="downloadEffCsvBtn" class="primary-btn">Data (CSV)</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Made with ❤️ by <a href="https://sites.google.com/students.iiserpune.ac.in/srinivasaabhiram/about" target="_blank" rel="noopener noreferrer">Abhiram</a>
+    </div>
+
+    <script>
+        // ── Navigation ──
+        function navigateTo(viewId) {
+            document.querySelectorAll('.view-container').forEach(el => el.style.display = 'none');
+            const target = document.getElementById(viewId) || document.getElementById('home-view');
+            target.style.display = viewId === 'thermograph-view' ? 'block' : 'block';
+            sessionStorage.setItem('activeToolView', target.id);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ── Density Calculator ──
+        let densityHistory = [];
+
+        function calculateArch() {
+            const rows = document.querySelectorAll("#archTable tr");
+            let sum = 0, count = 0;
+            rows.forEach((row, i) => {
+                if (i > 0 && i < 4) {
+                    const inputs = row.querySelectorAll("input");
+                    const wAir = parseFloat(inputs[0].value) || 0;
+                    const wWater = parseFloat(inputs[1].value) || 0;
+                    const cell = row.querySelector(".archDensity");
+                    if (wAir > 0 && wWater > 0 && wAir > wWater) {
+                        const density = wAir / (wAir - wWater);
+                        cell.textContent = density.toFixed(4);
+                        sum += density; count++;
+                    } else { cell.textContent = ""; }
+                }
+            });
+            const avg = count > 0 ? sum / count : 0;
+            document.getElementById("archAvg").textContent = avg > 0 ? avg.toFixed(4) : "";
+            const ref = parseFloat(document.getElementById("referenceDensity").value) || 0;
+            document.getElementById("archPercent").textContent = (avg > 0 && ref > 0) ? ((avg/ref)*100).toFixed(2) + "%" : "";
+        }
+
+        function calculateGeo() {
+            const rows = document.querySelectorAll("#geoTable tr");
+            let sum = 0, count = 0;
+            rows.forEach((row, i) => {
+                if (i > 0 && i < 4) {
+                    const inputs = row.querySelectorAll("input");
+                    const d = parseFloat(inputs[0].value) || 0;
+                    const t = parseFloat(inputs[1].value) || 0;
+                    const w = parseFloat(inputs[2].value) || 0;
+                    const cell = row.querySelector(".geoDensity");
+                    if (d > 0 && t > 0 && w > 0) {
+                        const volume = Math.PI * Math.pow(d/20, 2) * (t/10);
+                        const density = w / volume;
+                        cell.textContent = density.toFixed(4);
+                        sum += density; count++;
+                    } else { cell.textContent = ""; }
+                }
+            });
+            const avg = count > 0 ? sum / count : 0;
+            document.getElementById("geoAvg").textContent = avg > 0 ? avg.toFixed(4) : "";
+            const ref = parseFloat(document.getElementById("referenceDensity").value) || 0;
+            document.getElementById("geoPercent").textContent = (avg > 0 && ref > 0) ? ((avg/ref)*100).toFixed(2) + "%" : "";
+        }
+
+        function saveDensityEntry() {
+            const nameInput = document.getElementById("sampleName");
+            const refInput = document.getElementById("referenceDensity");
+            const name = nameInput.value.trim() || "Unnamed Sample";
+            const refDen = refInput.value ? parseFloat(refInput.value).toFixed(4) : "-";
+            const archAvg = document.getElementById("archAvg").textContent || "-";
+            const geoAvg = document.getElementById("geoAvg").textContent || "-";
+            const archRel = document.getElementById("archPercent").textContent || "-";
+            const geoRel = document.getElementById("geoPercent").textContent || "-";
+            if (archAvg === "-" && geoAvg === "-") { alert("Please calculate at least one density average before saving."); return; }
+            densityHistory.unshift({ name, refDen, archAvg, archRel, geoAvg, geoRel });
+            updateHistoryTable();
+            clearDensityInputs();
+        }
+
+        function updateHistoryTable() {
+            const box = document.getElementById("historyBox");
+            const thead = document.getElementById("historyHead");
+            const tbody = document.getElementById("historyBody");
+            if (densityHistory.length === 0) { box.style.display = 'none'; return; }
+            box.style.display = 'block';
+            const showArch = densityHistory.some(e => e.archAvg !== "-");
+            const showGeo = densityHistory.some(e => e.geoAvg !== "-");
+            let headHTML = "<tr><th>Sample Name</th><th>Ref Density (g/cm³)</th>";
+            if (showArch) { headHTML += "<th>Archimedes Avg (g/cm³)</th><th>Arch Rel (%)</th>"; }
+            if (showGeo) { headHTML += "<th>Geometric Avg (g/cm³)</th><th>Geo Rel (%)</th>"; }
+            headHTML += "</tr>";
+            thead.innerHTML = headHTML;
+            tbody.innerHTML = '';
+            densityHistory.forEach(entry => {
+                const tr = document.createElement("tr");
+                tr.className = "history-row";
+                let rowHTML = `<td>${entry.name}</td><td>${entry.refDen}</td>`;
+                if (showArch) { rowHTML += `<td>${entry.archAvg !== "-" ? entry.archAvg : "N/A"}</td><td>${entry.archRel !== "-" ? entry.archRel : "N/A"}</td>`; }
+                if (showGeo) { rowHTML += `<td>${entry.geoAvg !== "-" ? entry.geoAvg : "N/A"}</td><td>${entry.geoRel !== "-" ? entry.geoRel : "N/A"}</td>`; }
+                tr.innerHTML = rowHTML;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function copyHistoryTable() {
+            if (densityHistory.length === 0) return;
+            const showArch = densityHistory.some(e => e.archAvg !== "-");
+            const showGeo = densityHistory.some(e => e.geoAvg !== "-");
+            const cols = [{ key: 'name', title: 'Sample Name' }, { key: 'refDen', title: 'Ref Density' }];
+            if (showArch) { cols.push({ key: 'archAvg', title: 'Archimedes' }); cols.push({ key: 'archRel', title: 'Arch Rel %' }); }
+            if (showGeo) { cols.push({ key: 'geoAvg', title: 'Geometric' }); cols.push({ key: 'geoRel', title: 'Geo Rel %' }); }
+            const widths = cols.map(col => {
+                let max = col.title.length;
+                densityHistory.forEach(e => { let val = String(e[col.key]); if (val === '-') val = 'N/A'; if (val.length > max) max = val.length; });
+                return max;
+            });
+            const padStr = (text, width) => text + ' '.repeat(Math.max(0, width - text.length));
+            const buildSeparator = () => '+' + widths.map(w => '-'.repeat(w + 2)).join('+') + '+';
+            let asciiTable = '```\n' + buildSeparator() + '\n';
+            asciiTable += '|' + cols.map((col, i) => ' ' + padStr(col.title, widths[i]) + ' ').join('|') + '|\n';
+            asciiTable += buildSeparator() + '\n';
+            densityHistory.forEach(e => {
+                let rowStr = '|';
+                cols.forEach((col, i) => { let val = String(e[col.key]); if (val === '-') val = 'N/A'; rowStr += ' ' + padStr(val, widths[i]) + ' |'; });
+                asciiTable += rowStr + '\n';
+            });
+            asciiTable += buildSeparator() + '\n```';
+            navigator.clipboard.writeText(asciiTable).then(() => {
+                const btn = document.getElementById('copyHistoryBtn');
+                const orig = btn.innerHTML;
+                btn.innerHTML = "✅ Copied!";
+                btn.style.background = "var(--success-bg)";
+                setTimeout(() => { btn.innerHTML = orig; btn.style.background = "var(--accent)"; }, 2000);
+            }).catch(() => alert("Failed to copy table to clipboard."));
+        }
+
+        function clearDensityInputs() {
+            document.getElementById("sampleName").value = "";
+            document.querySelectorAll("#archTable input, #geoTable input").forEach(i => i.value = "");
+            calculateArch(); calculateGeo();
+        }
+
+        // ── Unicouple Calculator ──
+        const initialData = {
+            Sp: [139.66, 159.33, 166.09, 188.18, 205.44, 196.87, 201.10, 201.10, 204.53],
+            Rhop: [18.11, 18.96, 20.97, 24.06, 27.31, 27.39, 27.31, 27.85, 28.12],
+            Ktp: [1.67, 1.51, 1.36, 1.16, 1.00, 1.04, 1.11, 1.16, 1.29],
+            Sn: [-254.00, -241.00, -230.00, -214.00, -200.00, -192.00, -182.00, -172.00, -161.43],
+            Rhon: [45.45, 25.00, 14.29, 10.42, 7.75, 6.02, 4.85, 4.00, 3.76],
+            Ktn: [7.98, 7.03, 6.33, 5.75, 5.39, 5.06, 4.76, 4.30, 3.84]
+        };
+
+        let ztChart, effChart, ztResults = {}, effResults = {};
+        const uniSampleNameInput = document.getElementById('uniSampleName');
+        const tcInput = document.getElementById('tc');
+        const thZtInput = document.getElementById('th_zt');
+        const tempStepInput = document.getElementById('tempStep');
+        const dataBody = document.getElementById('dataBody');
+        const effTcInput = document.getElementById('effTc');
+
+        function updateFilenames() {
+            const name = uniSampleNameInput.value.trim() || 'Sample';
+            document.getElementById('ztPlotFilename').value = `Zt Unicouple for ${name}`;
+            document.getElementById('ztCsvFilename').value = `Unicouple Data for ${name}`;
+            document.getElementById('effPlotFilename').value = `Efficiency Plot for ${name}`;
+            document.getElementById('effCsvFilename').value = `Efficiency Data for ${name}`;
+        }
+
+        function setTemperatureMode(mode) {
+            const tempInputs = document.querySelectorAll('.temp-input');
+            if (mode === 'auto') {
+                tempStepInput.disabled = false;
+                tempInputs.forEach(i => i.readOnly = true);
+                updateTemperatureColumn();
+            } else {
+                tempStepInput.disabled = true;
+                tempInputs.forEach(i => i.readOnly = false);
+            }
+        }
+
+        function createRow(index) {
+            const tr = document.createElement('tr');
+            const isManual = document.getElementById('modeManual').checked;
+            tr.innerHTML = `
+                <td><input type="number" class="table-input" value="${initialData.Sp[index] || 0}"></td>
+                <td><input type="number" class="table-input" value="${initialData.Rhop[index] || 0}"></td>
+                <td><input type="number" class="table-input" value="${initialData.Ktp[index] || 0}"></td>
+                <td><input type="number" class="table-input temp-input" ${isManual ? '' : 'readonly'}></td>
+                <td><input type="number" class="table-input" value="${initialData.Sn[index] || 0}"></td>
+                <td><input type="number" class="table-input" value="${initialData.Rhon[index] || 0}"></td>
+                <td><input type="number" class="table-input" value="${initialData.Ktn[index] || 0}"></td>
+            `;
+            return tr;
+        }
+
+        function updateTemperatureColumn() {
+            if (!document.getElementById('modeAuto').checked) return;
+            const tc = parseFloat(tcInput.value), step = parseFloat(tempStepInput.value);
+            if (isNaN(tc) || isNaN(step)) return;
+            document.querySelectorAll('.temp-input').forEach((input, i) => input.value = tc + i * step);
+        }
+
+        function initializeTable(rowCount) {
+            dataBody.innerHTML = '';
+            for (let i = 0; i < rowCount; i++) dataBody.appendChild(createRow(i));
+            updateTemperatureColumn();
+        }
+
+        function parseTableData() {
+            const data = { Sp: [], Sn: [], Rhop: [], Rhon: [], Ktp: [], Ktn: [], T: [] };
+            let valid = true;
+            for (let row of dataBody.rows) {
+                const inputs = row.querySelectorAll('input');
+                const rowData = Array.from(inputs).map(i => parseFloat(i.value));
+                if (rowData.some(isNaN)) { valid = false; break; }
+                data.Sp.push(rowData[0]); data.Rhop.push(rowData[1]); data.Ktp.push(rowData[2]);
+                data.T.push(rowData[3]);
+                data.Sn.push(rowData[4]); data.Rhon.push(rowData[5]); data.Ktn.push(rowData[6]);
+            }
+            if (!valid) { alert("Error: All input cells must contain valid numbers."); return null; }
+            return data;
+        }
+
+        function calculateZT() {
+            const data = parseTableData();
+            if (!data) return;
+            const Tc = parseFloat(tcInput.value), Th = parseFloat(thZtInput.value);
+            if (isNaN(Tc) || isNaN(Th) || Th <= Tc) { alert("Error: T_h must be greater than T_c."); return; }
+            const delT = Th - Tc, integralResult = 0.5 * (Th * Th - Tc * Tc), M = [];
+            for (let i = 0; i < data.T.length; i++) {
+                const X = Math.pow(data.Sp[i] - data.Sn[i], 2) * 1e-12;
+                const KPp = Math.sqrt(data.Ktp[i] * data.Rhop[i]), KPn = Math.sqrt(data.Ktn[i] * data.Rhon[i]);
+                const Y = Math.pow(KPp + KPn, 2) * delT * 1e-6;
+                M.push((Y !== 0 ? X / Y : 0) * integralResult);
+            }
+            const avgZt = M.length > 0 ? M.reduce((a, b) => a + b, 0) / M.length : 0;
+            ztResults = { T: data.T, zT: M, avgZt, inputData: data };
+            document.getElementById('avgZtResult').textContent = `Average zT = ${avgZt.toFixed(4)}`;
+            effTcInput.value = Tc;
+            renderZtPlot(data.T, M, avgZt);
+        }
+
+        function calculateEfficiency() {
+            if (ztResults.avgZt === undefined) { alert("Please calculate zT first."); return; }
+            const ZT = ztResults.avgZt;
+            const Tc = parseFloat(effTcInput.value);
+            const Th_start = parseFloat(document.getElementById('th_eff_start').value);
+            const Th_end = parseFloat(document.getElementById('th_eff_end').value);
+            const Th_step = parseFloat(document.getElementById('th_eff_step').value);
+            if ([Tc, Th_start, Th_end, Th_step].some(isNaN) || Th_start >= Th_end || Th_step <= 0) { alert("Please enter valid T_h range values."); return; }
+            const Th_array = [], delT_array = [], E_array = [];
+            for (let Th = Th_start; Th <= Th_end; Th += Th_step) {
+                if (Th <= Tc) continue;
+                const delT = Th - Tc, Ec = delT / Th, A = Tc / Th;
+                const X = Math.sqrt(1 + ZT) - 1, Y = Math.sqrt(1 + ZT) + A;
+                E_array.push(Ec * (X / (Y + 1e-9)));
+                Th_array.push(Th); delT_array.push(delT);
+            }
+            const maxE = E_array.length > 0 ? Math.max(...E_array) : 0;
+            effResults = { delT: delT_array, E: E_array, Th: Th_array, maxE, step: Th_step };
+            document.getElementById('maxEffResult').innerHTML = `Maximum Efficiency (η) = ${(maxE * 100).toFixed(3)}%`;
+            renderEfficiencyPlot(delT_array, E_array, Th_step);
+        }
+
+        function renderZtPlot(temp, zT, avgZt) {
+            const sampleName = uniSampleNameInput.value || 'Sample';
+            const chartData = temp.map((t, i) => ({ x: t, y: zT[i] }));
+            if (ztChart) ztChart.destroy();
+            ztChart = new Chart('ztChart', {
+                type: 'line',
+                data: { datasets: [{ label: 'Calculated zT', data: chartData, borderColor: 'rgba(214,39,40,1)', backgroundColor: 'rgba(214,39,40,0.1)', borderWidth: 2, tension: 0.1 }] },
+                options: { responsive: true, aspectRatio: window.innerWidth < 768 ? 1 : 1.5, plugins: { title: { display: true, text: `zT vs. Temperature for ${sampleName}`, font: { size: 16 } } }, scales: { x: { type: 'linear', title: { display: true, text: 'Temperature (K)', font: { size: 14 } } }, y: { title: { display: true, text: 'Dimensionless Figure of Merit (zT)', font: { size: 14 } }, beginAtZero: true } } }
+            });
+        }
+
+        function renderEfficiencyPlot(delT, E, customStep) {
+            const sampleName = uniSampleNameInput.value || 'Sample';
+            const chartData = delT.map((dt, i) => ({ x: dt, y: E[i] }));
+            if (effChart) effChart.destroy();
+            effChart = new Chart('effChart', {
+                type: 'line',
+                data: { datasets: [{ label: 'Thermoelectric Efficiency', data: chartData, borderColor: 'rgba(31,119,180,1)', backgroundColor: 'rgba(31,119,180,0.1)', borderWidth: 2, tension: 0.1 }] },
+                options: { responsive: true, aspectRatio: window.innerWidth < 768 ? 1 : 1.5, plugins: { title: { display: true, text: `Efficiency (η) vs. ΔT for ${sampleName}`, font: { size: 16 } } }, scales: { x: { type: 'linear', title: { display: true, text: 'Temperature Difference, ΔT (K)', font: { size: 14 } }, ticks: { stepSize: customStep } }, y: { title: { display: true, text: 'Efficiency (η)', font: { size: 14 } }, beginAtZero: true, ticks: { callback: v => (v * 100).toFixed(1) + '%' } } } }
+            });
+        }
+
+        function downloadPlot(chart, filenameInput) {
+            if (!chart) { alert("Please calculate data to generate a plot first."); return; }
+            const link = document.createElement('a');
+            link.href = chart.toBase64Image('image/png', 1);
+            link.download = `${filenameInput.value || 'plot'}.png`;
+            link.click();
+        }
+
+        function downloadCsv(results, headers, filenameInput, extra) {
+            if (!results || Object.keys(results).length === 0) { alert("Please calculate data first."); return; }
+            let csv = "data:text/csv;charset=utf-8," + headers.join(",") + "\r\n";
+            const len = results.T?.length || results.delT?.length;
+            for (let i = 0; i < len; i++) {
+                let row;
+                if (results.inputData) {
+                    const d = results.inputData;
+                    row = [d.T[i], d.Sp[i], d.Rhop[i], d.Ktp[i], d.Sn[i], d.Rhon[i], d.Ktn[i], results.zT[i].toFixed(6)];
+                } else {
+                    row = [results.delT[i], results.E[i].toFixed(6)];
+                }
+                csv += row.join(",") + "\r\n";
+            }
+            if (extra) csv += `\r\n${extra.label},${extra.value.toFixed(6)}\r\n`;
+            const link = document.createElement("a");
+            link.setAttribute("href", encodeURI(csv));
+            link.setAttribute("download", `${filenameInput.value || 'data'}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // ── Init ──
+        window.addEventListener('load', () => {
+            initializeTable(initialData.Sp.length);
+            setTemperatureMode('auto');
+            updateFilenames();
+            const saved = sessionStorage.getItem('activeToolView');
+            if (saved && document.getElementById(saved)) {
+                navigateTo(saved);
+            } else {
+                navigateTo('home-view');
+            }
+        });
+
+        uniSampleNameInput.addEventListener('input', updateFilenames);
+        [tcInput, tempStepInput].forEach(el => el.addEventListener('input', updateTemperatureColumn));
+        document.getElementsByName('tempMode').forEach(r => r.addEventListener('change', e => setTemperatureMode(e.target.value)));
+
+        document.getElementById('addRowBtn').addEventListener('click', () => {
+            const tr = createRow(dataBody.rows.length);
+            tr.querySelectorAll('input:not(.temp-input)').forEach(i => i.value = 0);
+            dataBody.appendChild(tr);
+            updateTemperatureColumn();
+        });
+        document.getElementById('removeRowBtn').addEventListener('click', () => {
+            if (dataBody.rows.length > 1) dataBody.removeChild(dataBody.lastChild);
+            else alert("Cannot remove the last row.");
+        });
+
+        document.getElementById('calculateZtBtn').addEventListener('click', calculateZT);
+        document.getElementById('calculateEffBtn').addEventListener('click', calculateEfficiency);
+        document.getElementById('downloadZtPlotBtn').addEventListener('click', () => downloadPlot(ztChart, document.getElementById('ztPlotFilename')));
+        document.getElementById('downloadEffPlotBtn').addEventListener('click', () => downloadPlot(effChart, document.getElementById('effPlotFilename')));
+        document.getElementById('downloadZtCsvBtn').addEventListener('click', () => downloadCsv(ztResults, ['T(K)', 'Sp(μV/K)', 'ρp(μΩ·m)', 'κp(W/m·K)', 'Sn(μV/K)', 'ρn(μΩ·m)', 'κn(W/m·K)', 'zT'], document.getElementById('ztCsvFilename'), { label: 'Average zT', value: ztResults.avgZt }));
+        document.getElementById('downloadEffCsvBtn').addEventListener('click', () => downloadCsv(effResults, ['ΔT(K)', 'η'], document.getElementById('effCsvFilename'), { label: 'Max Efficiency', value: effResults.maxE }));
+    </script>
+</body>
+</html>
