@@ -219,6 +219,21 @@
             display: block;
         }
 
+        /* ── XRD PLOTTER IFRAME VIEW ── */
+        #xrdplotter-view {
+            padding: 0;
+            margin: 0;
+            max-width: 100%;
+            width: 100%;
+            height: calc(100vh - var(--nav-h));
+        }
+        #xrdplotter-view iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
         /* ── TOOLS SHARED STYLES ── */
         h1, h2, h3 { color: var(--primary); }
         h2 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; margin-bottom: 6px; }
@@ -295,14 +310,14 @@
         .table-input { width: 100%; border: none; text-align: center; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text); }
         .table-input:focus { outline: 1px solid var(--accent); background: #fff; border-radius: 4px; }
 
-        .result-display { font-size: 1.4rem; font-weight: 600; color: var(--accent); text-align: center; margin: 18px 0; background: var(--accent-soft); padding: 16px; border-radius: 10px; font-family: 'DM Serif Display', serif; }
+        .result-display { font-size: 1.4rem; font-weight: 600; color: var(--accent); text-align: center; margin: 18px 0; background: var(--accent-soft); padding: 16px; border-radius: 10px; }
         .chart-container { position: relative; width: 100%; max-width: 800px; margin: 20px auto; }
 
         .footer { text-align: center; margin: 48px 0 20px; font-size: 0.85rem; color: var(--text-muted); padding: 20px; }
         .footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
 
         .history-row { background-color: #edfaf1 !important; font-weight: 500; }
-        .history-header-container { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--accent); padding-bottom: 10px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .history-header-container { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--accent); padding-bottom: 10px; margin-bottom: 15px; flex-wrap: wrap; }
         .history-header-container h3 { margin: 0; border: none; padding: 0; }
 
         @media (max-width: 768px) {
@@ -359,8 +374,16 @@
                 <div class="card-icon">🌡️</div>
                 <div class="card-title">ThermoGraph</div>
                 <span class="card-ext-badge">Community Tool</span>
-                <div class="card-desc">Interactive temperature and pressure visualisation — straight from your data to your screen. Plot thermal and pressure data vs. time, tune the view, and get publication-ready charts in seconds. No installation required.</div>
+                <div class="card-desc">Interactive temperature and pressure visualisation — straight from your data to your screen. Plot thermal and pressure data vs. time, tune the view, and get publication-ready plots.</div>
                 <div class="card-cta card-cta-ext">Launch ThermoGraph →</div>
+            </div>
+
+            <div class="app-card" onclick="navigateTo('xrdplotter-view')">
+                <div class="card-icon">📊</div>
+                <div class="card-title">XRD Plotter</div>
+                <span class="card-ext-badge">GitHub Tool</span>
+                <div class="card-desc">XRD plotting in Origin still a problem as shifting multiple fontages? Here's a very user-friendly version — just drop your data and that's all.</div>
+                <div class="card-cta card-cta-ext">Launch XRD Plotter →</div>
             </div>
 
         </div>
@@ -371,6 +394,15 @@
         <iframe
             src="https://ksabhiram.github.io/thermograph/"
             title="ThermoGraph"
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <!-- ════════════════ XRD PLOTTER (iframe) ════════════════ -->
+    <div id="xrdplotter-view" class="view-container">
+        <iframe
+            src="https://ksabhiram.github.io/xrd/"
+            title="XRD Plotter"
             allowfullscreen>
         </iframe>
     </div>
@@ -519,7 +551,7 @@
 
         <div class="section-box" id="efficiencySection">
             <h2>3. Device Efficiency (η) Calculation</h2>
-            <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:16px;">This uses the <strong>Average zT</strong> calculated above. Set the hot-side temperature range for the efficiency plot.</p>
+            <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:16px;">This uses the <strong>Average zT</strong> calculated above. Set the hot-side temperature range for the efficiency calculation.</p>
             <div class="settings-grid">
                 <div class="control-group"><label>Cold Side Temp, T<sub>c</sub> (K)</label><input type="number" id="effTc" readonly></div>
                 <div class="control-group"><label for="th_eff_start">T<sub>h</sub> Start (K)</label><input type="number" id="th_eff_start" value="300"></div>
@@ -554,7 +586,7 @@
         function navigateTo(viewId) {
             document.querySelectorAll('.view-container').forEach(el => el.style.display = 'none');
             const target = document.getElementById(viewId) || document.getElementById('home-view');
-            target.style.display = viewId === 'thermograph-view' ? 'block' : 'block';
+            target.style.display = viewId === 'thermograph-view' || viewId === 'xrdplotter-view' ? 'block' : 'block';
             sessionStorage.setItem('activeToolView', target.id);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -815,7 +847,7 @@
             ztChart = new Chart('ztChart', {
                 type: 'line',
                 data: { datasets: [{ label: 'Calculated zT', data: chartData, borderColor: 'rgba(214,39,40,1)', backgroundColor: 'rgba(214,39,40,0.1)', borderWidth: 2, tension: 0.1 }] },
-                options: { responsive: true, aspectRatio: window.innerWidth < 768 ? 1 : 1.5, plugins: { title: { display: true, text: `zT vs. Temperature for ${sampleName}`, font: { size: 16 } } }, scales: { x: { type: 'linear', title: { display: true, text: 'Temperature (K)', font: { size: 14 } } }, y: { title: { display: true, text: 'Dimensionless Figure of Merit (zT)', font: { size: 14 } }, beginAtZero: true } } }
+                options: { responsive: true, aspectRatio: window.innerWidth < 768 ? 1 : 1.5, plugins: { title: { display: true, text: `zT vs. Temperature for ${sampleName}`, font: { size: 16 } }, legend: { display: true } }, scales: { x: { type: 'linear', title: { display: true, text: 'Temperature (K)' } }, y: { title: { display: true, text: 'zT' } } } }
             });
         }
 
@@ -826,7 +858,7 @@
             effChart = new Chart('effChart', {
                 type: 'line',
                 data: { datasets: [{ label: 'Thermoelectric Efficiency', data: chartData, borderColor: 'rgba(31,119,180,1)', backgroundColor: 'rgba(31,119,180,0.1)', borderWidth: 2, tension: 0.1 }] },
-                options: { responsive: true, aspectRatio: window.innerWidth < 768 ? 1 : 1.5, plugins: { title: { display: true, text: `Efficiency (η) vs. ΔT for ${sampleName}`, font: { size: 16 } } }, scales: { x: { type: 'linear', title: { display: true, text: 'Temperature Difference, ΔT (K)', font: { size: 14 } }, ticks: { stepSize: customStep } }, y: { title: { display: true, text: 'Efficiency (η)', font: { size: 14 } }, beginAtZero: true, ticks: { callback: v => (v * 100).toFixed(1) + '%' } } } }
+                options: { responsive: true, aspectRatio: window.innerWidth < 768 ? 1 : 1.5, plugins: { title: { display: true, text: `Efficiency (η) vs. ΔT for ${sampleName}`, font: { size: 16 } }, legend: { display: true } }, scales: { x: { type: 'linear', title: { display: true, text: 'ΔT (K)' } }, y: { title: { display: true, text: 'η' } } } }
             });
         }
 
