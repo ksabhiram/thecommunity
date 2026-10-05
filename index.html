@@ -320,6 +320,18 @@
         .history-header-container { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--accent); padding-bottom: 10px; margin-bottom: 15px; flex-wrap: wrap; }
         .history-header-container h3 { margin: 0; border: none; padding: 0; }
 
+
+
+        /* ── HYDROTHERMAL CALCULATOR (SCOPED) ── */
+        #hydrothermal-view .hydro-intro { color: var(--text-muted); font-size: 0.94rem; line-height: 1.6; }
+        #hydrothermal-view .hydro-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; align-items: end; }
+        #hydrothermal-view .hydro-microcopy { font-size: 0.82rem; color: var(--text-muted); margin-top: 6px; }
+        #hydrothermal-view .hydro-warnings { margin-top: 10px; padding-left: 18px; color: var(--danger); }
+        #hydrothermal-view .hydro-results { font-size: 0.97rem; line-height: 1.7; color: var(--text); }
+        #hydrothermal-view .hydro-table { min-width: 820px; }
+        #hydrothermal-view .hydro-table input, #hydrothermal-view .hydro-table select { width: 100%; text-align: center; }
+        #hydrothermal-view .hydro-row-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
         @media (max-width: 768px) {
             .app-card { width: 100%; }
             .view-container { padding: 16px 14px 48px; }
@@ -367,6 +379,14 @@
                 <div class="card-icon">⚡</div>
                 <div class="card-title">Unicouple Suite</div>
                 <div class="card-desc">Thermoelectric calculator for Figure of Merit (zT) and Device Efficiency (η) with interactive plotting.</div>
+                <div class="card-cta">Open tool →</div>
+            </div>
+
+
+            <div class="app-card" onclick="navigateTo('hydrothermal-view')">
+                <div class="card-icon">🧪</div>
+                <div class="card-title">Hydrothermal Synthesis Calculation</div>
+                <div class="card-desc">Hydrothermal stoichiometry calculator with precursor planning, oxidation-state assistance, reducing-agent balance, and printable worksheet.</div>
                 <div class="card-cta">Open tool →</div>
             </div>
 
@@ -574,6 +594,80 @@
                 <button id="downloadEffPlotBtn" class="primary-btn">Plot (PNG)</button>
                 <button id="downloadEffCsvBtn" class="primary-btn">Data (CSV)</button>
             </div>
+        </div>
+    </div>
+
+
+
+    <!-- ════════════════ HYDROTHERMAL VIEW ════════════════ -->
+    <div id="hydrothermal-view" class="view-container">
+        <div class="section-box" style="margin-top: 10px;">
+            <h2>Hydrothermal Synthesis Calculation</h2>
+            <p class="hydro-intro">Plan precursor stoichiometry and reducing-agent demand for hydrothermal synthesis batches. This calculator provides a first-pass estimate only; always validate chemistry and lab safety procedures with supervisor-approved protocols before use.</p>
+        </div>
+
+        <div class="section-box">
+            <h3>1. Target &amp; Batch Setup</h3>
+            <div class="hydro-grid">
+                <div class="control-group">
+                    <label for="hydro-targetFormula">Target Formula</label>
+                    <input type="text" id="hydro-targetFormula" value="NiFe2O4" placeholder="e.g., NiFe2O4">
+                </div>
+                <div class="control-group">
+                    <label for="hydro-targetMoles">Target Formula Units (mol)</label>
+                    <input type="number" id="hydro-targetMoles" value="0.01" min="0" step="0.0001">
+                </div>
+                <div class="control-group">
+                    <label for="hydro-reducingAgent">Reducing Agent</label>
+                    <select id="hydro-reducingAgent">
+                        <option value="NaBH4" selected>NaBH₄ (8 e⁻/mol)</option>
+                        <option value="N2H4">N₂H₄ (4 e⁻/mol)</option>
+                        <option value="C2H6O2">Ethylene glycol (2 e⁻/mol)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="hydro-efficiency">Reductant Utilization Factor</label>
+                    <input type="number" id="hydro-efficiency" value="1" min="0.1" max="1" step="0.05">
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="primary-btn" id="hydro-parseBtn">Parse Formula</button>
+                <button class="primary-btn" id="hydro-calcBtn">Calculate Stoichiometry</button>
+                <button class="primary-btn" id="hydro-printBtn">Print Sheet</button>
+            </div>
+            <p class="hydro-microcopy">Assumptions: neutral target formula, oxygen = -2, halides = -1, hydrogen = +1 (when present as cation), and user-confirmed precursor oxidation states for final calculations.</p>
+        </div>
+
+        <div class="section-box">
+            <div class="history-header-container">
+                <h3>2. Precursor Rows</h3>
+                <button id="hydro-addRowBtn" class="primary-btn" style="padding: 6px 12px; font-size: 0.85rem;">+ Add Row</button>
+            </div>
+            <div class="table-responsive">
+                <table class="hydro-table" id="hydro-precursorTable">
+                    <thead>
+                        <tr>
+                            <th>Element</th>
+                            <th>Target Stoich</th>
+                            <th>Target Ox. State</th>
+                            <th>Precursor Formula</th>
+                            <th>Precursor Ox. State</th>
+                            <th>Precursor Molar Mass (g/mol)</th>
+                            <th>Precursor Required (mol)</th>
+                            <th>Precursor Required (g)</th>
+                            <th>Δe⁻ Needed (mol)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="hydro-precursorBody"></tbody>
+                </table>
+            </div>
+            <ul id="hydro-warnings" class="hydro-warnings"></ul>
+        </div>
+
+        <div class="section-box">
+            <h3>3. Results</h3>
+            <div id="hydro-results" class="hydro-results">Parse the formula and run calculation to view reducing-agent requirement and electron balance.</div>
         </div>
     </div>
 
@@ -893,11 +987,268 @@
             document.body.removeChild(link);
         }
 
+
+
+        // ── Hydrothermal Synthesis Calculator ──
+        const hydroAtomicWeights = {
+            H: 1.008, He: 4.0026, Li: 6.94, Be: 9.0122, B: 10.81, C: 12.011, N: 14.007, O: 15.999, F: 18.998,
+            Na: 22.9898, Mg: 24.305, Al: 26.9815, Si: 28.085, P: 30.9738, S: 32.06, Cl: 35.45, K: 39.0983,
+            Ca: 40.078, Sc: 44.9559, Ti: 47.867, V: 50.9415, Cr: 51.9961, Mn: 54.938, Fe: 55.845, Co: 58.933,
+            Ni: 58.6934, Cu: 63.546, Zn: 65.38, Ga: 69.723, Ge: 72.63, As: 74.9216, Se: 78.971, Br: 79.904,
+            Rb: 85.4678, Sr: 87.62, Y: 88.9058, Zr: 91.224, Nb: 92.9064, Mo: 95.95, Ru: 101.07, Rh: 102.905,
+            Pd: 106.42, Ag: 107.8682, Cd: 112.414, In: 114.818, Sn: 118.71, Sb: 121.76, Te: 127.6, I: 126.904,
+            Ba: 137.327, La: 138.905, Ce: 140.116, Pr: 140.908, Nd: 144.242, Sm: 150.36, Eu: 151.964,
+            Gd: 157.25, Tb: 158.925, Dy: 162.5, Ho: 164.93, Er: 167.259, Tm: 168.934, Yb: 173.045, Lu: 174.967,
+            Hf: 178.49, Ta: 180.948, W: 183.84, Re: 186.207, Os: 190.23, Ir: 192.217, Pt: 195.084, Au: 196.967,
+            Hg: 200.592, Tl: 204.38, Pb: 207.2, Bi: 208.98
+        };
+        const hydroNonMetals = new Set(['H', 'B', 'C', 'N', 'O', 'F', 'P', 'S', 'Cl', 'Se', 'Br', 'I']);
+        const hydroReducingAgents = {
+            NaBH4: { label: 'NaBH₄', electronsPerMol: 8 },
+            N2H4: { label: 'N₂H₄', electronsPerMol: 4 },
+            C2H6O2: { label: 'Ethylene glycol', electronsPerMol: 2 }
+        };
+
+        function hydroParseFormula(formula) {
+            const cleaned = String(formula || '').replace(/\s+/g, '');
+            if (!cleaned) return null;
+            const stack = [new Map()];
+            let i = 0;
+            while (i < cleaned.length) {
+                const ch = cleaned[i];
+                if (ch === '(') { stack.push(new Map()); i++; continue; }
+                if (ch === ')') {
+                    i++;
+                    const m = cleaned.slice(i).match(/^(\d*\.?\d+)/);
+                    const factor = m ? parseFloat(m[1]) : 1;
+                    if (m) i += m[1].length;
+                    const grp = stack.pop();
+                    if (!grp || stack.length === 0) return null;
+                    const parent = stack[stack.length - 1];
+                    grp.forEach((val, key) => parent.set(key, (parent.get(key) || 0) + val * factor));
+                    continue;
+                }
+                const elem = cleaned.slice(i).match(/^([A-Z][a-z]?)/);
+                if (!elem) return null;
+                i += elem[1].length;
+                const num = cleaned.slice(i).match(/^(\d*\.?\d+)/);
+                const count = num ? parseFloat(num[1]) : 1;
+                if (num) i += num[1].length;
+                const current = stack[stack.length - 1];
+                current.set(elem[1], (current.get(elem[1]) || 0) + count);
+            }
+            if (stack.length !== 1) return null;
+            return Object.fromEntries(stack[0]);
+        }
+
+        function hydroInferTargetOxidation(parsed) {
+            const knownSigns = { O: -2, F: -1, Cl: -1, Br: -1, I: -1, H: 1 };
+            let knownCharge = 0;
+            const unknown = [];
+            Object.entries(parsed).forEach(([el, count]) => {
+                if (knownSigns[el] !== undefined) knownCharge += knownSigns[el] * count;
+                else if (!hydroNonMetals.has(el)) unknown.push([el, count]);
+            });
+            const inferred = {};
+            if (unknown.length === 0) return inferred;
+            const totalUnknownCount = unknown.reduce((sum, [, count]) => sum + count, 0);
+            const average = totalUnknownCount ? (-knownCharge / totalUnknownCount) : 0;
+            unknown.forEach(([el]) => { inferred[el] = average; });
+            return inferred;
+        }
+
+        function hydroInferPrecursorOxidation(precursorFormula, element) {
+            const parsed = hydroParseFormula(precursorFormula);
+            if (!parsed || !parsed[element]) return null;
+            const knownSigns = { O: -2, F: -1, Cl: -1, Br: -1, I: -1, H: 1, Na: 1, K: 1, Ca: 2, Mg: 2, Ba: 2, NH4: 1 };
+            let knownCharge = 0;
+            Object.entries(parsed).forEach(([el, count]) => {
+                if (el === element) return;
+                if (knownSigns[el] !== undefined) knownCharge += knownSigns[el] * count;
+            });
+            return -knownCharge / parsed[element];
+        }
+
+        function hydroMolarMass(formula) {
+            const parsed = hydroParseFormula(formula);
+            if (!parsed) return null;
+            let mass = 0;
+            for (const [el, count] of Object.entries(parsed)) {
+                if (!hydroAtomicWeights[el]) return null;
+                mass += hydroAtomicWeights[el] * count;
+            }
+            return mass;
+        }
+
+        function hydroCreateRow(element = '', stoich = '', targetOx = '') {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><input type="text" class="hydro-element" value="${element}" placeholder="Fe"></td>
+                <td><input type="number" class="hydro-stoich" value="${stoich}" step="0.0001" min="0"></td>
+                <td><input type="number" class="hydro-targetOx" value="${targetOx}" step="0.1"></td>
+                <td><input type="text" class="hydro-precursor" placeholder="e.g., FeCl3"></td>
+                <td><input type="number" class="hydro-precursorOx" step="0.1"></td>
+                <td><input type="number" class="hydro-mm" readonly></td>
+                <td><input type="number" class="hydro-requiredMol" readonly></td>
+                <td><input type="number" class="hydro-requiredMass" readonly></td>
+                <td><input type="number" class="hydro-electrons" readonly></td>
+                <td class="hydro-row-actions"><button type="button" class="primary-btn hydro-inferBtn" style="padding:6px 10px;font-size:0.78rem;">Infer Ox</button><button type="button" class="danger-btn hydro-removeBtn" style="padding:6px 10px;font-size:0.78rem;">✕</button></td>
+            `;
+            return tr;
+        }
+
+        function hydroReadRows() {
+            const rows = [];
+            document.querySelectorAll('#hydro-precursorBody tr').forEach(tr => {
+                rows.push({
+                    tr,
+                    element: tr.querySelector('.hydro-element').value.trim(),
+                    stoich: parseFloat(tr.querySelector('.hydro-stoich').value),
+                    targetOx: parseFloat(tr.querySelector('.hydro-targetOx').value),
+                    precursor: tr.querySelector('.hydro-precursor').value.trim(),
+                    precursorOx: parseFloat(tr.querySelector('.hydro-precursorOx').value)
+                });
+            });
+            return rows;
+        }
+
+        function hydroSetWarnings(messages) {
+            const list = document.getElementById('hydro-warnings');
+            list.innerHTML = '';
+            messages.forEach(msg => {
+                const li = document.createElement('li');
+                li.textContent = msg;
+                list.appendChild(li);
+            });
+        }
+
+        function hydroPopulateFromTarget() {
+            const formula = document.getElementById('hydro-targetFormula').value;
+            const parsed = hydroParseFormula(formula);
+            const body = document.getElementById('hydro-precursorBody');
+            body.innerHTML = '';
+            if (!parsed) {
+                hydroSetWarnings(['Unable to parse target formula. Use standard format, e.g., NiFe2O4 or Li0.5Mn1.5O4.']);
+                return;
+            }
+            const inferred = hydroInferTargetOxidation(parsed);
+            const elements = Object.entries(parsed).filter(([el]) => !hydroNonMetals.has(el));
+            if (elements.length === 0) {
+                hydroSetWarnings(['No cation/metal elements identified for precursor planning.']);
+                return;
+            }
+            elements.forEach(([el, count]) => {
+                body.appendChild(hydroCreateRow(el, count, Number.isFinite(inferred[el]) ? inferred[el].toFixed(2) : ''));
+            });
+            document.querySelectorAll('#hydro-precursorBody tr').forEach(hydroBindRowActions);
+            hydroSetWarnings([]);
+        }
+
+        function hydroCalculate() {
+            const warnings = [];
+            const targetMoles = parseFloat(document.getElementById('hydro-targetMoles').value);
+            const agentKey = document.getElementById('hydro-reducingAgent').value;
+            const efficiency = parseFloat(document.getElementById('hydro-efficiency').value);
+            if (!Number.isFinite(targetMoles) || targetMoles <= 0) warnings.push('Target formula units must be a positive value.');
+            if (!Number.isFinite(efficiency) || efficiency <= 0 || efficiency > 1) warnings.push('Reductant utilization factor must be between 0 and 1.');
+
+            const rows = hydroReadRows();
+            if (rows.length === 0) warnings.push('Add at least one precursor row.');
+
+            let totalElectrons = 0;
+            rows.forEach((row, idx) => {
+                const mmInput = row.tr.querySelector('.hydro-mm');
+                const reqMolInput = row.tr.querySelector('.hydro-requiredMol');
+                const reqMassInput = row.tr.querySelector('.hydro-requiredMass');
+                const eInput = row.tr.querySelector('.hydro-electrons');
+                [mmInput, reqMolInput, reqMassInput, eInput].forEach(input => input.value = '');
+
+                if (!row.element) { warnings.push(`Row ${idx + 1}: element is required.`); return; }
+                if (!Number.isFinite(row.stoich) || row.stoich <= 0) { warnings.push(`Row ${idx + 1}: target stoichiometry must be positive.`); return; }
+                if (!row.precursor) { warnings.push(`Row ${idx + 1}: precursor formula is required.`); return; }
+
+                const parsedPre = hydroParseFormula(row.precursor);
+                if (!parsedPre) { warnings.push(`Row ${idx + 1}: precursor formula could not be parsed.`); return; }
+                if (!parsedPre[row.element]) { warnings.push(`Row ${idx + 1}: precursor does not contain element ${row.element}.`); return; }
+
+                const molarMass = hydroMolarMass(row.precursor);
+                if (!Number.isFinite(molarMass)) { warnings.push(`Row ${idx + 1}: precursor includes unsupported element for molar mass lookup.`); return; }
+                mmInput.value = molarMass.toFixed(4);
+
+                const precursorUnits = targetMoles * row.stoich / parsedPre[row.element];
+                const requiredMass = precursorUnits * molarMass;
+                reqMolInput.value = precursorUnits.toFixed(6);
+                reqMassInput.value = requiredMass.toFixed(6);
+
+                const targetOx = Number.isFinite(row.targetOx) ? row.targetOx : 0;
+                const precursorOx = Number.isFinite(row.precursorOx) ? row.precursorOx : hydroInferPrecursorOxidation(row.precursor, row.element);
+                if (!Number.isFinite(precursorOx)) {
+                    warnings.push(`Row ${idx + 1}: could not infer precursor oxidation state. Enter it manually.`);
+                    return;
+                }
+                if (!Number.isFinite(row.precursorOx)) row.tr.querySelector('.hydro-precursorOx').value = precursorOx.toFixed(2);
+                const delta = Math.max(0, precursorOx - targetOx);
+                const rowElectrons = delta * targetMoles * row.stoich;
+                eInput.value = rowElectrons.toFixed(6);
+                totalElectrons += rowElectrons;
+            });
+
+            const agent = hydroReducingAgents[agentKey];
+            let agentMoles = 0;
+            if (Number.isFinite(totalElectrons) && totalElectrons > 0 && agent && Number.isFinite(efficiency) && efficiency > 0) {
+                agentMoles = totalElectrons / (agent.electronsPerMol * efficiency);
+            }
+
+            const resultBox = document.getElementById('hydro-results');
+            if (warnings.length > 0) {
+                resultBox.innerHTML = 'Resolve warnings to complete the calculation.';
+                hydroSetWarnings(warnings);
+                return;
+            }
+
+            resultBox.innerHTML = `
+                <strong>Total reduction demand:</strong> ${totalElectrons.toFixed(6)} mol e⁻<br>
+                <strong>Required ${agent.label}:</strong> ${agentMoles.toFixed(6)} mol (${(agentMoles * (hydroMolarMass(agentKey) || 0)).toFixed(4)} g equivalent)<br>
+                <strong>Electron model:</strong> ${agent.electronsPerMol} mol e⁻ per mol ${agent.label} with utilization factor ${efficiency.toFixed(2)}.
+            `;
+            hydroSetWarnings([]);
+        }
+
+        function hydroPrintSheet() {
+            const title = 'Hydrothermal Synthesis Calculation';
+            const results = document.getElementById('hydro-results').innerHTML;
+            const tableHTML = document.getElementById('hydro-precursorTable').outerHTML;
+            const w = window.open('', '_blank', 'width=1000,height=800');
+            if (!w) return;
+            w.document.write(`<!doctype html><html><head><title>${title}</title><style>body{font-family:Arial,sans-serif;padding:20px;color:#222}h1{font-size:24px}table{width:100%;border-collapse:collapse;margin-top:16px;font-size:12px}th,td{border:1px solid #ccc;padding:6px;text-align:center}th{background:#f1f4f8}.note{margin-top:14px;font-size:12px;color:#555}</style></head><body><h1>${title}</h1><div>${results}</div>${tableHTML}<p class="note">Safety disclaimer: verify stoichiometry, redox chemistry, and hazard controls experimentally before synthesis. This sheet is an estimation aid.</p></body></html>`);
+            w.document.close();
+            w.focus();
+            w.print();
+        }
+
+        function hydroBindRowActions(tr) {
+            tr.querySelector('.hydro-inferBtn').addEventListener('click', () => {
+                const element = tr.querySelector('.hydro-element').value.trim();
+                const precursor = tr.querySelector('.hydro-precursor').value.trim();
+                const inferred = hydroInferPrecursorOxidation(precursor, element);
+                if (Number.isFinite(inferred)) tr.querySelector('.hydro-precursorOx').value = inferred.toFixed(2);
+            });
+            tr.querySelector('.hydro-removeBtn').addEventListener('click', () => tr.remove());
+        }
+
+        function hydroAddRow(element = '', stoich = '', targetOx = '') {
+            const tr = hydroCreateRow(element, stoich, targetOx);
+            document.getElementById('hydro-precursorBody').appendChild(tr);
+            hydroBindRowActions(tr);
+        }
+
         // ── Init ──
         window.addEventListener('load', () => {
             initializeTable(initialData.Sp.length);
             setTemperatureMode('auto');
             updateFilenames();
+            hydroPopulateFromTarget();
+            document.querySelectorAll('#hydro-precursorBody tr').forEach(hydroBindRowActions);
             const saved = sessionStorage.getItem('activeToolView');
             if (saved && document.getElementById(saved)) {
                 navigateTo(saved);
@@ -927,6 +1278,12 @@
         document.getElementById('downloadEffPlotBtn').addEventListener('click', () => downloadPlot(effChart, document.getElementById('effPlotFilename')));
         document.getElementById('downloadZtCsvBtn').addEventListener('click', () => downloadCsv(ztResults, ['T(K)', 'Sp(μV/K)', 'ρp(μΩ·m)', 'κp(W/m·K)', 'Sn(μV/K)', 'ρn(μΩ·m)', 'κn(W/m·K)', 'zT'], document.getElementById('ztCsvFilename'), { label: 'Average zT', value: ztResults.avgZt }));
         document.getElementById('downloadEffCsvBtn').addEventListener('click', () => downloadCsv(effResults, ['ΔT(K)', 'η'], document.getElementById('effCsvFilename'), { label: 'Max Efficiency', value: effResults.maxE }));
+
+        document.getElementById('hydro-parseBtn').addEventListener('click', hydroPopulateFromTarget);
+        document.getElementById('hydro-calcBtn').addEventListener('click', hydroCalculate);
+        document.getElementById('hydro-printBtn').addEventListener('click', hydroPrintSheet);
+        document.getElementById('hydro-addRowBtn').addEventListener('click', () => hydroAddRow());
+
     </script>
 </body>
 </html>
