@@ -320,21 +320,130 @@
         .history-header-container { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--accent); padding-bottom: 10px; margin-bottom: 15px; flex-wrap: wrap; }
         .history-header-container h3 { margin: 0; border: none; padding: 0; }
 
-/* ── HYDROTHERMAL CALCULATOR (liquid glass, scoped) ── */
-#hydrothermal-view{--bg:#e8eefc;--o1:#6aa8ff;--o2:#c58bff;--o3:#7ee6d0;--glass:rgba(255,255,255,.42);--glass2:rgba(255,255,255,.6);--edge:rgba(255,255,255,.75);--shadow:rgba(40,60,120,.18);--ink:#0f172a;--muted:#46536a;--field:rgba(255,255,255,.62);--accent:#0a63e8;--ok:#0b6b2e;--warn:#8a5200;--bad:#a8201a;--okbg:rgba(60,190,110,.2);--warnbg:rgba(255,185,50,.24);--badbg:rgba(255,90,80,.2);--hl:rgba(10,99,232,.12);
+/* ── ROOM TEMPERATURE SYNTHESIS CALCULATOR (liquid glass, scoped) ── */
+#rts-view{--bg:#070b18;--o1:#2457d6;--o2:#7b3fe4;--o3:#0f9d8a;--glass:rgba(255,255,255,.07);--glass2:rgba(255,255,255,.12);--edge:rgba(255,255,255,.22);--shadow:rgba(0,0,0,.5);--ink:#eef2ff;--muted:#a6b2cc;--field:rgba(255,255,255,.08);--accent:#6aaeff;--ok:#7fe0a0;--warn:#ffd07a;--bad:#ff9d94;--okbg:rgba(60,190,110,.18);--warnbg:rgba(255,185,50,.16);--badbg:rgba(255,90,80,.18);--hl:rgba(106,174,255,.16);color-scheme:dark;
 position:relative;overflow:hidden;isolation:isolate;max-width:100%;margin:0;padding:0;background:var(--bg);color:var(--ink);font:15px/1.5 'DM Sans',system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;min-height:calc(100vh - var(--nav-h))}
-#hydrothermal-view *,#hydrothermal-view *::before,#hydrothermal-view *::after{box-sizing:border-box}
-#hydrothermal-view .bg{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;-webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent)}
-#hydrothermal-view .orb:nth-child(3){bottom:auto;top:60vh}
-#hydrothermal-view input,#hydrothermal-view select{text-align:left}
-#hydrothermal-view table{margin:0;background:transparent}
-#hydrothermal-view tr:nth-child(even){background:none}
-#hydrothermal-view h1{font-family:'DM Serif Display',serif;color:var(--ink);margin:0 0 6px}
-#hydrothermal-view h2,#hydrothermal-view h3{font-family:inherit;color:inherit}
-#hydrothermal-view h3{color:var(--muted)}
-@media print{body{background:#fff!important}body>*:not(#hydrothermal-view){display:none!important}#hydrothermal-view{background:none!important;min-height:0!important;overflow:visible!important}}
-#hydrothermal-view .orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.75;animation:hyfl 22s ease-in-out infinite alternate}#hydrothermal-view .orb:nth-child(1){width:46vmax;height:46vmax;background:var(--o1);left:-12vmax;top:-12vmax}#hydrothermal-view .orb:nth-child(2){width:40vmax;height:40vmax;background:var(--o2);right:-10vmax;top:18vh;animation-delay:-7s}#hydrothermal-view .orb:nth-child(3){width:36vmax;height:36vmax;background:var(--o3);left:20vw;bottom:-16vmax;animation-delay:-13s}@keyframes hyfl{to{transform:translate(6vmax,4vmax) scale(1.12)}}@media (prefers-reduced-motion:reduce){#hydrothermal-view .orb{animation:none}}#hydrothermal-view .wrap{max-width:1080px;margin:auto;padding:26px 16px 64px}#hydrothermal-view .hero{padding:6px 4px 8px}#hydrothermal-view .hero h1{margin:0 0 6px;font-size:clamp(23px,4vw,32px);letter-spacing:-.02em}#hydrothermal-view .hero p{margin:0;color:var(--muted);max-width:760px}#hydrothermal-view .card{position:relative;background:var(--glass);border:1px solid var(--edge);border-radius:24px;padding:20px;margin:16px 0;
-box-shadow:0 12px 40px var(--shadow),inset 0 1.5px 0 var(--edge),inset 0 -1px 0 rgba(255,255,255,.08),inset 0 0 22px rgba(255,255,255,.06)}#hydrothermal-view .card::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.38),rgba(255,255,255,0) 38%,rgba(255,255,255,0) 70%,rgba(255,255,255,.14))}#hydrothermal-view .card>*{position:relative}@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){#hydrothermal-view .card{background:var(--glass2)}}@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){#hydrothermal-view .card,#hydrothermal-view .pill{-webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%)}}#hydrothermal-view h2{font-size:18px;margin:0 0 12px;letter-spacing:-.01em}#hydrothermal-view h3{font-size:14px;margin:20px 0 8px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}#hydrothermal-view .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}#hydrothermal-view label{font-size:12.5px;font-weight:650;display:block;margin-bottom:5px;color:var(--muted)}#hydrothermal-view input,#hydrothermal-view select{font:inherit;color:var(--ink);width:100%;padding:10px 12px;border:1px solid var(--edge);border-radius:14px;background:var(--field);outline:none;box-shadow:inset 0 1px 2px rgba(0,0,0,.06);transition:box-shadow .15s,border-color .15s}#hydrothermal-view input:focus,#hydrothermal-view select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--hl)}#hydrothermal-view input::placeholder{color:var(--muted);opacity:.65}#hydrothermal-view select option{color:#111;background:#fff}#hydrothermal-view .small{font-size:12px;color:var(--muted)}#hydrothermal-view .formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}#hydrothermal-view .note{padding:11px 14px;border-radius:16px;background:var(--hl);border:1px solid var(--edge);margin-top:12px;font-size:13.5px}#hydrothermal-view .note ul,#hydrothermal-view .note p{margin:4px 0 0;padding-left:18px}#hydrothermal-view .note p{padding:0}#hydrothermal-view .warn{background:var(--warnbg);color:var(--warn)}#hydrothermal-view .error{background:var(--badbg);color:var(--bad)}#hydrothermal-view .ok{background:var(--okbg);color:var(--ok)}#hydrothermal-view .card.error,#hydrothermal-view .card.warn{border-color:var(--edge)}#hydrothermal-view .tablewrap{overflow-x:auto;border-radius:16px;border:1px solid var(--edge);background:rgba(255,255,255,.05)}#hydrothermal-view table{width:100%;border-collapse:collapse;min-width:640px}#hydrothermal-view th,#hydrothermal-view td{padding:9px 11px;text-align:left;font-size:13px;border-bottom:1px solid var(--edge);vertical-align:top}#hydrothermal-view tr:last-child td{border-bottom:0}#hydrothermal-view th{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--glass)}#hydrothermal-view .num{text-align:right;font-variant-numeric:tabular-nums}#hydrothermal-view #hy-precTable input{min-width:96px}#hydrothermal-view #hy-precTable td:nth-child(2) input{min-width:170px}#hydrothermal-view .hint{font-size:11.5px;margin-top:4px;color:var(--muted)}#hydrothermal-view .hint.auto{color:var(--ok)}#hydrothermal-view .hint.need{color:var(--warn);font-weight:650}#hydrothermal-view .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}#hydrothermal-view .kpi div{background:var(--glass);border:1px solid var(--edge);border-radius:18px;padding:12px 14px;box-shadow:inset 0 1px 0 var(--edge)}#hydrothermal-view .kpi b{display:block;font-size:19px;font-variant-numeric:tabular-nums}#hydrothermal-view .sheet{margin-top:14px;padding:16px;border-radius:20px;border:1px solid var(--edge);background:linear-gradient(145deg,var(--hl),var(--glass));box-shadow:inset 0 1.5px 0 var(--edge)}#hydrothermal-view .sheet h3{margin-top:0}#hydrothermal-view .sheet .row{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dashed var(--edge)}#hydrothermal-view .sheet .row:last-child{border:0}#hydrothermal-view .sheet .row b{font-variant-numeric:tabular-nums;white-space:nowrap}#hydrothermal-view .step{display:grid;grid-template-columns:32px 1fr;gap:12px;margin:12px 0;font-size:13.5px}#hydrothermal-view .stepno{width:30px;height:30px;border-radius:50%;background:var(--hl);border:1px solid var(--edge);display:grid;place-items:center;font-weight:800;color:var(--accent)}#hydrothermal-view details{margin-top:12px}#hydrothermal-view summary{cursor:pointer;font-weight:700}#hydrothermal-view ul.small{padding-left:18px;margin:10px 0 0}#hydrothermal-view .hy-foot{font-size:12px;color:var(--muted);margin:22px 4px 0}@media(max-width:760px){#hydrothermal-view .grid,#hydrothermal-view .kpi{grid-template-columns:1fr}#hydrothermal-view .card{padding:16px;border-radius:20px}}#hydrothermal-view .btn{width:auto;border:1px solid var(--edge);border-radius:14px;padding:9px 16px;background:var(--accent);color:#fff;font:inherit;font-weight:700;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}#hydrothermal-view .btn:active{transform:scale(.98)}#hydrothermal-view .resHead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}#hydrothermal-view .resHead h2{margin:0}#hydrothermal-view #hy-printSheet{display:none}@page{size:A4;margin:12mm}@media print{#hydrothermal-view .bg,#hydrothermal-view .wrap>*:not(#hy-printSheet){display:none!important}#hydrothermal-view .wrap{padding:0;max-width:none;margin:0}#hydrothermal-view #hy-printSheet{display:block;font:11px/1.35 system-ui,Arial,sans-serif;color:#000;break-inside:avoid;page-break-inside:avoid}#hydrothermal-view #hy-printSheet h1{font-size:17px;margin:0 0 4px}#hydrothermal-view #hy-printSheet h4{font-size:11px;margin:10px 0 3px;text-transform:uppercase;letter-spacing:.06em;border-bottom:1.5px solid #000;padding-bottom:2px}#hydrothermal-view #hy-printSheet p{margin:2px 0}#hydrothermal-view #hy-printSheet .meta{display:flex;justify-content:space-between;gap:10px;margin-bottom:4px}#hydrothermal-view #hy-printSheet table{width:100%;min-width:0;border-collapse:collapse}#hydrothermal-view #hy-printSheet th,#hydrothermal-view #hy-printSheet td{border:1px solid #444;padding:3px 5px;font-size:10.5px;color:#000;background:none;text-transform:none;letter-spacing:0}#hydrothermal-view #hy-printSheet .num{text-align:right}#hydrothermal-view #hy-printSheet .blank{width:80px}#hydrothermal-view #hy-printSheet .line{border-bottom:1px solid #888;height:20px}#hydrothermal-view #hy-printSheet .w{font-size:10px;margin:2px 0}}
+#rts-view *,#rts-view *::before,#rts-view *::after{box-sizing:border-box}
+#rts-view .bg{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;-webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent)}
+#rts-view .orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:rtsfl 22s ease-in-out infinite alternate}
+#rts-view .orb:nth-child(1){width:46vmax;height:46vmax;background:var(--o1);left:-12vmax;top:-12vmax}
+#rts-view .orb:nth-child(2){width:40vmax;height:40vmax;background:var(--o2);right:-10vmax;top:18vh;animation-delay:-7s}
+#rts-view .orb:nth-child(3){width:36vmax;height:36vmax;background:var(--o3);left:20vw;top:60vh;animation-delay:-13s}
+@keyframes rtsfl{to{transform:translate(6vmax,4vmax) scale(1.12)}}
+@media (prefers-reduced-motion:reduce){#rts-view .orb{animation:none}}
+#rts-view .wrap{max-width:1080px;margin:auto;padding:26px 16px 64px}
+#rts-view .hero{padding:6px 4px 8px}
+#rts-view h1{font-family:'DM Serif Display',serif;color:var(--ink);margin:0 0 6px;font-size:clamp(23px,4vw,32px);letter-spacing:-.02em}
+#rts-view .hero p{margin:0;color:var(--muted);max-width:760px}
+#rts-view .card{position:relative;background:var(--glass);border:1px solid var(--edge);border-radius:24px;padding:20px;margin:16px 0;box-shadow:0 12px 40px var(--shadow),inset 0 1.5px 0 var(--edge),inset 0 -1px 0 rgba(255,255,255,.08),inset 0 0 22px rgba(255,255,255,.06)}
+#rts-view .card::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,0) 38%,rgba(255,255,255,0) 70%,rgba(255,255,255,.05))}
+#rts-view .card>*{position:relative}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){#rts-view .card{background:var(--glass2)}}
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){#rts-view .card{-webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%)}}
+#rts-view h2{font-family:inherit;color:var(--ink);font-size:18px;margin:0 0 12px;letter-spacing:-.01em}
+#rts-view h3{font-family:inherit;font-size:14px;margin:20px 0 8px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+#rts-view .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+#rts-view label{font-size:12.5px;font-weight:650;display:block;margin-bottom:5px;color:var(--muted)}
+#rts-view input,#rts-view select{font:inherit;color:var(--ink);width:100%;padding:10px 12px;border:1px solid var(--edge);border-radius:14px;background:var(--field);outline:none;box-shadow:inset 0 1px 2px rgba(0,0,0,.06);transition:box-shadow .15s,border-color .15s;text-align:left}
+#rts-view input:focus,#rts-view select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--hl)}
+#rts-view input::placeholder{color:var(--muted);opacity:.65}
+#rts-view input:disabled{background:transparent;opacity:.55;cursor:not-allowed;color:var(--muted)}
+#rts-view input[readonly]{background:var(--hl);font-weight:600;color:var(--ink)}
+#rts-view select option{color:#eef2ff;background:#141a2e}
+#rts-view .bad-in{border-color:var(--bad)!important;box-shadow:0 0 0 3px var(--badbg)!important}
+/* glass fields: typed value, small arrows or keyboard ↑/↓ only; the mouse wheel never changes a value */
+#rts-view input,#rts-view select,#rts-view .stp{background:linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.26);-webkit-backdrop-filter:blur(14px) saturate(170%);backdrop-filter:blur(14px) saturate(170%);box-shadow:0 2px 10px rgba(0,0,0,.35),inset 0 1.5px 0 rgba(255,255,255,.22),inset 0 -1px 0 rgba(255,255,255,.05)}
+#rts-view .stp{display:flex;align-items:stretch;border-radius:14px;overflow:hidden;transition:box-shadow .15s,border-color .15s}
+#rts-view .stp:focus-within,#rts-view input:focus,#rts-view select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--hl),inset 0 1.5px 0 rgba(255,255,255,.22)}
+#rts-view .stp input{border:0;border-radius:0;background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none;text-align:center;min-width:0;flex:1;padding:10px 8px}
+#rts-view .stp input:focus{box-shadow:none}
+#rts-view .stp input[readonly],#rts-view .stp input:disabled{background:transparent}
+#rts-view .stp{position:relative}
+#rts-view .stp .arr{position:absolute;right:0;top:0;bottom:0;display:flex;flex-direction:column;width:22px;border-left:1px solid rgba(255,255,255,.22);background:rgba(70,100,190,.55);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .12s}
+#rts-view .stp:focus-within .arr{opacity:1;pointer-events:auto}
+#rts-view .stp.dis .arr{display:none}
+#rts-view .stp .arr button{all:unset;box-sizing:border-box;flex:1;display:grid;place-items:center;cursor:pointer;font-size:9px;line-height:1;color:#fff;user-select:none;-webkit-user-select:none}
+#rts-view .stp .arr button+button{border-top:1px solid rgba(255,255,255,.18)}
+#rts-view .stp .arr button:hover{background:rgba(106,174,255,.25)}
+#rts-view .stp .arr button:active{background:rgba(106,174,255,.4)}
+#rts-view .stp.dis{opacity:.5}#rts-view .stp.dis .arr button{cursor:not-allowed}
+#rts-view .stp.bad-in{border-color:var(--bad);box-shadow:0 0 0 3px var(--badbg)}
+#rts-view .small{font-size:12px;color:var(--muted)}
+#rts-view .formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+#rts-view .note{padding:11px 14px;border-radius:16px;background:var(--hl);border:1px solid var(--edge);margin-top:12px;font-size:13.5px}
+#rts-view .note ul,#rts-view .note p{margin:4px 0 0;padding-left:18px}#rts-view .note p{padding:0}
+#rts-view .warn{background:var(--warnbg);color:var(--warn)}
+#rts-view .error{background:var(--badbg);color:var(--bad)}
+#rts-view .ok{background:var(--okbg);color:var(--ok)}
+#rts-view .tablewrap{overflow-x:auto;border-radius:16px;border:1px solid var(--edge);background:rgba(255,255,255,.03)}
+#rts-view table{width:100%;border-collapse:collapse;min-width:640px;margin:0;background:transparent;font-size:inherit}
+#rts-view th,#rts-view td{padding:9px 11px;text-align:left;font-size:13px;border:0;border-bottom:1px solid var(--edge);vertical-align:top;background:transparent}
+#rts-view tr:nth-child(even){background:none}
+#rts-view tr:last-child td{border-bottom:0}
+#rts-view th{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--glass);font-weight:700}
+#rts-view .num{text-align:right;font-variant-numeric:tabular-nums}
+#rts-view #rts-recTable{min-width:900px}
+#rts-view #rts-recTable td:first-child input{min-width:130px}
+#rts-view #rts-recTable .stp{min-width:120px}
+#rts-view #rts-ratioTable{min-width:860px}
+#rts-view #rts-ratioTable .stp{min-width:104px}
+#rts-view #rts-ratioTable td:nth-child(1) input{min-width:72px}
+#rts-view #rts-ratioTable td:nth-child(2) input{min-width:170px}
+#rts-view .hint{font-size:11.5px;margin-top:4px;color:var(--muted)}
+#rts-view .hint.auto{color:var(--ok)}
+#rts-view .hint.need{color:var(--warn);font-weight:650}
+#rts-view .hint.man{color:var(--accent)}
+#rts-view .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+#rts-view .kpi div{background:var(--glass);border:1px solid var(--edge);border-radius:18px;padding:12px 14px;box-shadow:inset 0 1px 0 var(--edge)}
+#rts-view .kpi b{display:block;font-size:19px;font-variant-numeric:tabular-nums}
+#rts-view .sheet{margin-top:14px;padding:16px;border-radius:20px;border:1px solid var(--edge);background:linear-gradient(145deg,var(--hl),var(--glass));box-shadow:inset 0 1.5px 0 var(--edge)}
+#rts-view .sheet h3{margin-top:0}
+#rts-view .sheet .row{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dashed var(--edge)}
+#rts-view .sheet .row:last-child{border:0}
+#rts-view .sheet .row b{font-variant-numeric:tabular-nums;white-space:nowrap}
+#rts-view details{margin-top:12px}
+#rts-view summary{cursor:pointer;font-weight:700}
+#rts-view ul.small{padding-left:18px;margin:10px 0 0}
+#rts-view .foot{font-size:12px;color:var(--muted);margin:22px 4px 0}
+#rts-view .btn{width:auto;border:1px solid var(--edge);border-radius:14px;padding:9px 16px;background:linear-gradient(145deg,#3b82f6,#2457d6);color:#fff;font:inherit;font-weight:700;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
+#rts-view .btn:active{transform:scale(.98)}
+#rts-view .btn.sm{padding:5px 10px;font-size:12px;border-radius:10px}
+#rts-view .btn.sec{background:var(--glass2);color:var(--ink);border-color:var(--edge)}
+#rts-view .resHead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+#rts-view .resHead h2{margin:0}
+#rts-view .tag{display:inline-block;padding:1px 8px;border-radius:99px;background:var(--hl);font-size:11.5px;border:1px solid var(--edge)}
+#rts-view tr.lim td{background:var(--warnbg)}
+#rts-view .cl{margin:6px 0 0;padding:0;list-style:none}
+#rts-view .cl li{padding:8px 12px;border-radius:12px;margin:6px 0;font-size:13.5px}
+#rts-view .cl li b{font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-right:6px}
+#rts-view .cl li.e{background:var(--badbg);color:var(--bad)}
+#rts-view .cl li.w{background:var(--warnbg);color:var(--warn)}
+#rts-view .step{display:grid;grid-template-columns:32px 1fr;gap:12px;margin:12px 0;font-size:13.5px}
+#rts-view .stepno{width:30px;height:30px;border-radius:50%;background:var(--hl);border:1px solid var(--edge);display:grid;place-items:center;font-weight:800;color:var(--accent)}
+@media(max-width:760px){#rts-view .grid,#rts-view .kpi{grid-template-columns:1fr}#rts-view .card{padding:16px;border-radius:20px}}
+#rts-view #rts-printSheet{display:none}
+@media print{
+body.rts-print{background:#fff!important}
+body.rts-print>*:not(#rts-view){display:none!important}
+body.rts-print #rts-view{background:none!important;min-height:0!important;overflow:visible!important;padding:0!important;display:block!important}
+#rts-view .bg,#rts-view .wrap>*:not(#rts-printSheet){display:none!important}
+#rts-view .wrap{padding:0;max-width:none;margin:0}
+#rts-view #rts-printSheet{display:block;font:11px/1.35 system-ui,Arial,sans-serif;color:#000;break-inside:avoid;page-break-inside:avoid}
+#rts-view #rts-printSheet h1{font-family:system-ui,Arial,sans-serif;font-size:17px;margin:0 0 4px;color:#000;letter-spacing:0}
+#rts-view #rts-printSheet h4{font-size:11px;margin:10px 0 3px;text-transform:uppercase;letter-spacing:.06em;border-bottom:1.5px solid #000;padding-bottom:2px;color:#000}
+#rts-view #rts-printSheet p{margin:2px 0;color:#000}
+#rts-view #rts-printSheet .meta{display:flex;justify-content:space-between;gap:10px;margin-bottom:4px}
+#rts-view #rts-printSheet table{width:100%;min-width:0;border-collapse:collapse}
+#rts-view #rts-printSheet th,#rts-view #rts-printSheet td{border:1px solid #444;padding:3px 5px;font-size:10.5px;color:#000;background:none;text-transform:none;letter-spacing:0;font-weight:400}
+#rts-view #rts-printSheet th{font-weight:700;background:#eee}
+#rts-view #rts-printSheet .num{text-align:right}
+#rts-view #rts-printSheet .blank{width:70px}
+#rts-view #rts-printSheet .line{border-bottom:1px solid #888;height:20px}
+#rts-view #rts-printSheet .w{font-size:10px;margin:2px 0}
+#rts-view #rts-printSheet .big{font-size:14px}
+#rts-view #rts-printSheet sub{font-size:.75em}
+}
+
 
                 @media (max-width: 768px) {
             .app-card { width: 100%; }
@@ -386,10 +495,10 @@ box-shadow:0 12px 40px var(--shadow),inset 0 1.5px 0 var(--edge),inset 0 -1px 0 
                 <div class="card-cta">Open tool →</div>
             </div>
 
-            <div class="app-card" onclick="navigateTo('hydrothermal-view')">
+            <div class="app-card" onclick="navigateTo('rts-view')">
                 <div class="card-icon">🧪</div>
-                <div class="card-title">Hydrothermal Synthesis Calculation</div>
-                <div class="card-desc">Hydrothermal stoichiometry calculator with precursor planning, automatic oxidation states, a choice of reducing agents, and a printable one-page worksheet.</div>
+                <div class="card-title">Room Temperature Synthesis Calculator</div>
+                <div class="card-desc">Recipe and yield calculator with automatic molecular weights, molar ratios × factor to weigh-out masses, a separate oxidation-state molar ratio calculator, cautionary notes, and a one-page print sheet.</div>
                 <div class="card-cta">Open tool →</div>
             </div>
 
@@ -600,67 +709,65 @@ box-shadow:0 12px 40px var(--shadow),inset 0 1.5px 0 var(--edge),inset 0 -1px 0 
         </div>
     </div>
 
-<!-- ════════════════ HYDROTHERMAL VIEW ════════════════ -->
-    <div id="hydrothermal-view" class="view-container">
+<!-- ════════════════ ROOM TEMPERATURE SYNTHESIS VIEW ════════════════ -->
+    <div id="rts-view" class="view-container">
 <div class="bg" aria-hidden="true"><span class="orb"></span><span class="orb"></span><span class="orb"></span></div>
 <div class="wrap">
 <div class="hero">
-<h1>Hydrothermal Synthesis Calculation</h1>
-<p>Enter the target formula and amount, then the precursors from your procedure. Oxidation states are worked out automatically from the formulas, so you don't need them in the procedure.</p>
+<h1>Room Temperature Synthesis Calculator</h1>
+<p>Lab-sheet method: fixed solvent volume, molar ratios × a multiplication factor give strengths, weigh-out masses and the synthesis yield. Type only the formulas, and molecular weights are worked out for you.</p>
 </div>
 
-<div class="card">
-<h2>1. Target product</h2>
+<div class="card"><h2>1. Batch setup</h2>
 <div class="grid">
-<div><label for="hy-target">Target formula</label><input id="hy-target" value="CuSbSe2" placeholder="e.g. CuSbSe2 or Bi0.45Sb1.55Te3" autocomplete="off" spellcheck="false"></div>
-<div><label for="hy-mass">Desired product mass (g)</label><input id="hy-mass" type="number" min="0" step="any" value="1" inputmode="decimal"></div>
-<div><label for="hy-prodmmol">Or product amount (mmol)</label><input id="hy-prodmmol" type="number" min="0" step="any" placeholder="optional" inputmode="decimal"></div>
-</div>
-<div class="small" style="margin-top:8px">Decimals work in the target: <span class="formula">Bi0.25Sb3</span>, <span class="formula">Bi0.45Sb1.55Te3</span>. If both mass and mmol are filled, mmol is used.</div>
-</div>
-
-<div class="card">
-<h2>2. Starting precursors</h2>
-<p class="small" style="margin-top:0">One precursor per target element. Rows are pre-filled with common choices, so replace them with what your procedure uses. Hydrates are fine: <span class="formula">CuCl2·2H2O</span> or <span class="formula">CuCl2.2H2O</span>.</p>
-<div class="tablewrap">
-<table id="hy-precTable"><thead><tr><th>Element</th><th>Precursor formula</th><th>Initial OS</th><th>Target OS</th><th>Role</th></tr></thead><tbody></tbody></table>
-</div>
-<div class="note">Oxidation states (OS) are <b>auto-derived</b> from charge balance. Initial OS comes from the precursor, and target OS from the product formula. Anything marked “enter manually” could not be inferred safely. You can overwrite any value, and clearing a field returns it to auto.</div>
-</div>
-
-<div class="card">
-<h2>3. Reducing agent</h2>
-<div class="grid">
-<div><label for="hy-agent">Reducing agent</label><select id="hy-agent"></select><div class="hint" id="hy-agentNote"></div></div>
-<div><label for="hy-ecap">Electron capacity (e⁻/mol agent)</label><input id="hy-ecap" type="number" min="0" step="any" value="8" inputmode="decimal"></div>
-<div><label for="hy-excess">Excess / safety factor</label><input id="hy-excess" type="number" min="0" step="any" value="1" inputmode="decimal"></div>
+<div><label for="rts-target">Product formula</label><input id="rts-target" class="formula" type="text" value="Ag2Se" placeholder="e.g. Ag2Se or Bi0.45Sb1.55Te3" autocomplete="off" spellcheck="false"></div>
+<div><label for="rts-vol">Volume of water (mL)</label><span data-nf='{"id":"vol","step":10,"min":0,"val":"400"}'></span></div>
+<div><label for="rts-scale">Set the scale by</label><select id="rts-scale"><option value="factor">Multiplication factor (as in the sheet)</option><option value="yield">Desired yield (solves the factor)</option></select></div>
 </div>
 <div class="grid" style="margin-top:12px">
-<div><label for="hy-ratioBasis">Amount basis</label><select id="hy-ratioBasis"><option value="none">Electron balance</option><option value="product">Fixed: mol agent per mol product</option><option value="cations">Fixed: mol agent per mol total target atoms</option></select></div>
-<div id="hy-customBox" style="display:none"><label for="hy-cformula">Custom agent formula</label><input id="hy-cformula" class="formula" placeholder="e.g. NaH2PO2·H2O" autocomplete="off" spellcheck="false"><div class="small">Set its electron capacity in the field above.</div></div>
-<div id="hy-ratioBox" style="display:none"><label for="hy-ratio">Ratio value</label><input id="hy-ratio" type="number" min="0" step="any" value="10" inputmode="decimal"><div class="small">Excess factor still multiplies this.</div></div>
+<div><label for="rts-factor">Multiplication factor (mol/L per ratio unit)</label><span data-nf='{"id":"factor","step":0.001,"min":0,"val":"0.0751"}'></span></div>
+<div><label for="rts-want">Desired theoretical yield (g)</label><span data-nf='{"id":"want","step":1,"min":0,"val":"10"}'></span></div>
+<div><label for="rts-actual">Actual isolated mass (g, optional)</label><span data-nf='{"id":"actual","step":0.1,"min":0,"ph":"for % yield"}'></span></div>
 </div>
-<div class="note warn"><b>Important:</b> electron capacity is an ideal bookkeeping model. Real hydrothermal systems lose reductant to hydrolysis, decomposition and side reactions, and capacity depends on the end product (e.g. phosphite vs phosphate). Treat the result as an estimate, not a validated recipe.</div>
+<div class="note">Strength (mol/L) = molar ratio × multiplication factor. Mass = MW × strength × volume ÷ 1000. Brackets and partial values are read exactly: <span class="formula">(NO3)3</span> counts NO₃ three times and <span class="formula">Bi0.45Sb1.55Te3</span> keeps its decimals. Values change only when you type them, click a field to reveal its small arrows, or use the ↑ / ↓ keys (hold Shift for ×10). The mouse wheel never changes a value.</div></div>
+
+<div class="card"><div class="resHead"><h2>2. Reagents</h2><button class="btn sm" type="button" id="rts-addRow">+ Add reagent</button></div>
+<div class="tablewrap"><table id="rts-recTable"><thead><tr><th>Reagent formula</th><th>MW (g/mol)</th><th>Molar ratio</th><th>Purity %</th><th class="num">Strength (M)</th><th class="num">Mass to weigh</th><th>Role</th><th class="num">Element mass</th><th></th></tr></thead><tbody></tbody></table></div>
+<div class="small" style="margin-top:8px">The molecular weight fills in automatically from the formula. If your lab sheet uses a different value you can type over it, and clearing the box returns it to auto. Reagents that contain a product element feed the yield; anything else (KOH, NaBH₄) is weighed but not counted.</div></div>
+
+<div id="rts-messages"></div>
+<div class="card" id="rts-results"></div>
+
+<div class="card"><h2>How this relates to the lab sheet</h2>
+<details><summary>Column by column</summary><ul class="small">
+<li><b>Strength</b> = molar ratio × multiplication factor, i.e. concentration in the water.</li>
+<li><b>MW × S × Vol ÷ 1000</b> = grams of reagent to weigh (divided by purity if below 100 %).</li>
+<li><b>Pure solute MW ÷ MW</b> = “Ratio”, the mass fraction of the product element in the reagent (Ag in AgNO₃ = 0.6350).</li>
+<li><b>Yield</b> = Ratio × mass, the grams of element delivered. The sheet's <b>Total yield</b> adds these up.</li>
+<li><b>Added here:</b> the limiting-reagent yield. The sheet adds all Ag and all Se, so a small Se excess is counted as product. The limiting-reagent value is the true stoichiometric maximum.</li></ul></details></div>
+
+<div class="card" id="rts-ratioCard"><h2>4. Molar ratio calculator (oxidation states)</h2>
+<p class="small" style="margin:0 0 12px">A stand-alone tool. It does not use or change anything above. Enter the oxidation state before and after for each element, and it gives the electrons to supply and the molar ratio of reducing agent needed. Negative values are allowed (for example Se: 0 → −2).</p>
+<div class="grid">
+<div><label for="rts-ragent">Reducing agent</label><select id="rts-ragent"></select><div class="hint" id="rts-ragentNote"></div></div>
+<div><label for="rts-recap">Electron capacity (e⁻ per mol agent)</label><span data-nf='{"id":"recap","step":1,"min":0,"val":"8"}'></span></div>
+<div><label for="rts-rexcess">Excess / safety factor</label><span data-nf='{"id":"rexcess","step":0.5,"min":0,"val":"1"}'></span></div>
+</div>
+<div class="grid" style="margin-top:12px">
+<div id="rts-rcustomBox" style="display:none"><label for="rts-rcform">Custom agent formula</label><input id="rts-rcform" class="formula" type="text" placeholder="e.g. NaH2PO2·H2O" autocomplete="off" spellcheck="false"></div>
+<div><label for="rts-rtarget">Product compound (optional, fills final OS)</label><input id="rts-rtarget" class="formula" type="text" value="Ag2Se" placeholder="e.g. Ag2Se" autocomplete="off" spellcheck="false"></div>
+<div><label for="rts-ramount">Amount of product (mmol)</label><span data-nf='{"id":"ramount","step":1,"min":0,"val":"1"}'></span></div>
+</div>
+<div class="resHead" style="margin-top:16px"><h3 style="margin:0">Elements</h3><button class="btn sm" type="button" id="rts-addRatio">+ Add element</button></div>
+<div class="tablewrap"><table id="rts-ratioTable"><thead><tr><th>Element</th><th>Source compound (optional)</th><th>Atoms per unit</th><th>Initial OS</th><th>Final OS</th><th class="num">e⁻ per atom</th><th class="num">e⁻ per unit</th><th class="num">Agent per atom (mol)</th><th></th></tr></thead><tbody></tbody></table></div>
+<div class="small" style="margin-top:8px">Initial OS is worked out from the source compound and final OS from the product compound. Type over either to set your own (negative allowed), and clear the box to go back to auto. e⁻ per atom = initial OS − final OS.</div>
+<div id="rts-ratioOut"></div>
 </div>
 
-<div id="hy-messages"></div>
-<div class="card" id="hy-results"></div>
-<div id="hy-printSheet" class="ps"></div>
+<div class="card" id="rts-cautions"></div>
 
-<div class="card">
-<h2>Built-in checks</h2>
-<details open><summary>What this calculator guards against</summary>
-<ul class="small">
-<li>Invalid, empty, or unknown-element formulas; non-positive quantities.</li>
-<li>Decimal stoichiometry and hydrates are parsed separately, so <span class="formula">Bi0.45</span> is never mistaken for a hydrate.</li>
-<li>Every target element needs a precursor that contains it, and no other target element.</li>
-<li>Oxidation states are inferred from charge balance (nitrate, sulfate, acetate, oxo-anions, halides, hydrates). Ambiguous cases are flagged.</li>
-<li>If any oxidation state is missing, the NaBH₄ result is withheld instead of silently under-counting electrons.</li>
-<li>Oxidation steps (initial OS lower than target) are flagged and excluded from the NaBH₄ count.</li>
-</ul></details>
-</div>
-
-<div class="hy-foot">For planning only. Verify precursor purity, hydrate state, oxidation states, and the published method before lab work. Reducing agents (NaBH₄ releases hydrogen and reacts vigorously with water and acids; hydrazine is toxic) require appropriate institutional safety controls.</div>
+<div class="foot">For planning only. Verify reagents, purity and the published method before lab work. NaBH₄ releases hydrogen and reacts vigorously with water and acids; hydrazine is toxic. Reducing agents require appropriate institutional safety controls.</div>
+<div id="rts-printSheet"></div>
 </div>
     </div>
 
@@ -980,45 +1087,72 @@ box-shadow:0 12px 40px var(--shadow),inset 0 1.5px 0 var(--edge),inset 0 -1px 0 
             document.body.removeChild(link);
         }
 
-// ── Hydrothermal Synthesis Calculator (liquid glass module) ──
+// ── Room Temperature Synthesis Calculator (liquid glass module) ──
         (function(){
-const AW={H:1.008,Li:6.94,B:10.81,C:12.011,N:14.007,O:15.999,F:18.998,Na:22.990,Mg:24.305,Al:26.982,Si:28.085,P:30.974,S:32.06,Cl:35.45,K:39.098,Ca:40.078,Sc:44.956,Ti:47.867,V:50.942,Cr:51.996,Mn:54.938,Fe:55.845,Co:58.933,Ni:58.693,Cu:63.546,Zn:65.38,Ga:69.723,Ge:72.630,As:74.922,Se:78.971,Br:79.904,Rb:85.468,Sr:87.62,Y:88.906,Zr:91.224,Nb:92.906,Mo:95.95,Ru:101.07,Rh:102.906,Pd:106.42,Ag:107.868,Cd:112.414,In:114.818,Sn:118.710,Sb:121.760,Te:127.60,I:126.904,Cs:132.905,Ba:137.327,La:138.905,Ce:140.116,Pr:140.908,Nd:144.242,Sm:150.36,Eu:151.964,Gd:157.25,Tb:158.925,Dy:162.500,Ho:164.930,Er:167.259,Tm:168.934,Yb:173.045,Lu:174.967,Hf:178.49,Ta:180.948,W:183.84,Re:186.207,Os:190.23,Ir:192.217,Pt:195.084,Au:196.967,Hg:200.592,Tl:204.38,Pb:207.2,Bi:208.980,Th:232.038,U:238.029};
-const SUG={Cu:['CuCl2·2H2O','Cu(NO3)2·3H2O','CuCl','Cu(CH3COO)2·H2O','CuSO4·5H2O'],Sb:['SbCl3','Sb2O3','SbCl5'],Bi:['Bi(NO3)3·5H2O','BiCl3','Bi2O3'],Se:['SeO2','Na2SeO3','Se'],Te:['TeO2','Na2TeO3','K2TeO3','Te'],S:['Na2S·9H2O','S'],Sn:['SnCl2·2H2O','SnCl4·5H2O'],Zn:['ZnCl2','Zn(CH3COO)2·2H2O','Zn(NO3)2·6H2O'],In:['InCl3','In(NO3)3'],Ga:['Ga(NO3)3'],Ag:['AgNO3'],Pb:['Pb(NO3)2','Pb(CH3COO)2·3H2O'],Cd:['CdCl2','Cd(NO3)2·4H2O'],Ge:['GeO2','GeCl4']};
+const AW={H:1.008,Li:6.94,Be:9.012,B:10.81,C:12.011,N:14.007,O:15.999,F:18.998,Na:22.990,Mg:24.305,Al:26.982,Si:28.085,P:30.974,S:32.06,Cl:35.45,K:39.098,Ca:40.078,Sc:44.956,Ti:47.867,V:50.942,Cr:51.996,Mn:54.938,Fe:55.845,Co:58.933,Ni:58.693,Cu:63.546,Zn:65.38,Ga:69.723,Ge:72.630,As:74.922,Se:78.971,Br:79.904,Rb:85.468,Sr:87.62,Y:88.906,Zr:91.224,Nb:92.906,Mo:95.95,Ru:101.07,Rh:102.906,Pd:106.42,Ag:107.868,Cd:112.414,In:114.818,Sn:118.710,Sb:121.760,Te:127.60,I:126.904,Cs:132.905,Ba:137.327,La:138.905,Ce:140.116,Pr:140.908,Nd:144.242,Sm:150.36,Eu:151.964,Gd:157.25,Tb:158.925,Dy:162.500,Ho:164.930,Er:167.259,Tm:168.934,Yb:173.045,Lu:174.967,Hf:178.49,Ta:180.948,W:183.84,Re:186.207,Os:190.23,Ir:192.217,Pt:195.084,Au:196.967,Hg:200.592,Tl:204.38,Pb:207.2,Bi:208.980,Th:232.038,U:238.029};
+/* oxidation-state tables (same logic as before) */
 const ANI={F:-1,Cl:-1,Br:-1,I:-1,O:-2,S:-2,Se:-2,Te:-2,N:-3,P:-3,As:-3};
 const CAT={Li:[1],Na:[1],K:[1],Rb:[1],Cs:[1],Ag:[1],Mg:[2],Ca:[2],Sr:[2],Ba:[2],Zn:[2],Cd:[2],Hg:[2],Al:[3],Ga:[3],In:[3],Sc:[3],Y:[3],La:[3],Bi:[3],Sb:[3,5],Cu:[1,2],Sn:[4,2],Ge:[4,2],Pb:[2,4],Tl:[1,3],Fe:[3,2],Co:[2,3],Ni:[2,3],Mn:[2,4,3],Ti:[4,3],V:[3,4,5],Cr:[3,2,6],Zr:[4],Hf:[4],Mo:[4,6],W:[4,6],Nb:[5],Ta:[5],Au:[1,3],Pd:[2],Pt:[2,4],Si:[4]};
 const FX={H:1,O:-2,F:-1,Cl:-1,Br:-1,I:-1,Li:1,Na:1,K:1,Rb:1,Cs:1,Mg:2,Ca:2,Sr:2,Ba:2,Zn:2,Cd:2,Ag:1,Al:3,B:3};
 const LIG=[['CH3COO',-1],['CH3CO2',-1],['C2H3O2',-1],['C5H7O2',-1],['C2O4',-2]];
+const RED={
+nabh4:{name:'NaBH₄',f:'NaBH4',e:8,n:'BH₄⁻ → B(OH)₄⁻, 8 e⁻. Releases H₂; hydrolyses in water.'},
+n2h4:{name:'hydrazine hydrate',f:'N2H4·H2O',e:4,n:'N₂H₄ → N₂, 4 e⁻. Commercial solutions are often 64–80% N₂H₄, so scale the mass. Toxic: fume hood.'},
+asc:{name:'ascorbic acid',f:'C6H8O6',e:2,n:'→ dehydroascorbic acid, 2 e⁻. Mild reductant.'},
+sulfite:{name:'sodium sulfite',f:'Na2SO3',e:2,n:'SO₃²⁻ → SO₄²⁻, 2 e⁻. Mild reductant.'},
+dithionite:{name:'sodium dithionite',f:'Na2S2O4',e:2,n:'S₂O₄²⁻ → 2 SO₃²⁻, 2 e⁻. Unstable in water.'},
+hypo:{name:'sodium hypophosphite',f:'NaH2PO2·H2O',e:4,n:'P(+1) → P(+5), 4 e⁻ (2 e⁻ if it stops at phosphite).'},
+glucose:{name:'glucose',f:'C6H12O6',e:2,n:'→ gluconic acid, 2 e⁻. Mild reductant.'},
+oxalic:{name:'oxalic acid',f:'H2C2O4',e:2,n:'→ 2 CO₂, 2 e⁻.'}};
+
 const NUM='(\\d+(?:\\.\\d+)?)';
-const $=id=>document.getElementById('hy-'+id);
+const view=document.getElementById('rts-view');
+const $=id=>document.getElementById('rts-'+id);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function norm(raw,hyd){
+
+/* ---------- formula parser ---------- */
+function norm(raw){
  let s=String(raw).normalize('NFKC').replace(/\s+/g,'').replace(/[•∙⋅*]/g,'·').replace(/[\[{]/g,'(').replace(/[\]}]/g,')');
- s=s.replace(/\.(?=[A-Z(])/g,'·');                 // "CuCl2.H2O"
- if(hyd) s=s.replace(/\.(?=\d+[A-Z(])/g,'·');       // "CuCl2.2H2O" (precursors only; targets use . as decimal)
+ s=s.replace(/\.(?=[A-Z(])/g,'·');                                                  // CuCl2.H2O
+ s=s.replace(/\.(?=(?:\d+(?:\.\d+)?)?(?:H2O2|H2O|NH3|HCl|CH3OH|C2H5OH)(?![a-z\d]))/g,'·'); // CuCl2.2H2O, but Bi0.5Sb stays a decimal
  return s;
 }
-function parseFormula(raw,hyd){
- const s=norm(raw,hyd); if(!s) throw Error('Formula is empty.');
+function parseFormula(raw){
+ const s=norm(raw); if(!s) throw Error('Formula is empty.');
  const total={};
- for(const part of s.split('·')){
-  if(!part) throw Error('Invalid hydrate separator.');
-  let i=0,mult=1,m=part.match(new RegExp('^'+NUM));
-  if(m){mult=parseFloat(m[1]);i=m[0].length}
-  const st=[{}];
+ const parts=s.split('·');
+ for(let pi=0;pi<parts.length;pi++){
+  const part=parts[pi];
+  if(!part) throw Error('Invalid hydrate separator "·".');
+  let i=0,mult=1;
+  const m=part.match(new RegExp('^'+NUM));
+  if(m){
+   if(pi===0) throw Error('A formula cannot start with a number.');
+   mult=parseFloat(m[1]);i=m[0].length;
+   if(!(mult>0)) throw Error('Hydrate amount must be greater than 0.');
+  }
+  const st=[{}],opened=[0];
   while(i<part.length){
    const ch=part[i];
-   if(ch==='('){st.push({});i++;continue}
+   if(ch==='('){st.push({});opened.push(i);i++;continue}
    if(ch===')'){
     if(st.length===1) throw Error("Unmatched ')'.");
-    i++;const mm=part.slice(i).match(new RegExp('^'+NUM));let fac=1;if(mm){fac=parseFloat(mm[1]);i+=mm[0].length}
-    const g=st.pop();for(const [e,n] of Object.entries(g))st[st.length-1][e]=(st[st.length-1][e]||0)+n*fac;continue}
+    i++;
+    const mm=part.slice(i).match(new RegExp('^'+NUM));let fac=1;
+    if(mm){fac=parseFloat(mm[1]);i+=mm[0].length;if(!(fac>0)) throw Error('Bracket multiplier must be greater than 0.')}
+    const g=st.pop();opened.pop();
+    if(!Object.keys(g).length) throw Error('Empty brackets "()".');
+    for(const [e,n] of Object.entries(g))st[st.length-1][e]=(st[st.length-1][e]||0)+n*fac;
+    continue}
    const em=part.slice(i).match(/^[A-Z][a-z]?/);
-   if(!em) throw Error("Cannot parse near '"+part.slice(i,i+6)+"'.");
+   if(!em) throw Error("Cannot read '"+part.slice(i,i+6)+"'.");
    let e=em[0];if(!AW[e]&&e.length===2&&AW[e[0]])e=e[0];
    if(!AW[e]) throw Error("Unknown element '"+e+"'.");
    i+=e.length;
-   const nm=part.slice(i).match(new RegExp('^'+NUM));let n=1;if(nm){n=parseFloat(nm[1]);i+=nm[0].length}
+   const nm=part.slice(i).match(new RegExp('^'+NUM));let n=1;
+   if(nm){n=parseFloat(nm[1]);i+=nm[0].length}
    if(!(n>0)) throw Error('Subscripts must be greater than 0.');
+   if(n>1000) throw Error('Subscript '+n+' is unrealistically large.');
    st[st.length-1][e]=(st[st.length-1][e]||0)+n;
   }
   if(st.length!==1) throw Error("Unclosed '('.");
@@ -1028,28 +1162,39 @@ function parseFormula(raw,hyd){
  return total;
 }
 const molMass=f=>Object.entries(f).reduce((s,[e,n])=>s+AW[e]*n,0);
-const RED={
-nabh4:{name:'NaBH₄',f:'NaBH4',e:8,n:'BH₄⁻ → B(OH)₄⁻, 8 e⁻. Releases H₂; hydrolyses in water.'},
-n2h4:{name:'hydrazine hydrate',f:'N2H4·H2O',e:4,n:'N₂H₄ → N₂, 4 e⁻. Commercial solutions are often 64–80% N₂H₄ — scale the mass. Toxic: fume hood.'},
-asc:{name:'ascorbic acid',f:'C6H8O6',e:2,n:'→ dehydroascorbic acid, 2 e⁻. Mild reductant.'},
-sulfite:{name:'sodium sulfite',f:'Na2SO3',e:2,n:'SO₃²⁻ → SO₄²⁻, 2 e⁻. Mild reductant.'},
-dithionite:{name:'sodium dithionite',f:'Na2S2O4',e:2,n:'S₂O₄²⁻ → 2 SO₃²⁻, 2 e⁻. Unstable in water.'},
-hypo:{name:'sodium hypophosphite',f:'NaH2PO2·H2O',e:4,n:'P(+1) → P(+5), 4 e⁻ (2 e⁻ if it stops at phosphite).'},
-glucose:{name:'glucose',f:'C6H12O6',e:2,n:'→ gluconic acid, 2 e⁻. Mild reductant.'},
-oxalic:{name:'oxalic acid',f:'H2C2O4',e:2,n:'→ 2 CO₂, 2 e⁻.'}};
-let A={name:'NaBH₄',M:37.832};
-function getAgent(){const k=$('agent').value;
- if(k==='custom'){try{const s=$('cformula').value;return {name:s.trim(),M:molMass(parseFormula(s,true))}}catch(e){throw Error('Custom reducing agent: '+e.message)}}
- return {name:RED[k].name,M:molMass(parseFormula(RED[k].f,true))}}
-const L=s=>s.replaceAll('NaBH₄',()=>esc(A.name));
-function setAgent(){const k=$('agent').value,c=k==='custom';$('customBox').style.display=c?'block':'none';
- if(!c){$('ecap').value=RED[k].e;$('agentNote').textContent=RED[k].n}else $('agentNote').textContent='Enter formula and electron capacity.'}
 function fmt(x,d=6){
  if(!Number.isFinite(x))return '—'; if(x===0)return '0';
  if(Math.abs(x)<1e-4)return x.toExponential(2);
  return x.toFixed(d).replace(/(\.\d*?)0+$/,'$1').replace(/\.$/,'');
 }
-const sgn=v=>v==null?'—':(v>0?'+':'')+fmt(v,3);
+const sgn=v=>v==null||!Number.isFinite(v)?'—':(v>0?'+':v<0?'−':'')+fmt(Math.abs(v),3);
+function fh(raw){ // formula with subscripts for display
+ let s;try{s=norm(raw)}catch(e){s=String(raw)}
+ return esc(s).replace(/([A-Za-z)])(\d+(?:\.\d+)?)/g,'$1<sub>$2</sub>');
+}
+
+/* ---------- number fields: typed or +/- only ---------- */
+function nf(cls,o={}){
+ const {step=1,min='',max='',ph='',val='',mode='decimal',id=''}=o;
+ return `<div class="stp"><input ${id?`id="rts-${id}" `:''}class="${cls}" type="text" inputmode="${mode}" autocomplete="off" spellcheck="false" data-step="${step}" data-min="${min}" data-max="${max}" placeholder="${esc(ph)}" value="${esc(val)}"><span class="arr"><button type="button" class="su" tabindex="-1" aria-label="Increase">▲</button><button type="button" class="sd" tabindex="-1" aria-label="Decrease">▼</button></span></div>`;
+}
+function readNum(el){
+ let t=el.value.trim();
+ if(t==='')return {empty:true,bad:false,v:NaN};
+ if(!t.includes('.')&&(t.match(/,/g)||[]).length===1)t=t.replace(',','.');
+ t=t.replace(/^\+/,'').replace(/^[−–]/,'-');
+ if(!/^-?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(t))return {empty:false,bad:true,v:NaN};
+ const v=Number(t);return {empty:false,bad:!Number.isFinite(v),v};
+}
+function flag(el,bad){const t=el.closest('.stp')||el;t.classList.toggle('bad-in',!!bad)}
+function stepInput(inp,d,mult=1){
+ if(inp.readOnly||inp.disabled)return;
+ const step=(parseFloat(inp.dataset.step)||1)*mult,r=readNum(inp);
+ let v=(r.empty||r.bad?0:r.v)+d*step;v=+v.toFixed(10);
+ if(inp.dataset.min!==''&&v<parseFloat(inp.dataset.min))v=parseFloat(inp.dataset.min);
+ if(inp.dataset.max!==''&&v>parseFloat(inp.dataset.max))v=parseFloat(inp.dataset.max);
+ inp.value=String(v);inp.dispatchEvent(new Event('input',{bubbles:true}));
+}
 
 /* ---------- oxidation-state inference ---------- */
 function fixedOS(e,c){
@@ -1062,15 +1207,15 @@ function fixedOS(e,c){
 }
 function precOS(raw,el){
  try{
-  const s=norm(raw,true); if(!s)return {v:null,why:'enter a precursor'};
+  const s=norm(raw); if(!s)return {v:null,why:'enter a source compound'};
   const cnt={};let q=0;
   for(let part of s.split('·')){
    let m=1;const mm=part.match(new RegExp('^'+NUM));if(mm){m=parseFloat(mm[1]);part=part.slice(mm[0].length)}
    for(const [l,c] of LIG)part=part.replace(new RegExp('\\(?'+l+'\\)?'+NUM+'?','g'),(_,k)=>{q+=c*(k?parseFloat(k):1)*m;return ''});
    if(!part)continue;
-   for(const [e,n] of Object.entries(parseFormula(part,true)))cnt[e]=(cnt[e]||0)+n*m;
+   for(const [e,n] of Object.entries(parseFormula(part)))cnt[e]=(cnt[e]||0)+n*m;
   }
-  if(!cnt[el])return {v:null,why:'precursor lacks '+el};
+  if(!cnt[el])return {v:null,why:'compound lacks '+el};
   let sum=q;
   for(const [e,c] of Object.entries(cnt)){if(e===el)continue;const o=fixedOS(e,cnt);if(o==null)return {v:null,why:'cannot assign '+e};sum+=o*c}
   const v=Math.round(-sum/cnt[el]*1e6)/1e6;
@@ -1097,138 +1242,307 @@ function targetOS(f){
  ca.forEach(e=>out[e]={v:null,why:'charge balance unclear'});return out;
 }
 
-/* ---------- precursor table ---------- */
-function getRows(){return [...document.querySelectorAll('#hy-precTable tbody tr')].map(tr=>({el:tr.dataset.el,formula:tr.querySelector('.pf').value.trim(),start:tr.querySelector('.os0').value,target:tr.querySelector('.os1').value,tr}))}
-function rebuildRows(){
- const body=document.querySelector('#hy-precTable tbody');let f;
- try{f=parseFormula($('target').value,false)}catch(e){body.innerHTML='';return}
- const old={};getRows().forEach(r=>old[r.el]=r);body.innerHTML='';
- for(const el of Object.keys(f)){
-  const tr=document.createElement('tr');tr.dataset.el=el;
-  tr.innerHTML=`<td><b>${el}</b><div class="small">${esc(fmt(f[el]))} / formula unit</div></td>
-  <td><input class="pf formula" list="dl-${el}" autocomplete="off" spellcheck="false" placeholder="e.g. ${el}Cl2·2H2O"><datalist id="dl-${el}">${(SUG[el]||[]).map(x=>`<option value="${x}">`).join('')}</datalist></td>
-  <td><input class="os0" type="number" step="any" inputmode="decimal" placeholder="auto"><div class="hint h0"></div></td>
-  <td><input class="os1" type="number" step="any" inputmode="decimal" placeholder="auto"><div class="hint h1"></div></td>
-  <td class="role small">—</td>`;
-  tr.querySelector('.pf').value=old[el]?old[el].formula:((SUG[el]||[])[0]||'');
-  if(old[el]){['os0','os1'].forEach((c,i)=>{const o=old[el].tr;if(o.dataset['m'+i]){tr.dataset['m'+i]=1;tr.querySelector('.'+c).value=o.querySelector('.'+c).value}})}
-  body.appendChild(tr);
-  tr.querySelector('.pf').addEventListener('input',()=>{refreshAuto();calc()});
-  [0,1].forEach(i=>tr.querySelector('.os'+i).addEventListener('input',e=>{if(e.target.value==='')delete tr.dataset['m'+i];else tr.dataset['m'+i]=1;refreshAuto();calc()}));
- }
+/* shared state for the cautionary-notes card */
+const S={main:{errors:[],warnings:[]},ratio:{errors:[],warnings:[]}};
+
+/* ================= 1-3: recipe & yield ================= */
+const recBody=()=>view.querySelector('#rts-recTable tbody');
+function addRow(f='',r='',p='100'){
+ const tr=document.createElement('tr');
+ tr.innerHTML=`<td><input class="rf formula" type="text" placeholder="e.g. AgNO3" autocomplete="off" spellcheck="false"></td>
+ <td>${nf('rm',{step:1,min:0,ph:'auto'})}<div class="hint hm"></div></td>
+ <td>${nf('rr',{step:0.1,min:0})}</td>
+ <td>${nf('rp',{step:1,min:0,max:100,val:p})}</td>
+ <td class="num rs">—</td><td class="num rg">—</td><td class="small rl">—</td><td class="num re">—</td>
+ <td><button class="btn sm sec rx" type="button" title="Remove" aria-label="Remove reagent">✕</button></td>`;
+ tr.querySelector('.rf').value=f;tr.querySelector('.rr').value=r;
+ tr.querySelector('.rx').addEventListener('click',()=>{tr.remove();update()});
+ recBody().appendChild(tr);
 }
-function refreshAuto(){
- let f,t;try{f=parseFormula($('target').value,false);t=targetOS(f)}catch(e){return}
- for(const r of getRows()){
-  const a0=r.formula?precOS(r.formula,r.el):{v:null,why:'enter a precursor'},a1=t[r.el]||{v:null,why:'n/a'};
-  [[0,a0],[1,a1]].forEach(([i,a])=>{
-   const inp=r.tr.querySelector('.os'+i),h=r.tr.querySelector('.h'+i),man=r.tr.dataset['m'+i];
-   if(!man)inp.value=a.v==null?'':a.v;
-   if(man)h.className='hint h'+i,h.textContent='✎ manual'+(a.v!=null&&parseFloat(inp.value)!==a.v?' (auto: '+sgn(a.v)+')':'');
-   else if(a.v==null)h.className='hint need h'+i,h.textContent='enter manually — '+a.why;
-   else h.className='hint auto h'+i,h.textContent='auto'+(a.note?' · '+a.note:'');
-  });
+function calcMain(){
+ const err=[],warn=[];let data=null;
+ $('messages').innerHTML='';
+ const res=$('results');
+ const rn=(el,label,o={})=>{ // read + validate a number field
+  const r=readNum(el);flag(el,false);
+  if(r.bad){err.push(`${label} is not a valid number.`);flag(el,true)}
+  else if(r.empty&&o.req){err.push(`${label} is required.`);flag(el,true)}
+  else if(!r.empty&&o.pos&&!(r.v>0)){err.push(`${label} must be greater than 0.`);flag(el,true)}
+  return r;
+ };
+ let T=null,Mt=0;
+ const tval=$('target').value.trim();
+ try{T=parseFormula(tval);Mt=molMass(T)}catch(e){err.push('Product formula: '+e.message)}
+ $('target').classList.toggle('bad-in',!T);
+ const mode=$('scale').value;
+ const Vr=rn($('vol'),'Volume of water',{req:1,pos:1});
+ flag($('factor'),false);flag($('want'),false);
+ const fr=mode==='factor'?rn($('factor'),'Multiplication factor',{req:1,pos:1}):{v:NaN};
+ const wr=mode==='yield'?rn($('want'),'Desired yield',{req:1,pos:1}):{v:NaN};
+ const ar=readNum($('actual'));flag($('actual'),ar.bad||(!ar.empty&&!(ar.v>0)));
+ if(ar.bad)warn.push('Actual isolated mass is not a valid number, so % yield is skipped.');
+ else if(!ar.empty&&!(ar.v>0))warn.push('Actual isolated mass must be greater than 0, so % yield is skipped.');
+ const V=Vr.v;
+ const R=[];let nrows=0;
+ [...recBody().querySelectorAll('tr')].forEach((tr,i)=>{
+  const g=s=>tr.querySelector(s),ft=g('.rf').value.trim(),lab=`Row ${i+1}`;
+  ['rs','rg','rl','re'].forEach(c=>g('.'+c).textContent='—');
+  const rmI=g('.rm'),hm=g('.hm'),manual=!!tr.dataset.mm;
+  flag(g('.rr'),false);flag(g('.rp'),false);flag(rmI,false);g('.rf').classList.remove('bad-in');
+  if(ft===''){
+   if(!manual)rmI.value='';hm.className='hint hm';hm.textContent='';
+   if(g('.rr').value.trim()!==''||manual)warn.push(`${lab} has values but no reagent formula, so it is ignored.`);
+   return;
+  }
+  nrows++;
+  let pf;
+  try{pf=parseFormula(ft)}catch(e){
+   err.push(`${lab} “${ft}”: ${e.message}`);g('.rf').classList.add('bad-in');
+   if(!manual)rmI.value='';hm.className='hint need hm';hm.textContent='fix the formula';return}
+  const auto=molMass(pf);let mw=auto;
+  if(!manual){rmI.value=String(+auto.toFixed(4));hm.className='hint auto hm';hm.textContent='auto from formula'}
+  else{
+   const mr=readNum(rmI);
+   if(mr.bad||mr.empty||!(mr.v>0)){err.push(`${lab} “${ft}”: manual MW must be a number greater than 0.`);flag(rmI,true);hm.className='hint need hm';hm.textContent='invalid MW';return}
+   mw=mr.v;hm.className='hint man hm';hm.textContent='✎ manual (auto: '+fmt(auto,4)+')';
+   const dev=Math.abs(mw-auto)/auto*100;
+   if(dev>1)warn.push(`${lab} “${ft}”: typed MW ${fmt(mw,4)} differs from the formula value ${fmt(auto,4)} by ${fmt(dev,3)} %. Check it is intended.`);
+  }
+  let bad=false;
+  const rr=readNum(g('.rr'));
+  if(rr.bad||rr.empty||!(rr.v>0)){err.push(`${lab} “${ft}”: ${rr.bad?'molar ratio is not a valid number':'enter a molar ratio greater than 0'}.`);flag(g('.rr'),true);bad=true}
+  const prr=readNum(g('.rp'));const pur=prr.empty?100:prr.v;
+  if(prr.bad||!(pur>0&&pur<=100)){err.push(`${lab} “${ft}”: purity must be a number above 0 and up to 100 %.`);flag(g('.rp'),true);bad=true}
+  const te=T?Object.keys(pf).filter(e=>e in T):[];
+  if(te.length>1){err.push(`${lab} “${ft}” contains several product elements (${te.join(', ')}). Use one source per element.`);g('.rf').classList.add('bad-in');bad=true}
+  if(bad)return;
+  R.push({tr,ft,pf,ratio:rr.v,pur,mw,el:te[0]||null});
+ });
+ if(!nrows)err.push('Add at least one reagent.');
+ if(T)for(const e of Object.keys(T))if(!R.some(r=>r.el===e)&&nrows)err.push(`No reagent supplies product element ${e}.`);
+
+ if(err.length){
+  S.main={errors:err,warnings:warn};
+  $('messages').innerHTML=`<div class="card error"><b>Results can't be calculated yet.</b> ${err.length} input problem${err.length>1?'s':''} found. See the <a href="#rts-cautions" style="color:inherit;font-weight:700">cautionary notes at the bottom</a>.</div>`;
+  res.style.display='none';buildPrint(null,S.main);return;
  }
+ const ev=f=>{const tot={};let sheet=0;
+  const rows=R.map(r=>{const Sx=r.ratio*f,mol=Sx*V/1000,mass=mol*r.mw/(r.pur/100);let em=null,fr2=null;
+   if(r.el){const n=r.pf[r.el];fr2=n*AW[r.el]/r.mw;em=mol*n*AW[r.el];tot[r.el]=(tot[r.el]||0)+mol*n;sheet+=em}
+   return {...r,S:Sx,mol,mass,em,fr:fr2}});
+  let nT=Infinity,lim=null;for(const e of Object.keys(T)){const x=(tot[e]||0)/T[e];if(x<nT){nT=x;lim=e}}
+  return {rows,tot,sheet,nT,lim,theo:nT*Mt}};
+ let f=fr.v;
+ if(mode==='yield'){f=wr.v/ev(1).theo;$('factor').value=String(+f.toPrecision(6))}
+ res.style.display='';
+ const r=ev(f),act=ar.v,hasAct=!ar.bad&&!ar.empty&&ar.v>0;
+ /* invalid-output checks */
+ if(!Number.isFinite(r.theo)||!(r.theo>0))err.push('The calculated yield is not a valid positive number. Check ratios and formulas.');
+ r.rows.forEach(x=>{
+  if(!Number.isFinite(x.mass)||!(x.mass>0))err.push(`${x.ft}: the calculated mass is not valid.`);
+  else{
+   if(x.mass<0.001)warn.push(`${x.ft}: mass to weigh is only ${fmt(x.mass*1000,3)} mg, which is below what most balances can weigh reliably. Increase the volume or factor.`);
+   if(x.mass>1000)warn.push(`${x.ft}: mass to weigh is ${fmt(x.mass/1000,3)} kg. Check the volume, factor and ratio.`);
+  }
+  if(x.S>5)warn.push(`${x.ft}: strength ${fmt(x.S,4)} M is very high and may exceed its solubility.`);
+ });
+ if(err.length){S.main={errors:err,warnings:warn};$('messages').innerHTML=`<div class="card error"><b>Results can't be shown.</b> See the <a href="#rts-cautions" style="color:inherit;font-weight:700">cautionary notes at the bottom</a>.</div>`;res.style.display='none';buildPrint(null,S.main);return}
+ r.rows.forEach(x=>{const g=s=>x.tr.querySelector(s);g('.rs').textContent=fmt(x.S,5);g('.rg').textContent=fmt(x.mass,4)+' g';
+  g('.rl').innerHTML=x.el?`<span class="tag">source of ${esc(x.el)}</span>`:'<span class="tag">additive</span>';g('.re').textContent=x.em==null?'—':fmt(x.em,4)+' g'});
+ const diff=(r.sheet-r.theo)/r.theo*100;
+ const exc=Object.keys(T).map(e=>({e,x:(r.tot[e]/(r.nT*T[e])-1)*100})).filter(o=>o.x>0.05);
+ if(exc.length)warn.push(`Excess ${exc.map(o=>`${o.e} (+${fmt(o.x,3)} %)`).join(', ')} is counted as product in the lab-sheet total (${fmt(diff,3)} % higher). The limiting-reagent yield (${fmt(r.theo,4)} g) is the true maximum, so use it for % yield.`);
+ if(r.rows.some(x=>x.pur<100))warn.push('Purity below 100 % raises the mass to weigh but not the yield.');
+ const pct=hasAct?act/r.theo*100:null;
+ if(pct!=null&&pct>100.5)warn.push('Actual mass exceeds the theoretical yield. Check for moisture, unreacted excess reagent or by-products.');
+ S.main={errors:err,warnings:warn};
+ const shown=warn.length?`<div class="note warn"><b>Notes:</b> ${warn.length} cautionary note${warn.length>1?'s':''}, listed at the bottom of the page.</div>`:'';
+ const h=`<div class="resHead"><h2>3. Results</h2><button class="btn" type="button" onclick="window.print()">🖨 Print one-page sheet</button></div>
+ <div class="kpi"><div><span class="small">Theoretical yield (limiting ${esc(r.lim)})</span><b>${fmt(r.theo,4)} g</b></div><div><span class="small">Lab-sheet total yield</span><b>${fmt(r.sheet,4)} g</b></div><div><span class="small">${pct!=null?'Actual yield':'Product moles'}</span><b>${pct!=null?fmt(pct,2)+' %':fmt(r.nT*1000,4)+' mmol'}</b></div></div>
+ <div class="sheet"><h3>Weigh-out sheet</h3>${r.rows.map(x=>`<div class="row"><span>${fh(x.ft)} <span class="small">(MW ${fmt(x.mw,4)} · ${fmt(x.mol*1000,4)} mmol · ${fmt(x.S,5)} M${x.pur<100?` · ${fmt(x.pur,3)} % pure`:''})</span></span><b>${fmt(x.mass,4)} g</b></div>`).join('')}
+ <div class="row"><span>Water</span><b>${fmt(V,4)} mL</b></div></div>
+ <h3>Sheet columns</h3><div class="tablewrap"><table><thead><tr><th>Reagent</th><th class="num">M.W</th><th class="num">Molar ratio</th><th class="num">Strength</th><th class="num">Vol (mL)</th><th class="num">MW·S·Vol/1000</th><th class="num">Pure solute MW</th><th class="num">Ratio</th><th class="num">Yield</th></tr></thead><tbody>
+ ${r.rows.map(x=>`<tr><td>${fh(x.ft)}</td><td class="num">${fmt(x.mw,4)}</td><td class="num">${fmt(x.ratio,4)}</td><td class="num">${fmt(x.S,6)}</td><td class="num">${fmt(V)}</td><td class="num">${fmt(x.mol*x.mw,6)}</td><td class="num">${x.el?fmt(x.pf[x.el]*AW[x.el],4):''}</td><td class="num">${x.el?fmt(x.fr,7):''}</td><td class="num">${x.em==null?'':fmt(x.em,6)}</td></tr>`).join('')}
+ <tr><td colspan="8" class="num"><b>Total yield =</b></td><td class="num"><b>${fmt(r.sheet,6)}</b></td></tr></tbody></table></div>
+ <h3>Element balance</h3><div class="tablewrap"><table><thead><tr><th>Element</th><th class="num">Coefficient</th><th class="num">Supplied (mmol)</th><th class="num">Needed at limit (mmol)</th><th class="num">Excess</th></tr></thead><tbody>
+ ${Object.keys(T).map(e=>`<tr class="${e===r.lim?'lim':''}"><td><b>${e}</b>${e===r.lim?' <span class="tag">limiting</span>':''}</td><td class="num">${fmt(T[e])}</td><td class="num">${fmt(r.tot[e]*1000,5)}</td><td class="num">${fmt(r.nT*T[e]*1000,5)}</td><td class="num">${fmt((r.tot[e]/(r.nT*T[e])-1)*100,3)} %</td></tr>`).join('')}</tbody></table></div>
+ ${pct!=null?`<div class="note ${pct>100.5?'warn':'ok'}"><b>% yield:</b> ${fmt(act,4)} g ÷ ${fmt(r.theo,4)} g = <b>${fmt(pct,2)} %</b> of the limiting-reagent yield (${fmt(act/r.sheet*100,2)} % of the lab-sheet total).</div>`:''}
+ ${shown}`;
+ res.innerHTML=h;
+ data={T,Mt,V,f,r,pct,act:hasAct?act:null};
+ buildPrint(data,S.main);
 }
 
-/* ---------- main calculation ---------- */
-function showMsg(t,h){$('messages').innerHTML='<div class="card '+t+'">'+h+'</div>'}
-function calc(){
- $('messages').innerHTML='';$('printSheet').innerHTML='';const res=$('results');
- try{
-  const f=parseFormula($('target').value,false),M=molMass(f);A=getAgent();
-  const mm=$('prodmmol').value.trim(),ms=$('mass').value.trim();let pmmol;const info=[];
-  if(mm!==''){pmmol=parseFloat(mm);if(!(pmmol>0))throw Error('Product mmol must be a positive number.');if(ms!=='')info.push('Using the mmol value; the mass field is ignored.')}
-  else{const m=parseFloat(ms);if(!(m>0))throw Error('Enter a positive product mass or product mmol.');pmmol=m/M*1000}
-  const prodMol=pmmol/1000,errors=[],warnings=[],P=[];
-  const rows=getRows();
-  for(const el of Object.keys(f)){
-   const r=rows.find(x=>x.el===el);
-   if(!r||!r.formula){errors.push(`Missing precursor for <b>${el}</b>.`);continue}
-   let pf;try{pf=parseFormula(r.formula,true)}catch(e){errors.push(`${esc(el)} precursor “${esc(r.formula)}”: ${esc(e.message)}`);continue}
-   if(!pf[el]){errors.push(`${esc(r.formula)} does not contain ${el}.`);continue}
-   const others=Object.keys(pf).filter(x=>x!==el&&x in f);
-   if(others.length){errors.push(`${esc(r.formula)} also contains target element(s) ${others.join(', ')}. Use one precursor per element.`);continue}
-   const s=r.start===''?null:parseFloat(r.start),t=r.target===''?null:parseFloat(r.target);
-   const need=f[el]*prodMol,pm=molMass(pf),pmol=need/pf[el];
-   P.push({el,formula:r.formula,pm,c:pf[el],pmol,g:pmol*pm,s,t,ee:s!=null&&t!=null?s-t:null,tr:r.tr});
-  }
-  if(errors.length){showMsg('error','<b>Fix these:</b><ul>'+errors.map(x=>'<li>'+x+'</li>').join('')+'</ul>');res.style.display='none';
-   rows.forEach(r=>r.tr.querySelector('.role').textContent='—');return}
-  res.style.display='';
-  const ecap=parseFloat($('ecap').value),excess=parseFloat($('excess').value),basis=$('ratioBasis').value;
-  if(!(excess>0))warnings.push('Excess factor must be greater than 0.');
-  let totalE=0,missing=[];
-  P.forEach(x=>{
-   const role=x.ee==null?'Needs OS values':x.ee>0?`Reduced (${fmt(x.ee,3)} e⁻/atom)`:x.ee===0?'No change in OS':'Oxidised — not NaBH₄';
-   x.tr.querySelector('.role').textContent=L(role);
-   if(x.ee==null)missing.push(x.el);else{if(x.ee<0)warnings.push(`${x.el}: initial OS (${sgn(x.s)}) is below target OS (${sgn(x.t)}), which needs oxidation. It is excluded from the NaBH₄ count; check your oxidation states.`);
-    if(x.ee>0)totalE+=x.ee*f[x.el]}
+/* ---------- one-page print sheet ---------- */
+function buildPrint(d,st){
+ const head=`<h1>Room Temperature Synthesis Sheet</h1><div class="meta"><span>Date: ${esc(new Date().toLocaleDateString())}</span><span>Operator: ______________</span><span>Batch: __________</span></div>`;
+ const notes=[...st.errors.map(x=>'⚠ '+x),...st.warnings];
+ const cn=notes.length?`<h4>Cautionary notes</h4>${notes.map(x=>`<p class="w">• ${esc(x)}</p>`).join('')}`:'';
+ const tv=$('target').value.trim();
+ if(!d){$('printSheet').innerHTML=head+`<h4>Main compound</h4><p class="big"><b>${fh(tv)||'—'}</b></p><p class="w">The calculation is incomplete. Fix the inputs before printing.</p>`+cn;return}
+ const {T,Mt,V,f,r}=d,pad='<div class="line"></div>'.repeat(3);
+ const first=r.rows[0];
+ $('printSheet').innerHTML=head+`
+ <h4>1 · Main compound required</h4>
+ <table><thead><tr><th>Compound</th><th class="num">Molar mass (g/mol)</th><th class="num">Theoretical yield</th><th class="num">Product amount</th><th class="num">Water</th><th class="num">Factor f (mol/L)</th></tr></thead>
+ <tbody><tr><td class="big"><b>${fh(tv)}</b></td><td class="num">${fmt(Mt,4)}</td><td class="num"><b>${fmt(r.theo,4)} g</b></td><td class="num">${fmt(r.nT*1000,4)} mmol</td><td class="num">${fmt(V,4)} mL</td><td class="num">${fmt(f,6)}</td></tr></tbody></table>
+ <p class="w">Limiting element: <b>${esc(r.lim)}</b> · lab-sheet total yield (all product element supplied): ${fmt(r.sheet,4)} g</p>
+ <h4>2 · Calculation for the desired output</h4>
+ <p class="w">Strength S = molar ratio × f &nbsp;|&nbsp; n = S × V ÷ 1000 &nbsp;|&nbsp; Mass = MW × n ÷ purity &nbsp;|&nbsp; Yield = (element mass in reagent ÷ MW) × mass</p>
+ <table><thead><tr><th>Reagent</th><th class="num">MW</th><th class="num">Ratio</th><th class="num">S (M)</th><th class="num">n (mmol)</th><th class="num">Purity %</th><th class="num">Mass (g)</th><th>Supplies</th><th class="num">Yield (g)</th><th class="blank">Actual (g)</th></tr></thead><tbody>
+ ${r.rows.map(x=>`<tr><td>${fh(x.ft)}</td><td class="num">${fmt(x.mw,4)}</td><td class="num">${fmt(x.ratio,4)}</td><td class="num">${fmt(x.S,5)}</td><td class="num">${fmt(x.mol*1000,4)}</td><td class="num">${fmt(x.pur,3)}</td><td class="num"><b>${fmt(x.mass,4)}</b></td><td>${x.el?esc(x.el):'additive'}</td><td class="num">${x.em==null?'—':fmt(x.em,4)}</td><td></td></tr>`).join('')}
+ <tr><td colspan="8" class="num"><b>Total yield (sheet) =</b></td><td class="num"><b>${fmt(r.sheet,4)}</b></td><td></td></tr></tbody></table>
+ <p class="w"><b>Worked line</b> (${fh(first.ft)}): S = ${fmt(first.ratio,4)} × ${fmt(f,6)} = ${fmt(first.S,5)} M · n = ${fmt(first.S,5)} × ${fmt(V,4)} ÷ 1000 = ${fmt(first.mol*1000,4)} mmol · mass = ${fmt(first.mw,4)} × ${fmt(first.mol,6)} ÷ ${fmt(first.pur/100,3)} = <b>${fmt(first.mass,4)} g</b></p>
+ <h4>3 · Element balance</h4>
+ <table><thead><tr><th>Element</th><th class="num">Coefficient</th><th class="num">Supplied (mmol)</th><th class="num">Needed at limit (mmol)</th><th class="num">Excess</th></tr></thead><tbody>
+ ${Object.keys(T).map(e=>`<tr><td><b>${esc(e)}</b>${e===r.lim?' (limiting)':''}</td><td class="num">${fmt(T[e])}</td><td class="num">${fmt(r.tot[e]*1000,5)}</td><td class="num">${fmt(r.nT*T[e]*1000,5)}</td><td class="num">${fmt((r.tot[e]/(r.nT*T[e])-1)*100,3)} %</td></tr>`).join('')}</tbody></table>
+ ${cn}
+ <h4>Result</h4><p>Actual product mass: ________ g &nbsp; % yield: ________ &nbsp; Temp: ______ °C &nbsp; Time: ______ h</p><h4>Notes</h4>${pad}`;
+}
+
+/* ================= 4: molar ratio calculator ================= */
+const ratBody=()=>view.querySelector('#rts-ratioTable tbody');
+function addRatioRow(el='',cmp='',atoms='1'){
+ const tr=document.createElement('tr');
+ tr.innerHTML=`<td><input class="qe formula" type="text" placeholder="e.g. Cu" autocomplete="off" spellcheck="false"></td>
+ <td><input class="qc formula" type="text" placeholder="optional, e.g. CuCl2·2H2O" autocomplete="off" spellcheck="false"></td>
+ <td>${nf('qa',{step:1,min:0,val:atoms})}</td>
+ <td>${nf('os0',{step:1,mode:'text',ph:'auto'})}<div class="hint h0"></div></td>
+ <td>${nf('os1',{step:1,mode:'text',ph:'auto'})}<div class="hint h1"></div></td>
+ <td class="num qd">—</td><td class="num qt">—</td><td class="num qr">—</td>
+ <td><button class="btn sm sec rx" type="button" title="Remove" aria-label="Remove element">✕</button></td>`;
+ tr.querySelector('.qe').value=el;tr.querySelector('.qc').value=cmp;
+ tr.querySelector('.rx').addEventListener('click',()=>{tr.remove();update()});
+ ratBody().appendChild(tr);
+}
+function refreshRatioAuto(){
+ let t=null,tmsg='';const tc=$('rtarget').value.trim();
+ if(tc){try{t=targetOS(parseFormula(tc))}catch(e){tmsg=e.message}}
+ ratBody().querySelectorAll('tr').forEach(tr=>{
+  const el=tr.querySelector('.qe').value.trim(),cmp=tr.querySelector('.qc').value.trim();
+  const isEl=/^[A-Z][a-z]?$/.test(el)&&!!AW[el];
+  const a0=isEl?(cmp?precOS(cmp,el):{v:null,why:'give a source compound'}):{v:null,why:el?'not an element symbol':'enter the element'};
+  const a1=isEl?(t&&t[el]?t[el]:{v:null,why:!tc?'give a product compound':tmsg?'product formula invalid':'element not in product'}):{v:null,why:el?'not an element symbol':'enter the element'};
+  [[0,a0],[1,a1]].forEach(([i,a])=>{
+   const inp=tr.querySelector('.os'+i),h=tr.querySelector('.h'+i),man=tr.dataset['m'+i];
+   if(!man)inp.value=a.v==null?'':String(a.v);
+   if(man){h.className='hint man h'+i;h.textContent='✎ manual'+(a.v!=null&&readNum(inp).v!==a.v?' (auto: '+sgn(a.v)+')':'')}
+   else if(a.v==null){h.className='hint need h'+i;h.textContent='enter manually · '+a.why}
+   else{h.className='hint auto h'+i;h.textContent='auto'+(a.note?' · '+a.note:'')}
   });
-  let base=null;
-  if(basis==='none'){
-   if(!(ecap>0))warnings.push('NaBH₄ electron capacity must be greater than 0.');
-   else if(missing.length)warnings.push(`NaBH₄ not calculated: oxidation states missing for ${missing.join(', ')}. Enter them in section 2, since a partial electron count would under-estimate NaBH₄.`);
-   else{base=totalE/ecap*prodMol;if(totalE===0)warnings.push('No reduction needed with these oxidation states (electron balance is 0).')}
-  }else{
-   const ratio=parseFloat($('ratio').value);
-   if(!(ratio>=0))warnings.push('Enter a valid fixed NaBH₄ ratio.');
-   else base=ratio*(basis==='cations'?Object.values(f).reduce((s,n)=>s+n,0):1)*prodMol;
-  }
-  const finalNa=base!=null&&excess>0?base*excess:null;
-  const atoms=Object.values(f).reduce((s,n)=>s+n,0);
-  let h=`<div class="resHead"><h2>4. Results</h2><button class="btn" type="button" onclick="window.print()">🖨 Print one-page sheet</button></div>
-  <div class="kpi"><div><span class="small">Target molar mass</span><b>${fmt(M,4)} g/mol</b></div><div><span class="small">Target amount</span><b>${fmt(pmmol,4)} mmol</b></div><div><span class="small">Atoms / formula unit</span><b>${fmt(atoms,4)}</b></div></div>
-  ${info.map(x=>`<div class="note">${esc(x)}</div>`).join('')}
-  <div class="sheet"><h3>Weigh-out sheet</h3>
-  ${P.map(x=>`<div class="row"><span>${esc(x.formula)} <span class="small">(${x.el})</span></span><b>${fmt(x.g,4)} g</b></div>`).join('')}
-  <div class="row"><span>NaBH₄ <span class="small">${finalNa==null?'':`(${fmt(finalNa*1000,4)} mmol)`}</span></span><b>${finalNa==null?'not calculated':fmt(finalNa*A.M,4)+' g'}</b></div></div>
-  <h3>Step A: target formula → elements</h3>
-  <div class="tablewrap"><table><thead><tr><th>Element</th><th class="num">Coefficient</th><th class="num">Required mmol</th><th class="num">Element mass</th><th class="num">Mass fraction</th></tr></thead><tbody>
-  ${Object.entries(f).map(([e,n])=>`<tr><td><b>${e}</b></td><td class="num">${fmt(n)}</td><td class="num">${fmt(n*pmmol,5)}</td><td class="num">${fmt(n*prodMol*AW[e],6)} g</td><td class="num">${fmt(n*AW[e]/M*100,4)}%</td></tr>`).join('')}</tbody></table></div>
-  <h3>Step B: elements → precursor weighing</h3>
-  <div class="tablewrap"><table><thead><tr><th>Element</th><th>Precursor</th><th class="num">Molar mass</th><th class="num">Atoms/precursor</th><th class="num">Precursor needed</th><th class="num">Mass to weigh</th></tr></thead><tbody>
-  ${P.map(x=>`<tr><td>${x.el}</td><td class="formula">${esc(x.formula)}</td><td class="num">${fmt(x.pm,4)} g/mol</td><td class="num">${fmt(x.c)}</td><td class="num">${fmt(x.pmol*1000,5)} mmol</td><td class="num"><b>${fmt(x.g,6)} g</b></td></tr>`).join('')}</tbody></table></div>
-  <h3>Step C: reduction electron balance</h3>
-  <div class="tablewrap"><table><thead><tr><th>Element</th><th class="num">Atoms/formula</th><th class="num">Initial OS</th><th class="num">Target OS</th><th class="num">e⁻/atom</th><th class="num">e⁻/mol product</th></tr></thead><tbody>
-  ${P.map(x=>{const e=x.ee==null?null:Math.max(0,x.ee);return `<tr><td>${x.el}</td><td class="num">${fmt(f[x.el])}</td><td class="num">${sgn(x.s)}</td><td class="num">${sgn(x.t)}</td><td class="num">${e==null?'—':fmt(e,3)}</td><td class="num">${e==null?'—':fmt(e*f[x.el],4)}</td></tr>`}).join('')}</tbody></table></div>
-  <div class="note ${finalNa!=null?'ok':'warn'}"><b>Electron balance:</b> ${missing.length?'incomplete.':fmt(totalE,5)+' mol e⁻ per mol product.'} ${!missing.length&&ecap>0?`Ideal NaBH₄ = ${fmt(totalE/ecap,5)} mol per mol product.`:''} ${finalNa!=null?`Selected setting: <b>${fmt(finalNa*1000,5)} mmol NaBH₄</b> (${fmt(finalNa*A.M,5)} g at ${fmt(A.M,3)} g/mol).`:''}</div>
-  ${warnings.length?`<div class="note warn"><b>Warnings:</b><ul>${warnings.map(x=>'<li>'+esc(x)+'</li>').join('')}</ul></div>`:''}
-  <details><summary>How the NaBH₄ amount is derived</summary>
-  <div class="steps">
-  <div class="step"><div class="stepno">1</div><div>For each reduced element, e⁻/atom = initial OS − target OS. Negative values count as zero.</div></div>
-  <div class="step"><div class="stepno">2</div><div>Multiply by atoms in the formula and by moles of product to get total electron equivalents.</div></div>
-  <div class="step"><div class="stepno">3</div><div>Divide by the electron capacity (${fmt(ecap)} e⁻/mol NaBH₄) for the ideal NaBH₄ amount.</div></div>
-  <div class="step"><div class="stepno">4</div><div>Multiply by the excess factor (a factor of 10 means ten times the ideal amount), or use a fixed ratio on your chosen basis.</div></div></div>
-  <p class="small">Precursor mass = (coefficient × product mmol ÷ target-element atoms per precursor) × precursor molar mass ÷ 1000.</p></details>`;
-  res.innerHTML=L(h);buildPrint({f,pmmol,M,P,ecap,excess,totalE,missing,finalNa,warnings});
- }catch(e){showMsg('error','<b>Input error:</b> '+esc(e.message));$('results').style.display='none'}
+ });
 }
-function buildPrint(o){
- const {f,pmmol,M,P,ecap,excess,totalE,missing,finalNa,warnings}=o;
- const pad='<div class="line"></div>'.repeat(4);
- $('printSheet').innerHTML=L(`<h1>Hydrothermal synthesis sheet</h1>
- <div class="meta"><span>Date: ${esc(new Date().toLocaleDateString())}</span><span>Operator: ______________</span><span>Batch: __________</span></div>
- <h4>Target</h4><p><b>${esc($('target').value.trim())}</b> · M = ${fmt(o.M,4)} g/mol · ${fmt(pmmol,4)} mmol · ${fmt(pmmol*M/1000,4)} g</p>
- <h4>Weigh-out</h4><table><thead><tr><th>Element</th><th>Reagent</th><th class="num">M (g/mol)</th><th class="num">mmol</th><th class="num">Calc. (g)</th><th class="blank">Actual (g)</th></tr></thead><tbody>
- ${P.map(x=>`<tr><td>${x.el}</td><td>${esc(x.formula)}</td><td class="num">${fmt(x.pm,4)}</td><td class="num">${fmt(x.pmol*1000,4)}</td><td class="num"><b>${fmt(x.g,4)}</b></td><td></td></tr>`).join('')}
- <tr><td>Reductant</td><td>NaBH₄</td><td class="num">${fmt(A.M,4)}</td><td class="num">${finalNa==null?'—':fmt(finalNa*1000,4)}</td><td class="num"><b>${finalNa==null?'n/a':fmt(finalNa*A.M,4)}</b></td><td></td></tr></tbody></table>
- <p class="w">Reductant: ${fmt(ecap)} e⁻/mol · excess ×${fmt(excess)} · ${missing.length?'electron balance incomplete':fmt(totalE,4)+' mol e⁻ per mol product'}</p>
- <h4>Electron balance</h4><table><thead><tr><th>Element</th><th class="num">Atoms</th><th class="num">OS in</th><th class="num">OS out</th><th class="num">e⁻/mol product</th></tr></thead><tbody>
- ${P.map(x=>`<tr><td>${x.el}</td><td class="num">${fmt(f[x.el])}</td><td class="num">${sgn(x.s)}</td><td class="num">${sgn(x.t)}</td><td class="num">${x.ee==null?'—':fmt(Math.max(0,x.ee)*f[x.el],4)}</td></tr>`).join('')}</tbody></table>
- ${warnings.length?`<p class="w"><b>Check:</b> ${warnings.map(esc).join(' · ')}</p>`:''}
- <h4>Conditions</h4><p>Solvent / volume: ________________ &nbsp; Fill: ______ % &nbsp; Temp: ______ °C &nbsp; Time: ______ h &nbsp; pH: ______</p>
- <h4>Notes</h4>${pad}`);
+function getAgent(){
+ const k=$('ragent').value;
+ if(k==='custom'){const s=$('rcform').value.trim();if(!s)throw Error('Custom reducing agent: enter a formula.');
+  try{return {name:s,M:molMass(parseFormula(s))}}catch(e){throw Error('Custom reducing agent: '+e.message)}}
+ return {name:RED[k].name,M:molMass(parseFormula(RED[k].f))};
 }
-$('target').addEventListener('input',()=>{rebuildRows();refreshAuto();calc()});
-['mass','prodmmol','ecap','excess','ratio'].forEach(id=>$(id).addEventListener('input',calc));
-$('agent').innerHTML=Object.entries(RED).map(([k,v])=>`<option value="${k}">${v.name}</option>`).join('')+'<option value="custom">Custom…</option>';
-$('agent').addEventListener('change',()=>{setAgent();calc()});$('cformula').addEventListener('input',calc);
-$('ratioBasis').addEventListener('change',()=>{$('ratioBox').style.display=$('ratioBasis').value==='none'?'none':'block';calc()});
-setAgent();rebuildRows();refreshAuto();calc();
+function ratioInt(x){ // agent : unit as small whole numbers
+ if(!(x>0))return null;
+ for(let d=1;d<=12;d++){const n=Math.round(x*d);if(n>0&&Math.abs(n/d-x)<=1e-3*Math.max(1,x))return [n,d]}
+ return null;
+}
+function calcRatio(){
+ const err=[],warn=[],out=$('ratioOut');
+ const rn=(el,label,o={})=>{const r=readNum(el);flag(el,false);
+  if(r.bad){err.push(`${label} is not a valid number.`);flag(el,true)}
+  else if(r.empty&&o.req){err.push(`${label} is required.`);flag(el,true)}
+  else if(!r.empty&&o.pos&&!(r.v>0)){err.push(`${label} must be greater than 0.`);flag(el,true)}
+  return r};
+ const ec=rn($('recap'),'Electron capacity',{req:1,pos:1});
+ const ex=rn($('rexcess'),'Excess factor',{req:1,pos:1});
+ const am=rn($('ramount'),'Amount of product',{req:1,pos:1});
+ let ag=null;try{ag=getAgent()}catch(e){err.push(e.message)}
+ $('rcform').classList.toggle('bad-in',$('ragent').value==='custom'&&!ag);
+ const tc=$('rtarget').value.trim();let tbad=false;
+ if(tc){try{parseFormula(tc)}catch(e){tbad=true;warn.push('Product compound: '+e.message+' Final OS values were not auto-filled.')}}
+ $('rtarget').classList.toggle('bad-in',tbad);
+ const rows=[];let k=0;
+ ratBody().querySelectorAll('tr').forEach(tr=>{
+  const g=s=>tr.querySelector(s);['qd','qt','qr'].forEach(c=>g('.'+c).textContent='—');
+  const label=g('.qe').value.trim();
+  const a=readNum(g('.qa')),o0=readNum(g('.os0')),o1=readNum(g('.os1'));
+  [g('.qa'),g('.os0'),g('.os1')].forEach(e=>flag(e,false));
+  if(!label&&o0.empty&&o1.empty&&!g('.qc').value.trim())return;
+  k++;const nm=label||`Row ${k}`;let bad=false;
+  if(a.bad||a.empty||!(a.v>0)){err.push(`${nm}: atoms per unit must be a number greater than 0.`);flag(g('.qa'),true);bad=true}
+  [[o0,'initial','.os0'],[o1,'final','.os1']].forEach(([o,w,c])=>{
+   if(o.empty){err.push(`${nm}: enter the ${w} oxidation state.`);flag(g(c),true);bad=true}
+   else if(o.bad){err.push(`${nm}: the ${w} oxidation state is not a valid number.`);flag(g(c),true);bad=true}
+   else{
+    if(Math.abs(o.v)>8){warn.push(`${nm}: ${w} oxidation state ${sgn(o.v)} is outside the usual −4 to +8 range.`);flag(g(c),true)}
+    if(!Number.isInteger(o.v))warn.push(`${nm}: ${w} oxidation state ${sgn(o.v)} is not a whole number (mixed valence or an average). Verify it.`);
+   }
+  });
+  if(bad)return;
+  const d=o0.v-o1.v;
+  if(d<0)warn.push(`${nm}: initial OS ${sgn(o0.v)} is below final OS ${sgn(o1.v)}, so this step is an oxidation. It needs an oxidant and is not counted for the reducing agent.`);
+  rows.push({tr,nm,atoms:a.v,d,e:d*a.v});
+ });
+ if(!rows.length&&!err.length)err.push('Add at least one element with its initial and final oxidation state.');
+ if(err.length){S.ratio={errors:err,warnings:warn};out.innerHTML=`<div class="note error"><b>Can't calculate yet.</b> See the <a href="#rts-cautions" style="color:inherit;font-weight:700">cautionary notes at the bottom</a>.</div>`;return}
+ const red=rows.reduce((s,x)=>s+Math.max(0,x.e),0),ox=rows.reduce((s,x)=>s+Math.max(0,-x.e),0);
+ rows.forEach(x=>{const g=s=>x.tr.querySelector(s);g('.qd').textContent=sgn(x.d);g('.qt').textContent=sgn(x.e);g('.qr').textContent=x.d>0?fmt(x.d/ec.v,5):'—'});
+ const ideal=red/ec.v,withEx=ideal*ex.v,mmol=withEx*am.v,mg=mmol*ag.M;
+ if(red===0)warn.push('No net reduction with these oxidation states, so the agent amount is 0.');
+ if(ox>0)warn.push(`${fmt(ox,4)} e⁻ per unit are released by oxidation steps and are not counted.`);
+ if(ex.v<1)warn.push('Excess factor is below 1, so less agent than the electron balance needs.');
+ const ri=ratioInt(withEx);
+ S.ratio={errors:err,warnings:warn};
+ out.innerHTML=`<div class="kpi" style="margin-top:14px"><div><span class="small">Electrons to supply (per unit)</span><b>${fmt(red,5)} e⁻</b></div><div><span class="small">Ideal ${esc(ag.name)} (mol per mol unit)</span><b>${fmt(ideal,5)}</b></div><div><span class="small">With excess ×${fmt(ex.v)}</span><b>${fmt(withEx,5)}</b></div></div>
+ <div class="note ${red>0?'ok':'warn'}"><b>Molar ratio, product : ${esc(ag.name)} = 1 : ${fmt(withEx,5)}</b>${ri&&withEx>0?` (≈ ${ri[1]} : ${ri[0]})`:''}.<br>For ${fmt(am.v,5)} mmol of product you need <b>${fmt(mmol,5)} mmol</b> of ${esc(ag.name)} (${fmt(mg,5)} mg at ${fmt(ag.M,4)} g/mol).</div>`;
+}
+
+/* ================= notes card ================= */
+function renderCautions(){
+ const items=[];
+ [['Recipe & yield',S.main],['Molar ratio',S.ratio]].forEach(([n,s])=>{s.errors.forEach(m=>items.push({e:1,n,m}));s.warnings.forEach(m=>items.push({e:0,n,m}))});
+ items.sort((a,b)=>b.e-a.e);
+ $('cautions').innerHTML=`<h2>Cautionary notes</h2>`+(items.length
+  ?`<ul class="cl">${items.map(x=>`<li class="${x.e?'e':'w'}"><b>${x.e?'Invalid':'Check'} · ${esc(x.n)}</b>${esc(x.m)}</li>`).join('')}</ul>`
+  :`<div class="note ok">No invalid inputs or outputs detected. Results above are consistent.</div>`)
+  +`<p class="small" style="margin:10px 0 0">Red items stop a result from being shown. Amber items are results you should double-check.</p>`;
+}
+
+/* ================= wiring ================= */
+function update(){
+ const y=$('scale').value==='yield';
+ $('want').disabled=!y;$('want').closest('.stp').classList.toggle('dis',!y);
+ $('factor').readOnly=y;$('factor').closest('.stp').classList.toggle('dis',y);
+ refreshRatioAuto();calcMain();calcRatio();renderCautions();
+}
+function syncAgent(){
+ const k=$('ragent').value,c=k==='custom';
+ $('rcustomBox').style.display=c?'block':'none';
+ if(!c){$('recap').value=RED[k].e;$('ragentNote').textContent=RED[k].n}else $('ragentNote').textContent='Enter the formula and set its electron capacity.';
+}
+view.addEventListener('mousedown',e=>{if(e.target.closest('.stp .arr button'))e.preventDefault()});
+view.addEventListener('click',e=>{const b=e.target.closest('.stp .arr button');if(b)stepInput(b.closest('.stp').querySelector('input'),b.classList.contains('su')?1:-1)});
+view.addEventListener('keydown',e=>{const t=e.target;if((e.key==='ArrowUp'||e.key==='ArrowDown')&&t.matches&&t.matches('.stp input')){e.preventDefault();stepInput(t,e.key==='ArrowUp'?1:-1,e.shiftKey?10:1)}});
+view.addEventListener('wheel',e=>{if(e.target.matches&&e.target.matches('.stp input'))e.target.blur()},{passive:true});
+view.addEventListener('input',e=>{
+ const t=e.target;
+ if(t.classList.contains('rm')){const tr=t.closest('tr');if(t.value.trim()==='')delete tr.dataset.mm;else tr.dataset.mm=1}
+ if(t.classList.contains('os0')||t.classList.contains('os1')){const tr=t.closest('tr'),i=t.classList.contains('os0')?0:1;if(t.value.trim()==='')delete tr.dataset['m'+i];else tr.dataset['m'+i]=1}
+ update();
+});
+view.addEventListener('change',e=>{
+ if(e.target.id==='rts-ragent')syncAgent();
+ update();
+});
+$('addRow').addEventListener('click',()=>{addRow('','','100');update()});
+$('addRatio').addEventListener('click',()=>{addRatioRow();update()});
+window.addEventListener('beforeprint',()=>{if(getComputedStyle(view).display!=='none')document.body.classList.add('rts-print')});
+window.addEventListener('afterprint',()=>document.body.classList.remove('rts-print'));
+
+/* init */
+view.querySelectorAll('[data-nf]').forEach(s=>{const o=JSON.parse(s.dataset.nf);s.outerHTML=nf('',o)});
+$('ragent').innerHTML=Object.entries(RED).map(([k,v])=>`<option value="${k}">${v.name}</option>`).join('')+'<option value="custom">Custom…</option>';
+addRow('AgNO3','2','100');addRow('Se','1.015','100');addRow('KOH','3.015','100');addRow('NaBH4','6.03','100');
+addRatioRow('Ag','AgNO3','2');addRatioRow('Se','Se');
+syncAgent();update();
         })();
-        // shims so the old Init block (if left in place) stays harmless
-        window.hydroPopulateFromTarget=function(){};window.hydroBindRowActions=function(){};
 
                 // ── Init ──
         window.addEventListener('load', () => {
