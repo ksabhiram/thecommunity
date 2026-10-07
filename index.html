@@ -454,7 +454,142 @@ body.rts-print #rts-view{background:none!important;min-height:0!important;overfl
             .nav-spacer { width: 64px; }
             .home-hero { padding: 36px 12px 28px; }
         }
-    </style>
+    /* ── MOLECULAR WEIGHT CALCULATOR (liquid glass, scoped) ── */
+#mw-view{--bg:#070b18;--o1:#2457d6;--o2:#7b3fe4;--o3:#0f9d8a;--glass:rgba(255,255,255,.07);--glass2:rgba(255,255,255,.12);--edge:rgba(255,255,255,.22);--shadow:rgba(0,0,0,.5);--ink:#eef2ff;--muted:#a6b2cc;--field:rgba(255,255,255,.08);--accent:#6aaeff;--ok:#7fe0a0;--warn:#ffd07a;--bad:#ff9d94;--okbg:rgba(60,190,110,.18);--warnbg:rgba(255,185,50,.16);--badbg:rgba(255,90,80,.18);--hl:rgba(106,174,255,.16);color-scheme:dark;
+position:relative;overflow:hidden;isolation:isolate;max-width:100%;margin:0;padding:0;background:var(--bg);color:var(--ink);font:15px/1.5 'DM Sans',system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;min-height:calc(100vh - var(--nav-h))}
+#mw-view *,#mw-view *::before,#mw-view *::after{box-sizing:border-box}
+#mw-view .bg{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;-webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent)}
+#mw-view .orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:mwfl 22s ease-in-out infinite alternate}
+#mw-view .orb:nth-child(1){width:46vmax;height:46vmax;background:var(--o1);left:-12vmax;top:-12vmax}
+#mw-view .orb:nth-child(2){width:40vmax;height:40vmax;background:var(--o2);right:-10vmax;top:18vh;animation-delay:-7s}
+#mw-view .orb:nth-child(3){width:36vmax;height:36vmax;background:var(--o3);left:20vw;top:60vh;animation-delay:-13s}
+@keyframes mwfl{to{transform:translate(6vmax,4vmax) scale(1.12)}}
+@media (prefers-reduced-motion:reduce){#mw-view .orb{animation:none}}
+#mw-view .wrap{max-width:1080px;margin:auto;padding:26px 16px 64px}
+#mw-view .hero{padding:6px 4px 8px}
+#mw-view h1{font-family:'DM Serif Display',serif;color:var(--ink);margin:0 0 6px;font-size:clamp(23px,4vw,32px);letter-spacing:-.02em}
+#mw-view .hero p{margin:0;color:var(--muted);max-width:760px}
+#mw-view .card{position:relative;background:var(--glass);border:1px solid var(--edge);border-radius:24px;padding:20px;margin:16px 0;box-shadow:0 12px 40px var(--shadow),inset 0 1.5px 0 var(--edge),inset 0 -1px 0 rgba(255,255,255,.08),inset 0 0 22px rgba(255,255,255,.06)}
+#mw-view .card::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,0) 38%,rgba(255,255,255,0) 70%,rgba(255,255,255,.05))}
+#mw-view .card>*{position:relative}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){#mw-view .card{background:var(--glass2)}}
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){#mw-view .card{-webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%)}}
+#mw-view h2{font-family:inherit;color:var(--ink);font-size:18px;margin:0 0 12px;letter-spacing:-.01em}
+#mw-view h3{font-family:inherit;font-size:14px;margin:20px 0 8px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+#mw-view .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+#mw-view label{font-size:12.5px;font-weight:650;display:block;margin-bottom:5px;color:var(--muted)}
+#mw-view input,#mw-view select{font:inherit;color:var(--ink);width:100%;padding:10px 12px;border:1px solid var(--edge);border-radius:14px;background:var(--field);outline:none;box-shadow:inset 0 1px 2px rgba(0,0,0,.06);transition:box-shadow .15s,border-color .15s;text-align:left}
+#mw-view input:focus,#mw-view select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--hl)}
+#mw-view input::placeholder{color:var(--muted);opacity:.65}
+#mw-view input:disabled{background:transparent;opacity:.55;cursor:not-allowed;color:var(--muted)}
+#mw-view input[readonly]{background:var(--hl);font-weight:600;color:var(--ink)}
+#mw-view select option{color:#eef2ff;background:#141a2e}
+#mw-view .bad-in{border-color:var(--bad)!important;box-shadow:0 0 0 3px var(--badbg)!important}
+/* glass fields: typed value, small arrows or keyboard ↑/↓ only; the mouse wheel never changes a value */
+#mw-view input,#mw-view select,#mw-view .stp{background:linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.26);-webkit-backdrop-filter:blur(14px) saturate(170%);backdrop-filter:blur(14px) saturate(170%);box-shadow:0 2px 10px rgba(0,0,0,.35),inset 0 1.5px 0 rgba(255,255,255,.22),inset 0 -1px 0 rgba(255,255,255,.05)}
+#mw-view .stp{display:flex;align-items:stretch;border-radius:14px;overflow:hidden;transition:box-shadow .15s,border-color .15s}
+#mw-view .stp:focus-within,#mw-view input:focus,#mw-view select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--hl),inset 0 1.5px 0 rgba(255,255,255,.22)}
+#mw-view .stp input{border:0;border-radius:0;background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none;text-align:center;min-width:0;flex:1;padding:10px 8px}
+#mw-view .stp input:focus{box-shadow:none}
+#mw-view .stp input[readonly],#mw-view .stp input:disabled{background:transparent}
+#mw-view .stp{position:relative}
+#mw-view .stp .arr{position:absolute;right:0;top:0;bottom:0;display:flex;flex-direction:column;width:22px;border-left:1px solid rgba(255,255,255,.22);background:rgba(70,100,190,.55);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .12s}
+#mw-view .stp:focus-within .arr{opacity:1;pointer-events:auto}
+#mw-view .stp.dis .arr{display:none}
+#mw-view .stp .arr button{all:unset;box-sizing:border-box;flex:1;display:grid;place-items:center;cursor:pointer;font-size:9px;line-height:1;color:#fff;user-select:none;-webkit-user-select:none}
+#mw-view .stp .arr button+button{border-top:1px solid rgba(255,255,255,.18)}
+#mw-view .stp .arr button:hover{background:rgba(106,174,255,.25)}
+#mw-view .stp .arr button:active{background:rgba(106,174,255,.4)}
+#mw-view .stp.dis{opacity:.5}#mw-view .stp.dis .arr button{cursor:not-allowed}
+#mw-view .stp.bad-in{border-color:var(--bad);box-shadow:0 0 0 3px var(--badbg)}
+#mw-view .small{font-size:12px;color:var(--muted)}
+#mw-view .formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+#mw-view .note{padding:11px 14px;border-radius:16px;background:var(--hl);border:1px solid var(--edge);margin-top:12px;font-size:13.5px}
+#mw-view .note ul,#mw-view .note p{margin:4px 0 0;padding-left:18px}#mw-view .note p{padding:0}
+#mw-view .warn{background:var(--warnbg);color:var(--warn)}
+#mw-view .error{background:var(--badbg);color:var(--bad)}
+#mw-view .ok{background:var(--okbg);color:var(--ok)}
+#mw-view .tablewrap{overflow-x:auto;border-radius:16px;border:1px solid var(--edge);background:rgba(255,255,255,.03)}
+#mw-view table{width:100%;border-collapse:collapse;min-width:640px;margin:0;background:transparent;font-size:inherit}
+#mw-view th,#mw-view td{padding:9px 11px;text-align:left;font-size:13px;border:0;border-bottom:1px solid var(--edge);vertical-align:top;background:transparent}
+#mw-view tr:nth-child(even){background:none}
+#mw-view tr:last-child td{border-bottom:0}
+#mw-view th{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--glass);font-weight:700}
+#mw-view .num{text-align:right;font-variant-numeric:tabular-nums}
+#mw-view .hint{font-size:11.5px;margin-top:4px;color:var(--muted)}
+#mw-view .hint.auto{color:var(--ok)}
+#mw-view .hint.need{color:var(--warn);font-weight:650}
+#mw-view .hint.man{color:var(--accent)}
+#mw-view .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+#mw-view .kpi div{background:var(--glass);border:1px solid var(--edge);border-radius:18px;padding:12px 14px;box-shadow:inset 0 1px 0 var(--edge)}
+#mw-view .kpi b{display:block;font-size:19px;font-variant-numeric:tabular-nums}
+#mw-view .sheet{margin-top:14px;padding:16px;border-radius:20px;border:1px solid var(--edge);background:linear-gradient(145deg,var(--hl),var(--glass));box-shadow:inset 0 1.5px 0 var(--edge)}
+#mw-view .sheet h3{margin-top:0}
+#mw-view .sheet .row{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dashed var(--edge)}
+#mw-view .sheet .row:last-child{border:0}
+#mw-view .sheet .row b{font-variant-numeric:tabular-nums;white-space:nowrap}
+#mw-view details{margin-top:12px}
+#mw-view summary{cursor:pointer;font-weight:700}
+#mw-view ul.small{padding-left:18px;margin:10px 0 0}
+#mw-view .foot{font-size:12px;color:var(--muted);margin:22px 4px 0}
+#mw-view .btn{width:auto;border:1px solid var(--edge);border-radius:14px;padding:9px 16px;background:linear-gradient(145deg,#3b82f6,#2457d6);color:#fff;font:inherit;font-weight:700;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
+#mw-view .btn:active{transform:scale(.98)}
+#mw-view .btn.sm{padding:5px 10px;font-size:12px;border-radius:10px}
+#mw-view .btn.sec{background:var(--glass2);color:var(--ink);border-color:var(--edge)}
+#mw-view .resHead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+#mw-view .resHead h2{margin:0}
+#mw-view .tag{display:inline-block;padding:1px 8px;border-radius:99px;background:var(--hl);font-size:11.5px;border:1px solid var(--edge)}
+#mw-view tr.lim td{background:var(--warnbg)}
+#mw-view .cl{margin:6px 0 0;padding:0;list-style:none}
+#mw-view .cl li{padding:8px 12px;border-radius:12px;margin:6px 0;font-size:13.5px}
+#mw-view .cl li b{font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-right:6px}
+#mw-view .cl li.e{background:var(--badbg);color:var(--bad)}
+#mw-view .cl li.w{background:var(--warnbg);color:var(--warn)}
+#mw-view .step{display:grid;grid-template-columns:32px 1fr;gap:12px;margin:12px 0;font-size:13.5px}
+#mw-view .stepno{width:30px;height:30px;border-radius:50%;background:var(--hl);border:1px solid var(--edge);display:grid;place-items:center;font-weight:800;color:var(--accent)}
+@media(max-width:760px){#mw-view .grid,#mw-view .kpi{grid-template-columns:1fr}#mw-view .card{padding:16px;border-radius:20px}}
+
+#mw-view .grid.g2{grid-template-columns:2fr 1fr 1fr}
+@media(max-width:760px){#mw-view .grid.g2{grid-template-columns:1fr}}
+#mw-view .pretty{margin-top:6px;font-size:15px;min-height:22px;color:var(--accent)}
+#mw-view .pretty sub{font-size:.75em}
+#mw-view .opts{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-top:14px}
+#mw-view .sw{display:inline-flex;align-items:center;gap:10px;cursor:pointer;margin:0;font-size:14px;color:var(--ink);font-weight:600}
+#mw-view .sw input{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+#mw-view .trk{width:44px;height:25px;border-radius:99px;background:linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.28);position:relative;transition:background .2s;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+#mw-view .trk::after{content:"";position:absolute;top:2px;left:2px;width:19px;height:19px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.4);transition:transform .2s}
+#mw-view .sw input:checked+.trk{background:linear-gradient(145deg,#3b82f6,#2457d6)}
+#mw-view .sw input:checked+.trk::after{transform:translateX(19px)}
+#mw-view .sw input:focus-visible+.trk{box-shadow:0 0 0 3px var(--hl)}
+#mw-view #mw-allbox{display:none;min-width:200px}
+#mw-view #mw-resTable{min-width:760px}
+#mw-view #mw-resTable.nopur .pcol{display:none}
+#mw-view #mw-resTable tfoot td{font-weight:700;background:var(--glass)}
+#mw-view #mw-resTable .stp{min-width:130px}
+#mw-view .kpi .big{font-size:22px}
+#mw-view .legend{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 12px}
+#mw-view .lg{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);padding:3px 10px 3px 6px;border-radius:99px;border:1px solid var(--edge);background:var(--glass)}
+#mw-view .lg i{width:12px;height:12px;border-radius:4px;display:block}
+#mw-view #mw-pinfo{min-height:46px;padding:10px 14px;border-radius:16px;border:1px solid var(--edge);background:var(--glass);margin-bottom:12px;font-size:14px}
+#mw-view #mw-pinfo b.w{font-size:17px;font-variant-numeric:tabular-nums}
+#mw-view .ptwrap{overflow-x:auto;padding:4px 2px 10px}
+#mw-view .pt{display:grid;grid-template-columns:30px repeat(18,minmax(40px,1fr));gap:4px;min-width:820px}
+#mw-view .pt .gh,#mw-view .pt .ph{font-size:11px;font-weight:700;color:var(--muted);display:grid;place-items:center}
+#mw-view .pt .gh{padding-bottom:2px}
+#mw-view .el{position:relative;overflow:hidden;aspect-ratio:1/1.1;border-radius:10px;cursor:pointer;display:grid;place-items:center;border:1px solid hsla(var(--h),85%,68%,.5);background:linear-gradient(145deg,hsla(var(--h),80%,60%,.34),hsla(var(--h),80%,50%,.12));box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 2px 8px rgba(0,0,0,.3);transition:transform .15s,background .15s,box-shadow .15s;user-select:none;-webkit-user-select:none}
+#mw-view .el .z{position:absolute;top:3px;left:5px;font-size:9px;color:var(--muted)}
+#mw-view .el .s{font-size:16px;font-weight:800;transition:transform .22s cubic-bezier(.3,.8,.3,1)}
+#mw-view .el .w{position:absolute;left:0;right:0;bottom:4px;text-align:center;font-size:9.5px;font-weight:600;opacity:0;transform:translateY(8px);transition:opacity .2s,transform .22s;font-variant-numeric:tabular-nums;color:var(--ink)}
+#mw-view .el:hover,#mw-view .el:focus-visible{background:linear-gradient(145deg,hsla(var(--h),85%,62%,.55),hsla(var(--h),80%,50%,.25));box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 6px 18px rgba(0,0,0,.45);outline:none;z-index:2}
+#mw-view .el:hover .s,#mw-view .el:focus-visible .s{transform:translateY(-9px)}
+#mw-view .el:hover .w,#mw-view .el:focus-visible .w{opacity:1;transform:none}
+#mw-view .el.on{box-shadow:0 0 0 2px #fff,0 0 14px hsla(var(--h),90%,70%,.9)}
+#mw-view .el.ph2{cursor:default;opacity:.55;aspect-ratio:auto}
+#mw-view .el.ph2 .s{font-size:9.5px;font-weight:700}
+#mw-view .el.ph2:hover .s{transform:none}
+#mw-view .ptlabel{font-size:11px;color:var(--muted);align-self:center;padding-left:4px}
+
+</style>
 </head>
 <body>
 
@@ -499,6 +634,13 @@ body.rts-print #rts-view{background:none!important;min-height:0!important;overfl
                 <div class="card-icon">🧪</div>
                 <div class="card-title">Room Temperature Synthesis Calculator</div>
                 <div class="card-desc">Recipe and yield calculator with automatic molecular weights, molar ratios × factor to weigh-out masses, a separate oxidation-state molar ratio calculator, cautionary notes, and a one-page print sheet.</div>
+                <div class="card-cta">Open tool →</div>
+            </div>
+
+            <div class="app-card" onclick="navigateTo('mw-view')">
+                <div class="card-icon">⚖️</div>
+                <div class="card-title">Molecular Weight Calculator</div>
+                <div class="card-desc">Molecular weight of any formula, including partial subscripts like Bi2.3Te3 and brackets. Enter the amount you want and get how much of each element to take (to 0.0001 g, with optional purity), plus an interactive periodic table.</div>
                 <div class="card-cta">Open tool →</div>
             </div>
 
@@ -771,9 +913,64 @@ body.rts-print #rts-view{background:none!important;min-height:0!important;overfl
 </div>
     </div>
 
+<!-- ════════════════ MOLECULAR WEIGHT CALCULATOR VIEW ════════════════ -->
+    <div id="mw-view" class="view-container">
+<div class="bg" aria-hidden="true"><span class="orb"></span><span class="orb"></span><span class="orb"></span></div>
+<div class="wrap">
+<div class="hero">
+<h1>Molecular Weight Calculator</h1>
+<p>Type any formula, including partial values like Bi2.3Te3, brackets like (NO3)3 and hydrates like CuSO4·5H2O. Choose how much compound you want and it tells you how much of each element to take, to 0.0001 g, with an optional purity correction.</p>
+</div>
+
+<div class="card"><h2>1. Formula and amount</h2>
+<div class="grid g2">
+<div><label for="mw-formula">Chemical formula</label><input id="mw-formula" class="formula" type="text" placeholder="e.g. Bi2.3Te3" autocomplete="off" spellcheck="false"><div class="pretty" id="mw-pretty"></div></div>
+<div><label for="mw-amount">Amount of compound wanted</label><span data-nf='{"id":"amount","step":0.1,"min":0,"val":"1"}'></span></div>
+<div><label for="mw-unit">Unit</label><select id="mw-unit"><option value="g">g</option><option value="mg">mg</option><option value="mmol">mmol</option><option value="mol">mol</option></select></div>
+</div>
+<div class="opts">
+<label class="sw"><input type="checkbox" id="mw-usePur"><span class="trk"></span>Account for purity</label>
+<div id="mw-allbox"><label for="mw-allpur">Purity of every element source (%)</label><span data-nf='{"id":"allpur","step":0.1,"min":0,"max":100,"val":"100"}'></span></div>
+</div>
+<div class="note">Brackets multiply everything inside them, so <span class="formula">(NO3)3</span> counts NO₃ three times. Subscripts can be decimals. Put a hydrate last, after “·” or “.”. Elements with no standard atomic weight use the mass number of their longest-lived isotope. Values change only when you type them, use the small arrows that appear on a selected field, or press ↑ / ↓ (Shift for ×10).</div>
+<div id="mw-msg"></div>
+</div>
+
+<div class="card" id="mw-results">
+<h2>2. Molecular weight and amounts to take</h2>
+<div class="kpi">
+<div><span class="small">Molecular weight</span><b class="big" id="mw-k1">—</b></div>
+<div><span class="small" id="mw-k2l">Compound wanted</span><b class="big" id="mw-k2">—</b></div>
+<div><span class="small" id="mw-k3l">Total to weigh</span><b class="big" id="mw-k3">—</b></div>
+</div>
+<h3>Composition</h3>
+<div class="tablewrap"><table id="mw-resTable" class="nopur"><thead><tr><th class="num">#</th><th>Atom</th><th class="num">Molar mass (g/mol)</th><th class="num">Subtotal mass (%)</th><th class="num">Subtotal mass (g/mol)</th><th class="num" id="mw-h1">Amount to take (g)</th><th class="pcol">Purity (%)</th><th class="num pcol">Weigh out (g)</th><th class="num pcol">Purity adjustment (g)</th></tr></thead><tbody></tbody><tfoot></tfoot></table></div>
+<div class="small" style="margin-top:8px" id="mw-foot">Masses are shown to 0.0001 g.</div>
+</div>
+
+<div class="card"><h2>3. Periodic table</h2>
+<div class="small" style="margin-bottom:10px">Move the cursor over an element to see its atomic weight. Click an element to add its symbol to the formula. Elements in the current formula are outlined.</div>
+<div class="legend" id="mw-legend"></div>
+<div id="mw-pinfo">Move the cursor over an element.</div>
+<div class="ptwrap"><div class="pt" id="mw-pt"></div></div>
+</div>
+
+<div class="foot">Atomic weights are IUPAC conventional values. Radioactive elements with no standard weight show the mass number of their longest-lived isotope in brackets.</div>
+</div>
+    </div>
+
         <div class="footer">
         Made with ❤️ by <a href="https://sites.google.com/students.iiserpune.ac.in/srinivasaabhiram/about" target="_blank" rel="noopener noreferrer">Abhiram</a>
     </div>
+
+    <script>
+/* Periodic table data (shared): Z|symbol|name|standard atomic weight (mass number of longest-lived isotope for elements with no standard weight) */
+(function(){
+const D="1|H|Hydrogen|1.008;2|He|Helium|4.0026;3|Li|Lithium|6.94;4|Be|Beryllium|9.0122;5|B|Boron|10.81;6|C|Carbon|12.011;7|N|Nitrogen|14.007;8|O|Oxygen|15.999;9|F|Fluorine|18.998;10|Ne|Neon|20.180;11|Na|Sodium|22.990;12|Mg|Magnesium|24.305;13|Al|Aluminium|26.982;14|Si|Silicon|28.085;15|P|Phosphorus|30.974;16|S|Sulfur|32.06;17|Cl|Chlorine|35.45;18|Ar|Argon|39.95;19|K|Potassium|39.098;20|Ca|Calcium|40.078;21|Sc|Scandium|44.956;22|Ti|Titanium|47.867;23|V|Vanadium|50.942;24|Cr|Chromium|51.996;25|Mn|Manganese|54.938;26|Fe|Iron|55.845;27|Co|Cobalt|58.933;28|Ni|Nickel|58.693;29|Cu|Copper|63.546;30|Zn|Zinc|65.38;31|Ga|Gallium|69.723;32|Ge|Germanium|72.630;33|As|Arsenic|74.922;34|Se|Selenium|78.971;35|Br|Bromine|79.904;36|Kr|Krypton|83.798;37|Rb|Rubidium|85.468;38|Sr|Strontium|87.62;39|Y|Yttrium|88.906;40|Zr|Zirconium|91.224;41|Nb|Niobium|92.906;42|Mo|Molybdenum|95.95;43|Tc|Technetium|98;44|Ru|Ruthenium|101.07;45|Rh|Rhodium|102.906;46|Pd|Palladium|106.42;47|Ag|Silver|107.868;48|Cd|Cadmium|112.414;49|In|Indium|114.818;50|Sn|Tin|118.710;51|Sb|Antimony|121.760;52|Te|Tellurium|127.60;53|I|Iodine|126.904;54|Xe|Xenon|131.293;55|Cs|Caesium|132.905;56|Ba|Barium|137.327;57|La|Lanthanum|138.905;58|Ce|Cerium|140.116;59|Pr|Praseodymium|140.908;60|Nd|Neodymium|144.242;61|Pm|Promethium|145;62|Sm|Samarium|150.36;63|Eu|Europium|151.964;64|Gd|Gadolinium|157.25;65|Tb|Terbium|158.925;66|Dy|Dysprosium|162.500;67|Ho|Holmium|164.930;68|Er|Erbium|167.259;69|Tm|Thulium|168.934;70|Yb|Ytterbium|173.045;71|Lu|Lutetium|174.967;72|Hf|Hafnium|178.486;73|Ta|Tantalum|180.948;74|W|Tungsten|183.84;75|Re|Rhenium|186.207;76|Os|Osmium|190.23;77|Ir|Iridium|192.217;78|Pt|Platinum|195.084;79|Au|Gold|196.967;80|Hg|Mercury|200.592;81|Tl|Thallium|204.38;82|Pb|Lead|207.2;83|Bi|Bismuth|208.980;84|Po|Polonium|209;85|At|Astatine|210;86|Rn|Radon|222;87|Fr|Francium|223;88|Ra|Radium|226;89|Ac|Actinium|227;90|Th|Thorium|232.038;91|Pa|Protactinium|231.036;92|U|Uranium|238.029;93|Np|Neptunium|237;94|Pu|Plutonium|244;95|Am|Americium|243;96|Cm|Curium|247;97|Bk|Berkelium|247;98|Cf|Californium|251;99|Es|Einsteinium|252;100|Fm|Fermium|257;101|Md|Mendelevium|258;102|No|Nobelium|259;103|Lr|Lawrencium|266;104|Rf|Rutherfordium|267;105|Db|Dubnium|268;106|Sg|Seaborgium|269;107|Bh|Bohrium|270;108|Hs|Hassium|277;109|Mt|Meitnerium|278;110|Ds|Darmstadtium|281;111|Rg|Roentgenium|282;112|Cn|Copernicium|285;113|Nh|Nihonium|286;114|Fl|Flerovium|289;115|Mc|Moscovium|290;116|Lv|Livermorium|293;117|Ts|Tennessine|294;118|Og|Oganesson|294";
+window.PT=D.split(';').map(r=>{const p=r.split('|');return {z:+p[0],s:p[1],n:p[2],w:+p[3]}});
+window.PT_AW={};window.PT.forEach(e=>window.PT_AW[e.s]=e.w);
+})();
+    </script>
 
     <script>
         // ── Navigation ──
@@ -1089,7 +1286,7 @@ body.rts-print #rts-view{background:none!important;min-height:0!important;overfl
 
 // ── Room Temperature Synthesis Calculator (liquid glass module) ──
         (function(){
-const AW={H:1.008,Li:6.94,Be:9.012,B:10.81,C:12.011,N:14.007,O:15.999,F:18.998,Na:22.990,Mg:24.305,Al:26.982,Si:28.085,P:30.974,S:32.06,Cl:35.45,K:39.098,Ca:40.078,Sc:44.956,Ti:47.867,V:50.942,Cr:51.996,Mn:54.938,Fe:55.845,Co:58.933,Ni:58.693,Cu:63.546,Zn:65.38,Ga:69.723,Ge:72.630,As:74.922,Se:78.971,Br:79.904,Rb:85.468,Sr:87.62,Y:88.906,Zr:91.224,Nb:92.906,Mo:95.95,Ru:101.07,Rh:102.906,Pd:106.42,Ag:107.868,Cd:112.414,In:114.818,Sn:118.710,Sb:121.760,Te:127.60,I:126.904,Cs:132.905,Ba:137.327,La:138.905,Ce:140.116,Pr:140.908,Nd:144.242,Sm:150.36,Eu:151.964,Gd:157.25,Tb:158.925,Dy:162.500,Ho:164.930,Er:167.259,Tm:168.934,Yb:173.045,Lu:174.967,Hf:178.49,Ta:180.948,W:183.84,Re:186.207,Os:190.23,Ir:192.217,Pt:195.084,Au:196.967,Hg:200.592,Tl:204.38,Pb:207.2,Bi:208.980,Th:232.038,U:238.029};
+const AW=window.PT_AW; // shared full periodic-table weights
 /* oxidation-state tables (same logic as before) */
 const ANI={F:-1,Cl:-1,Br:-1,I:-1,O:-2,S:-2,Se:-2,Te:-2,N:-3,P:-3,As:-3};
 const CAT={Li:[1],Na:[1],K:[1],Rb:[1],Cs:[1],Ag:[1],Mg:[2],Ca:[2],Sr:[2],Ba:[2],Zn:[2],Cd:[2],Hg:[2],Al:[3],Ga:[3],In:[3],Sc:[3],Y:[3],La:[3],Bi:[3],Sb:[3,5],Cu:[1,2],Sn:[4,2],Ge:[4,2],Pb:[2,4],Tl:[1,3],Fe:[3,2],Co:[2,3],Ni:[2,3],Mn:[2,4,3],Ti:[4,3],V:[3,4,5],Cr:[3,2,6],Zr:[4],Hf:[4],Mo:[4,6],W:[4,6],Nb:[5],Ta:[5],Au:[1,3],Pd:[2],Pt:[2,4],Si:[4]};
@@ -1578,6 +1775,241 @@ syncAgent();update();
         document.getElementById('downloadEffPlotBtn').addEventListener('click', () => downloadPlot(effChart, document.getElementById('effPlotFilename')));
         document.getElementById('downloadZtCsvBtn').addEventListener('click', () => downloadCsv(ztResults, ['T(K)', 'Sp(μV/K)', 'ρp(μΩ·m)', 'κp(W/m·K)', 'Sn(μV/K)', 'ρn(μΩ·m)', 'κn(W/m·K)', 'zT'], document.getElementById('ztCsvFilename'), { label: 'Average zT', value: ztResults.avgZt }));
         document.getElementById('downloadEffCsvBtn').addEventListener('click', () => downloadCsv(effResults, ['ΔT(K)', 'η'], document.getElementById('effCsvFilename'), { label: 'Max Efficiency', value: effResults.maxE }));
+    </script>
+    <script>
+// ── Molecular Weight Calculator ──
+(function(){
+const AW=window.PT_AW,PT=window.PT;
+const view=document.getElementById('mw-view');
+const $=id=>document.getElementById('mw-'+id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const NUM='(\\d+(?:\\.\\d+)?)';
+const NAME={};PT.forEach(e=>NAME[e.s]=e.n);
+
+/* ---------- formula parser (brackets, decimals, hydrates) ---------- */
+function norm(raw){
+ let s=String(raw).normalize('NFKC').replace(/\s+/g,'').replace(/[•∙⋅*]/g,'·').replace(/[\[{]/g,'(').replace(/[\]}]/g,')');
+ s=s.replace(/\.(?=[A-Z(])/g,'·');
+ s=s.replace(/\.(?=(?:\d+(?:\.\d+)?)?(?:H2O2|H2O|NH3|HCl|CH3OH|C2H5OH)(?![a-z\d]))/g,'·');
+ return s;
+}
+function parseFormula(raw){
+ const s=norm(raw);if(!s)throw Error('Formula is empty.');
+ const total={};const parts=s.split('·');
+ for(let pi=0;pi<parts.length;pi++){
+  const part=parts[pi];
+  if(!part)throw Error('Invalid hydrate separator "·".');
+  let i=0,mult=1;
+  const m=part.match(new RegExp('^'+NUM));
+  if(m){if(pi===0)throw Error('A formula cannot start with a number.');mult=parseFloat(m[1]);i=m[0].length;if(!(mult>0))throw Error('Hydrate amount must be greater than 0.')}
+  const st=[{}];
+  while(i<part.length){
+   const ch=part[i];
+   if(ch==='('){st.push({});i++;continue}
+   if(ch===')'){
+    if(st.length===1)throw Error("Unmatched ')'.");
+    i++;let fac=1;const mm=part.slice(i).match(new RegExp('^'+NUM));
+    if(mm){fac=parseFloat(mm[1]);i+=mm[0].length;if(!(fac>0))throw Error('Bracket multiplier must be greater than 0.')}
+    const g=st.pop();if(!Object.keys(g).length)throw Error('Empty brackets "()".');
+    for(const [e,n] of Object.entries(g))st[st.length-1][e]=(st[st.length-1][e]||0)+n*fac;
+    continue}
+   const em=part.slice(i).match(/^[A-Z][a-z]?/);
+   if(!em)throw Error("Cannot read '"+part.slice(i,i+6)+"'.");
+   let e=em[0];if(!AW[e]&&e.length===2&&AW[e[0]])e=e[0];
+   if(!AW[e])throw Error("Unknown element '"+e+"'.");
+   i+=e.length;let n=1;const nm=part.slice(i).match(new RegExp('^'+NUM));
+   if(nm){n=parseFloat(nm[1]);i+=nm[0].length}
+   if(!(n>0))throw Error('Subscripts must be greater than 0.');
+   if(n>1000)throw Error('Subscript '+n+' is unrealistically large.');
+   st[st.length-1][e]=(st[st.length-1][e]||0)+n;
+  }
+  if(st.length!==1)throw Error("Unclosed '('.");
+  if(!Object.keys(st[0]).length)throw Error('Invalid formula.');
+  for(const [e,n] of Object.entries(st[0]))total[e]=(total[e]||0)+n*mult;
+ }
+ return total;
+}
+function fmt(x,d=4){
+ if(!Number.isFinite(x))return '—';if(x===0)return '0';
+ if(Math.abs(x)<1e-4)return x.toExponential(2);
+ return x.toFixed(d).replace(/(\.\d*?)0+$/,'$1').replace(/\.$/,'');
+}
+const fh=raw=>{let s;try{s=norm(raw)}catch(e){s=String(raw)}return esc(s).replace(/([A-Za-z)])(\d+(?:\.\d+)?)/g,'$1<sub>$2</sub>')};
+const g4=x=>x.toFixed(4);
+const fadj=x=>x===0?'0':Math.abs(x)<5e-5?x.toExponential(2):(x>0?'+':'−')+Math.abs(x).toFixed(4);
+
+/* ---------- number fields: typed, small arrows on a selected field, or ↑/↓ ---------- */
+function nf(cls,o={}){
+ const {step=1,min='',max='',ph='',val='',id=''}=o;
+ return `<div class="stp"><input ${id?`id="mw-${id}" `:''}class="${cls}" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" data-step="${step}" data-min="${min}" data-max="${max}" placeholder="${esc(ph)}" value="${esc(val)}"><span class="arr"><button type="button" class="su" tabindex="-1" aria-label="Increase">▲</button><button type="button" class="sd" tabindex="-1" aria-label="Decrease">▼</button></span></div>`;
+}
+function readNum(el){
+ let t=el.value.trim();
+ if(t==='')return {empty:true,bad:false,v:NaN};
+ if(!t.includes('.')&&(t.match(/,/g)||[]).length===1)t=t.replace(',','.');
+ t=t.replace(/^\+/,'').replace(/^[−–]/,'-');
+ if(!/^-?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(t))return {empty:false,bad:true,v:NaN};
+ const v=Number(t);return {empty:false,bad:!Number.isFinite(v),v};
+}
+const flag=(el,b)=>(el.closest('.stp')||el).classList.toggle('bad-in',!!b);
+function stepInput(inp,d,mult=1){
+ if(inp.readOnly||inp.disabled)return;
+ const step=(parseFloat(inp.dataset.step)||1)*mult,r=readNum(inp);
+ let v=+((r.empty||r.bad?0:r.v)+d*step).toFixed(10);
+ if(inp.dataset.min!==''&&v<parseFloat(inp.dataset.min))v=parseFloat(inp.dataset.min);
+ if(inp.dataset.max!==''&&v>parseFloat(inp.dataset.max))v=parseFloat(inp.dataset.max);
+ inp.value=String(v);inp.dispatchEvent(new Event('input',{bubbles:true}));
+}
+
+/* ---------- results ---------- */
+const tbody=view.querySelector('#mw-resTable tbody'),tfoot=view.querySelector('#mw-resTable tfoot');
+let rowSig='';const purMap={};
+function ensureRows(els){
+ const sig=els.join(',');if(sig===rowSig)return;rowSig=sig;
+ tbody.innerHTML=els.map(e=>`<tr data-e="${e}"><td class="num c-n"></td><td><b>${e}</b> <span class="small">${esc(NAME[e])}</span></td><td class="num c-aw"></td><td class="num c-pc"></td><td class="num c-sub"></td><td class="num c-m"></td><td class="pcol">${nf('pu',{step:0.1,min:0,max:100,val:purMap[e]!==undefined?purMap[e]:($('allpur').value||'100')})}</td><td class="num c-w pcol"></td><td class="num c-d pcol"></td></tr>`).join('');
+ tfoot.innerHTML=`<tr><td></td><td>Total</td><td></td><td class="num t-pc"></td><td class="num t-sub"></td><td class="num t-m"></td><td class="pcol"></td><td class="num t-w pcol"></td><td class="num t-d pcol"></td></tr>`;
+}
+function setMsg(items){
+ $('msg').innerHTML=items.length?`<ul class="cl">${items.map(x=>`<li class="${x.e?'e':'w'}"><b>${x.e?'Invalid':'Check'}</b>${esc(x.m)}</li>`).join('')}</ul>`:'';
+}
+function clearOut(){
+ rowSig='';tbody.innerHTML='';tfoot.innerHTML='';
+ ['k1','k2','k3'].forEach(k=>$(k).textContent='—');
+ view.querySelectorAll('.el.on').forEach(e=>e.classList.remove('on'));
+}
+function update(){
+ const fv=$('formula').value.trim(),msgs=[];
+ $('pretty').innerHTML=fv?fh(fv):'';
+ $('formula').classList.remove('bad-in');
+ const usePur=$('usePur').checked;
+ $('allbox').style.display=usePur?'block':'none';
+ $('resTable').classList.toggle('nopur',!usePur);
+ $('h1').textContent=usePur?'Pure mass (g)':'Amount to take (g)';
+ $('k3l').textContent=usePur?'Total to weigh (with purity)':'Total to weigh';
+ if(!fv){clearOut();setMsg([]);return}
+ let f;
+ try{f=parseFormula(fv)}catch(e){clearOut();$('formula').classList.add('bad-in');setMsg([{e:1,m:'Formula: '+e.message}]);return}
+ const els=Object.keys(f),MW=els.reduce((s,e)=>s+AW[e]*f[e],0);
+ ensureRows(els);
+ view.querySelectorAll('.el.on').forEach(e=>e.classList.remove('on'));
+ els.forEach(e=>{const t=view.querySelector('.el[data-s="'+e+'"]');if(t)t.classList.add('on')});
+ /* amount wanted */
+ const ar=readNum($('amount')),unit=$('unit').value;flag($('amount'),false);
+ let mass=NaN;
+ if(ar.bad){msgs.push({e:1,m:'Amount is not a valid number.'});flag($('amount'),true)}
+ else if(ar.empty||!(ar.v>0)){msgs.push({e:1,m:'Enter an amount greater than 0 to see how much to take.'});flag($('amount'),true)}
+ else mass=unit==='g'?ar.v:unit==='mg'?ar.v/1000:unit==='mmol'?ar.v/1000*MW:ar.v*MW;
+ const mol=mass/MW;
+ /* purity per element source */
+ let purOk=true;const pur={};
+ els.forEach(e=>{
+  const inp=tbody.querySelector('tr[data-e="'+e+'"] .pu');flag(inp,false);
+  if(!usePur){pur[e]=100;return}
+  const r=readNum(inp);
+  if(r.empty){pur[e]=100;return}
+  if(r.bad||!(r.v>0&&r.v<=100)){msgs.push({e:1,m:e+': purity must be a number above 0 and up to 100 %.'});flag(inp,true);purOk=false;return}
+  pur[e]=r.v;
+ });
+ const ok=Number.isFinite(mass)&&purOk;
+ let sumPure=0,sumW=0,sumD=0,anyVisible=false;const small=[];
+ els.forEach(e=>{
+  const tr=tbody.querySelector('tr[data-e="'+e+'"]'),q=s=>tr.querySelector(s);
+  const sub=AW[e]*f[e];
+  q('.c-n').textContent=fmt(f[e],6);q('.c-aw').textContent=fmt(AW[e],4);q('.c-sub').textContent=fmt(sub,4);q('.c-pc').textContent=(sub/MW*100).toFixed(3);
+  if(ok){
+   const pure=mol*sub,w=pure/(pur[e]/100),d=w-pure;
+   sumPure+=pure;sumW+=w;sumD+=d;
+   if(g4(w)!==g4(pure))anyVisible=true;
+   q('.c-m').textContent=g4(pure);q('.c-w').innerHTML='<b>'+g4(w)+'</b>';q('.c-d').textContent=fadj(d);
+   if(w>0&&w<0.00005)small.push(e+': only '+w.toExponential(2)+' g is needed, below the 0.0001 g resolution.');
+   else if(w>0&&w<0.0001)small.push(e+': only '+g4(w)+' g is needed, at the limit of a 0.0001 g reading.');
+  }else{q('.c-m').textContent='—';q('.c-w').textContent='—';q('.c-d').textContent='—'}
+ });
+ tfoot.querySelector('.t-pc').textContent='100.000';tfoot.querySelector('.t-sub').textContent=fmt(MW,4);
+ tfoot.querySelector('.t-m').textContent=ok?g4(sumPure):'—';tfoot.querySelector('.t-w').textContent=ok?g4(sumW):'—';tfoot.querySelector('.t-d').textContent=ok?fadj(sumD):'—';
+ $('k1').textContent=fmt(MW,4)+' g/mol';
+ $('k2').textContent=Number.isFinite(mass)?g4(mass)+' g':'—';
+ $('k2l').textContent=Number.isFinite(mass)?'Compound wanted ('+fmt(mol*1000,5)+' mmol)':'Compound wanted';
+ $('k3').textContent=ok?g4(sumW)+' g':'—';
+ small.forEach(m=>msgs.push({e:0,m}));
+ if(ok&&usePur){
+  if(Object.values(pur).every(p=>p===100))msgs.push({e:0,m:'Purity is switched on but every value is 100 %, so nothing changes.'});
+  else if(!anyVisible)msgs.push({e:0,m:'The purity adjustment is smaller than 0.0001 g here, so the rounded weights look unchanged. The exact adjustment is in the last column. A larger batch makes it visible.'});
+ }
+ setMsg(msgs);
+ $('foot').textContent='Masses are shown to 0.0001 g.'+(usePur?' Weigh out = pure mass ÷ (purity ÷ 100).':'');
+}
+
+/* ---------- periodic table ---------- */
+const CAT={alk:['Alkali metal',0],alke:['Alkaline earth metal',28],tm:['Transition metal',50],pt:['Post-transition metal',130],md:['Metalloid',170],nm:['Reactive nonmetal',200],hal:['Halogen',225],nob:['Noble gas',275],lan:['Lanthanide',320],act:['Actinide',345]};
+const inz=(z,a)=>a.includes(z);
+function cat(z){
+ if(inz(z,[3,11,19,37,55,87]))return 'alk';
+ if(inz(z,[4,12,20,38,56,88]))return 'alke';
+ if(z>=57&&z<=71)return 'lan';if(z>=89&&z<=103)return 'act';
+ if((z>=21&&z<=30)||(z>=39&&z<=48)||(z>=72&&z<=80)||(z>=104&&z<=112))return 'tm';
+ if(inz(z,[13,31,49,50,81,82,83,84,113,114,115,116]))return 'pt';
+ if(inz(z,[5,14,32,33,51,52]))return 'md';
+ if(inz(z,[9,17,35,53,85,117]))return 'hal';
+ if(inz(z,[2,10,18,36,54,86,118]))return 'nob';
+ return 'nm';
+}
+const pos={};
+function place(z0,z1,row,c0){for(let z=z0;z<=z1;z++)pos[z]=[row,c0+z-z0]}
+place(1,1,1,1);place(2,2,1,18);place(3,4,2,1);place(5,10,2,13);place(11,12,3,1);place(13,18,3,13);
+place(19,36,4,1);place(37,54,5,1);place(55,56,6,1);place(72,86,6,4);place(87,88,7,1);place(104,118,7,4);
+place(57,71,9,3);place(89,103,10,3);
+const STD=[83,90,91,92];   // Bi, Th, Pa, U have standard weights
+function buildPT(){
+ let h='';
+ for(let g=1;g<=18;g++)h+='<div class="gh" style="grid-column:'+(g+1)+';grid-row:1">'+g+'</div>';
+ for(let p=1;p<=7;p++)h+='<div class="ph" style="grid-column:1;grid-row:'+(p+1)+'">'+p+'</div>';
+ PT.forEach(e=>{
+  const [r,c]=pos[e.z],k=cat(e.z);
+  const radio=!(e.z<=82&&e.z!==43&&e.z!==61)&&!STD.includes(e.z);
+  const wt=radio?'('+e.w+')':fmt(e.w,4);
+  h+='<div class="el" tabindex="0" role="button" data-z="'+e.z+'" data-s="'+e.s+'" style="--h:'+CAT[k][1]+';grid-column:'+(c+1)+';grid-row:'+(r+1)+'" aria-label="'+esc(e.n)+'"><span class="z">'+e.z+'</span><span class="s">'+e.s+'</span><span class="w">'+wt+'</span></div>';
+ });
+ h+='<div class="el ph2" style="--h:'+CAT.lan[1]+';grid-column:4;grid-row:7"><span class="s">57–71</span></div>';
+ h+='<div class="el ph2" style="--h:'+CAT.act[1]+';grid-column:4;grid-row:8"><span class="s">89–103</span></div>';
+ h+='<div class="ptlabel" style="grid-column:2/4;grid-row:10">Lanthanides</div><div class="ptlabel" style="grid-column:2/4;grid-row:11">Actinides</div>';
+ $('pt').innerHTML=h;
+ $('legend').innerHTML=Object.values(CAT).map(([n,hh])=>'<span class="lg"><i style="background:hsla('+hh+',80%,60%,.7)"></i>'+n+'</span>').join('');
+}
+function info(el){
+ if(!el||!el.dataset.z){$('pinfo').textContent='Move the cursor over an element.';return}
+ const e=PT[+el.dataset.z-1],k=cat(e.z),[r,c]=pos[e.z],f=(e.z>=57&&e.z<=71)||(e.z>=89&&e.z<=103);
+ const grp=f?'3 (f-block)':c,per=f?(e.z<=71?6:7):r;
+ $('pinfo').innerHTML='<b>'+esc(e.n)+'</b> · '+e.s+' · Z '+e.z+' · Group '+grp+' · Period '+per+' · '+CAT[k][0]+' · <b class="w">'+fmt(e.w,4)+' g/mol</b>';
+}
+
+/* ---------- wiring ---------- */
+view.addEventListener('mousedown',e=>{if(e.target.closest('.stp .arr button'))e.preventDefault()});
+view.addEventListener('click',e=>{
+ const b=e.target.closest('.stp .arr button');
+ if(b){stepInput(b.closest('.stp').querySelector('input'),b.classList.contains('su')?1:-1);return}
+ const t=e.target.closest('.el[data-s]');
+ if(t){const f=$('formula');f.value+=t.dataset.s;f.dispatchEvent(new Event('input',{bubbles:true}))}
+});
+view.addEventListener('keydown',e=>{
+ const t=e.target;
+ if((e.key==='ArrowUp'||e.key==='ArrowDown')&&t.matches&&t.matches('.stp input')){e.preventDefault();stepInput(t,e.key==='ArrowUp'?1:-1,e.shiftKey?10:1)}
+ else if((e.key==='Enter'||e.key===' ')&&t.matches&&t.matches('.el[data-s]')){e.preventDefault();t.click()}
+});
+view.addEventListener('wheel',e=>{if(e.target.matches&&e.target.matches('.stp input'))e.target.blur()},{passive:true});
+view.addEventListener('mouseover',e=>{const t=e.target.closest('.el');if(t)info(t)});
+view.addEventListener('focusin',e=>{const t=e.target.closest&&e.target.closest('.el');if(t)info(t)});
+view.addEventListener('input',e=>{
+ const t=e.target;
+ if(t.classList.contains('pu'))purMap[t.closest('tr').dataset.e]=t.value;
+ if(t.id==='mw-allpur'){tbody.querySelectorAll('.pu').forEach(i=>{i.value=t.value});Object.keys(purMap).forEach(k=>purMap[k]=t.value)}
+ update();
+});
+view.addEventListener('change',update);
+
+view.querySelectorAll('[data-nf]').forEach(s=>{s.outerHTML=nf('',JSON.parse(s.dataset.nf))});
+buildPT();update();
+})();
     </script>
 </body>
 </html>
